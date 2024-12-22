@@ -18,9 +18,13 @@ export class WritingFlashcardComponent {
   isFinished = false; 
   
   public checkFlashcard(event: KeyboardEvent) {
-    if (event.key !== 'Enter') return;
-    this.isFinished = true;
-    this.isCorrect = this.flashcard.backSide === this.userInput;
+    if (this.isFinished === true) {
+      this.emitAnswerStatus();
+    } else {
+      if (event.key !== 'Enter') return;
+      this.isFinished = true;
+      this.isCorrect = this.flashcard.backSide === this.userInput;
+    }
   }
 
   emitAnswerStatus() {

@@ -13,4 +13,9 @@ export class WritingExcerciseService {
   getFlashcard() {
     return this.flashcards;
   }
+
+  saveFlashcard(userFlashcards: Flashcard[]) {
+    this.flashcards = userFlashcards;
+    console.log(this.flashcards);
+  }
 }

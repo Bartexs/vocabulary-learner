@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PracticeModeComponent } from './practice-mode.component';
+import { WordsCreatorComponent } from './words-creator.component';
 
-describe('PracticeModeComponent', () => {
-  let component: PracticeModeComponent;
-  let fixture: ComponentFixture<PracticeModeComponent>;
+describe('WordsCreatorComponent', () => {
+  let component: WordsCreatorComponent;
+  let fixture: ComponentFixture<WordsCreatorComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PracticeModeComponent],
+      imports: [WordsCreatorComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(PracticeModeComponent);
+    fixture = TestBed.createComponent(WordsCreatorComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

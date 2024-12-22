@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { WritingExcerciseComponent } from "./writing-excercise/writing-excercise.component";
+import { WritingExcerciseComponent } from "../writing-excercise/writing-excercise.component";
 
 @Component({
   selector: 'app-practice-mode',

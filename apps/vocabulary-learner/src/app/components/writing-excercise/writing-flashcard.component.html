@@ -8,7 +8,7 @@
     <div *ngIf="this.isFinished">
         <p *ngIf="this.isCorrect">Correct!</p>
         <p *ngIf="!this.isCorrect">Wrong!</p>
-        <input (keydown)="this.emitAnswerStatus()">Press any key to continue>
+        <p>Press any key to continue.</p>
     </div>
 </div>
 <p>{{this.flashcard.backSide}}</p>
