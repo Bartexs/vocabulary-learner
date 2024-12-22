@@ -1,1 +1,38 @@
 <p>create-flashcard works!</p>
+<!-- <app-lesson-list-view></app-lesson-list-view> -->
+<div>
+    <div>
+        <p>Add to lesson:</p>
+        <select [(ngModel)]="selectedLesson">
+            <option *ngFor="let lesson of lessons" [value]="lesson" >
+                {{lesson.name}}
+            </option>
+        </select>
+        <!-- <div *ngFor="let lesson of lessons">
+            <p>{{lesson.name}}</p>
+            <input type="checkbox">
+        </div> -->
+    </div>
+    <div>
+        <div>
+            <p>Create single flashcard</p>
+        </div>
+        <div>
+            <div>
+                <p>Front side:</p>
+                <input [(ngModel)]="frontSide">
+            </div>
+            <div>
+                <p>Back side:</p>
+                <input [(ngModel)]="frontSide">
+            </div>
+        </div>
+        <div>
+            <button (click)="saveFlashcards()">Save</button>
+        </div>
+    </div>
+    <div>
+        <p>Create flashcard in bundle</p>
+        <app-words-creator></app-words-creator>
+    </div>
+</div>
