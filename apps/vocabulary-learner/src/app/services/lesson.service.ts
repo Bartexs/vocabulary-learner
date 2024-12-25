@@ -5,46 +5,45 @@ import { Lesson } from '../models/lessons';
   providedIn: 'root'
 })
 export class LessonService {
-  lesson: Lesson[] = []
+  private lessonKeyBeginning = 'lesson_';
 
-constructor() {
-  this.createLessons()
-}
-
-   addLesson(newLesson: Lesson) {
-    this.lesson.push(newLesson);
-   }
-
-  getLesson() {
-    return this.lesson;
+  generateLessonId(): number {
+    return Date.now();
   }
 
-   private createLessons() {
-    const lessonFirst: Lesson = {
-      id: 0,
-      name: 'German Lesson 1',
-      flashcards: []
-    }
-
-    this.addLesson(lessonFirst);
-
-    const lessonSecond: Lesson = {
-      id: 0,
-      name: 'German Lesson 2',
-      flashcards: []
-    }
-
-    this.addLesson(lessonSecond);
-   }
-
-  saveToLocalStorage(lessonToSave: Lesson) {
-    localStorage.setItem('selectedLesson', JSON.stringify(lessonToSave));
+  saveLesson(lessonToSave: Lesson) {
+    const lessonKey = this.lessonKeyBeginning + lessonToSave.id;
+    localStorage.setItem(lessonKey, JSON.stringify(lessonToSave));
     alert('Lesson saved to localStorage!');
   }
 
-  loadFromLocalStorage() {
+  deleteLesson(lessonID: number) {
+    localStorage.removeItem(this.lessonKeyBeginning + lessonID);
+  }
+
+  loadAllLessons() {
+    const lessons: Lesson[] = [];
+    for(let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if(key && key.startsWith(this.lessonKeyBeginning)) {
+        const lessonData = localStorage.getItem(key);
+        if(lessonData) {
+          try {
+            const lesson: Lesson = JSON.parse(lessonData);
+            lessons.push(lesson);
+          } catch(error) {
+            console.error(`Error parsing lesson data for key: ${key}`, error);
+          }
+        }
+      }
+    }
+    return lessons;
+  }
+  
+
+  loadLesson(id: number) {
     // Retrieve lesson from localStorage
-    const savedLesson = localStorage.getItem('selectedLesson');
+    const savedLesson = localStorage.getItem(this.lessonKeyBeginning + id);
     if (savedLesson) {
       alert('Lesson loaded from localStorage!');
       return JSON.parse(savedLesson);

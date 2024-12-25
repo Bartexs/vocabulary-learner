@@ -3,8 +3,14 @@
     <div *ngFor="let lesson of lessonList">
         <p>{{lesson.name}}</p>
         <button>Add flashcard</button>
+        <button (click)="removeLesson(lesson.id)">Remove lesson</button>
     </div>
     <div>
-        <button>Add new lesson</button>
+        <button (click)="showAddLessonButton = true">Add new lesson</button>
+    </div>
+    <div *ngIf="showAddLessonButton">
+        <p>Add lesson name:</p>
+        <input [(ngModel)]="this.userInput">
+        <button (click)="createLesson()">Create</button>
     </div>
 </div>

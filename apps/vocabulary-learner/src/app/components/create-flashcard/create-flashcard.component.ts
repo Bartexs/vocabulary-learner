@@ -13,7 +13,7 @@ import { Flashcard } from '../../models/flashcard';
   styleUrl: './create-flashcard.component.css',
 })
 export class CreateFlashcardComponent {
-    lessons: Lesson[];
+    // lessons: Lesson[];
     selectedLessonId!: number;
     flashcards: Flashcard[] = [];
     frontSide = '';
@@ -23,7 +23,7 @@ export class CreateFlashcardComponent {
     constructor(
       private lessonService: LessonService
     ) {
-      this.lessons = this.lessonService.getLesson();
+      // this.lessons = this.lessonService.getLesson();
     }
   
     saveFlashcards() {
