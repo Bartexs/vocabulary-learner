@@ -2,6 +2,8 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Lesson } from '../../models/lessons';
 import { FlashcardCreatorBundleComponent } from "../creating-flashcards/flashcard-creator-bundle/flashcard-creator-bundle.component";
+import { Flashcard } from '../../models/flashcard';
+import { LessonService } from '../../services/lesson.service';
 
 @Component({
   selector: 'app-lesson-details-view',
@@ -11,4 +13,13 @@ import { FlashcardCreatorBundleComponent } from "../creating-flashcards/flashcar
 })
 export class LessonDetailsViewComponent {
   @Input() lesson!: Lesson;
+
+  constructor(private lessonService: LessonService) {
+
+  }
+
+  addFlashcardsToLesson(flashcardList: Flashcard[]) {
+    this.lesson.flashcards = flashcardList;
+    this.lessonService.updateLesson(this.lesson);
+  }
 }

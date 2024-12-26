@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flashcard } from '../../models/flashcard';
 import { WritingExcerciseService } from './writing-excercise.service';
 import { WritingFlashcardComponent } from "./writing-flashcard.component";
+import { Flashcard } from '../../../models/flashcard';
 
 @Component({
   selector: 'app-writing-excercise',

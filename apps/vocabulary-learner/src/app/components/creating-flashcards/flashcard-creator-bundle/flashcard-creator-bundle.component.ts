@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flashcard } from '../../../models/flashcard';
 import { WritingExcerciseService } from '../../excercises/writing-excercise/writing-excercise.service';
 import { FormsModule } from '@angular/forms';
+
+import { Flashcard } from '../../../models/flashcard';
 
 @Component({
   selector: 'app-flashcard-creator-bundle',
@@ -11,26 +12,23 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './flashcard-creator-bundle.component.css',
 })
 export class FlashcardCreatorBundleComponent {
-    userInput = '';
-    flashcards: Flashcard[] = [];
+  @Output() emitFlashcards: EventEmitter<Flashcard[]> = new EventEmitter()
+  userInput = '';
   
-    constructor(private writingExcerciseService: WritingExcerciseService) {
-      
-    }
+  saveAsFlashcard() {
+    const lines = this.userInput.split('\n');
   
-    saveAsFlashcard() {
-      const lines = this.userInput.split('\n');
-  
-      this.flashcards = lines
-        .filter(line => line.trim() !== '') // Skip empty lines
-        .map(line => {
-          const [front, back] = line.split('\t'); // Split by tab character
-          return {
-            id: 0,
-            frontSide: front?.trim() || '', // Trim and handle missing front
-            backSide: back?.trim() || ''    // Trim and handle missing back
-          };
-        });
-        this.writingExcerciseService.saveFlashcard(this.flashcards);
+    const flashcards = lines
+      .filter(line => line.trim() !== '') // Skip empty lines
+      .map(line => {
+        const [front, back] = line.split('\t'); // Split by tab character
+        return {
+          id: 0,
+          frontSide: front?.trim() || '', // Trim and handle missing front
+          backSide: back?.trim() || ''    // Trim and handle missing back
+        };
+      });
+      this.emitFlashcards.emit(flashcards);
+      this.userInput = '';
   }
 }
