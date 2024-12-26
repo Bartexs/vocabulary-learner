@@ -2,6 +2,7 @@
 <div>
     <div *ngFor="let lesson of lessonList">
         <p>{{lesson.name}}</p>
+        <button (click)="viewLessonDetails(lesson.id)">View details</button>
         <button>Add flashcard</button>
         <button (click)="removeLesson(lesson.id)">Remove lesson</button>
     </div>
@@ -12,5 +13,9 @@
         <p>Add lesson name:</p>
         <input [(ngModel)]="this.userInput">
         <button (click)="createLesson()">Create</button>
+    </div>
+    <div *ngIf="viewLessonDetailsToggle">
+        <p>It is showing now</p>
+        <app-lesson-details-view [lesson]="lessonDetails"></app-lesson-details-view>
     </div>
 </div>

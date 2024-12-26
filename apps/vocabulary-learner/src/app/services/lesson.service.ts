@@ -11,6 +11,11 @@ export class LessonService {
     return Date.now();
   }
 
+  updateLesson(lessonToUpdate: Lesson) {
+    localStorage.setItem(this.lessonKeyBeginning + lessonToUpdate.id, JSON.stringify(lessonToUpdate));
+    alert('Lesson updated in localStorage!');
+  }
+
   saveLesson(lessonToSave: Lesson) {
     const lessonKey = this.lessonKeyBeginning + lessonToSave.id;
     localStorage.setItem(lessonKey, JSON.stringify(lessonToSave));

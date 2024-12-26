@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { WritingExcerciseComponent } from "../writing-excercise/writing-excercise.component";
 
 @Component({
   selector: 'app-practice-mode',
-  imports: [CommonModule, FormsModule, WritingExcerciseComponent],
+  imports: [CommonModule, FormsModule ],
   templateUrl: './practice-mode.component.html',
   styleUrl: './practice-mode.component.css',
   standalone: true

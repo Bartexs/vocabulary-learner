@@ -1,0 +1,20 @@
+<p>flashcard-creator-standalone works!</p>
+
+<div>
+    <div>
+        <p>Add to lesson:</p>
+        <select [(ngModel)]="selectedLesson">
+            <option *ngFor="let lesson of lessons" [value]="lesson" >
+                {{lesson.name}}
+            </option>
+        </select>
+    </div>
+    <div>
+        <p>Create single flashcard</p>
+        <app-flashcard-creator-single></app-flashcard-creator-single>
+    </div>
+    <div>
+        <p>Create flashcard in bundle</p>
+        <app-flashcard-creator-bundle></app-flashcard-creator-bundle>
+    </div>
+</div>
