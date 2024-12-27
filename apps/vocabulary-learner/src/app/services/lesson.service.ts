@@ -6,6 +6,15 @@ import { Lesson } from '../models/lessons';
 })
 export class LessonService {
   private lessonKeyBeginning = 'lesson_';
+  private materialToPractice: number[] = [];
+
+  setMaterialToPractice(lessonID: number[]) {
+    this.materialToPractice = lessonID;
+  }
+
+  getMaterialToPractice(): number[] {
+    return this.materialToPractice;
+  }
 
   generateLessonId(): number {
     return Date.now();
@@ -24,6 +33,11 @@ export class LessonService {
 
   deleteLesson(lessonID: number) {
     localStorage.removeItem(this.lessonKeyBeginning + lessonID);
+  }
+
+  getLessonsByID(idsToFetch: number[]): Lesson[] {
+    const filteredLessons = this.loadAllLessons().filter(lesson => idsToFetch.includes(lesson.id));
+    return filteredLessons;
   }
 
   loadAllLessons() {

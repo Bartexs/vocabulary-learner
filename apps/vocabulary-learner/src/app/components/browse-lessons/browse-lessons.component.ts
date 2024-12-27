@@ -5,6 +5,7 @@ import { Lesson } from '../../models/lessons';
 import { FormsModule } from '@angular/forms';
 import { LessonDetailsViewComponent } from "./lesson-details-view.component";
 import { Flashcard } from '../../models/flashcard';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-browse-lessons',
@@ -20,7 +21,8 @@ export class BrowseLessonsComponent {
   lessonDetails!: Lesson;
 
   constructor(
-    private lessonService: LessonService
+    private lessonService: LessonService,
+    private router: Router
   ) {
     this.lessonList = this.lessonService.loadAllLessons();
   }
@@ -53,5 +55,12 @@ export class BrowseLessonsComponent {
   removeLesson(id: number) {
     this.lessonService.deleteLesson(id);
     this.lessonList = this.lessonService.loadAllLessons();
+  }
+
+  practiceLesson(id: number) {
+    const idList = [];
+    idList.push(id);
+    this.lessonService.setMaterialToPractice(idList);
+    this.router.navigate(['/practice']);
   }
 }

@@ -1,5 +1,14 @@
 <div>
     <p>practice-mode works!</p>
+    <p>Select excercises type</p>
+    <p>Writing excercise</p>
+    <div>
+        <p *ngFor="let flashcard of flashcardList">{{flashcard.frontSide}} {{flashcard.backSide}}</p>
+    </div>
+
+    <app-writing-exercise [flashcards]="flashcardList"></app-writing-exercise>
+
+
     <!-- <div>
         <input [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
         <p>s + {{this.userInput}}</p>
@@ -8,4 +17,5 @@
         <p *ngIf="this.isCorrect">Correct!</p>
         <p *ngIf="!this.isCorrect">Wrong!</p>
     </div> -->
+
 </div>

@@ -1,0 +1,14 @@
+<p>writing-exercise works!</p>
+<div>
+    <p>{{this.currentFlashcard.frontSide}}</p>
+    <div>
+        <input [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
+        <p>s + {{this.userInput}}</p>
+    </div>
+    <div *ngIf="this.isFinished">
+        <p *ngIf="this.isCorrect">Correct!</p>
+        <p *ngIf="!this.isCorrect">Wrong!</p>
+        <p>Press any key to continue.</p>
+    </div>
+</div>
+<p>{{this.currentFlashcard.backSide}}</p>
