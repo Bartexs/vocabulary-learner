@@ -5,10 +5,13 @@ import { Flashcard } from '../../models/flashcard';
 import { LessonService } from '../../services/lesson.service';
 import { Lesson } from '../../models/lessons';
 import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.component";
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MaterialSelectorComponent } from "../material-selector/material-selector.component";
+
 
 @Component({
   selector: 'app-practice-mode',
-  imports: [CommonModule, FormsModule, WritingExerciseComponent],
+  imports: [CommonModule, FormsModule, WritingExerciseComponent, MatCheckboxModule, MaterialSelectorComponent],
   templateUrl: './practice-mode.component.html',
   styleUrl: './practice-mode.component.css',
   standalone: true
@@ -16,6 +19,7 @@ import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.
 export class PracticeModeComponent implements OnInit {
   lessonsID: number[] = [];
   flashcardList: Flashcard[] = [];
+  lessonsAndExerciseChosen = false;
 
   constructor(
     private lessonService: LessonService
@@ -37,16 +41,4 @@ export class PracticeModeComponent implements OnInit {
       // give option to practice today material or certain lessons 
     }
   }
-
-
-  // userInput = '';
-  // flashCardToCheck = 'something';
-  // isCorrect!: boolean;
-  // isFinished = false; 
-
-  // public checkFlashcard(event: KeyboardEvent) {
-  //   if (event.key !== 'Enter') return;
-  //   this.isFinished = true;
-  //   this.isCorrect = this.flashCardToCheck === this.userInput;
-  // }
 }

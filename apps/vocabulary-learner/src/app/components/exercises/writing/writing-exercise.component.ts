@@ -9,16 +9,18 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
-export class WritingExerciseComponent implements OnInit {
+export class WritingExerciseComponent {
   @Input() flashcards: Flashcard[] = [];
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
   userInput = '';
   isCorrect!: boolean;
   isFinished = false; 
-  
-  ngOnInit(): void {
-    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
+
+  constructor() {
+    console.log(this.currentFlashcard);
+    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex]; 
+    console.log(this.currentFlashcard);
   }
 
   nextFlashcard() {

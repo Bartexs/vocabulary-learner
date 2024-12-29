@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { PracticeModeComponent } from '../practice-mode.component';
+import { PracticeModeComponent } from './practice-mode.component';
 
 describe('PracticeModeComponent', () => {
   let component: PracticeModeComponent;
