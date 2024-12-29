@@ -34,16 +34,10 @@ export class BrowseLessonsComponent {
   }
 
   createLesson() {
-    const flashcardExample: Flashcard = {
-      id: 0,
-      frontSide: 'frontExample',
-      backSide: 'backExample'
-    }
-
     const lesson: Lesson = {
       id: this.lessonService.generateLessonId(),
       name: this.userInput,
-      flashcards: [flashcardExample]
+      flashcards: []
     }
 
     this.lessonService.saveLesson(lesson);
