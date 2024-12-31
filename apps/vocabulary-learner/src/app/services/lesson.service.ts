@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Lesson } from '../models/lessons';
+import { Flashcard } from '../models/flashcard';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +39,10 @@ export class LessonService {
   getLessonsByID(idsToFetch: number[]): Lesson[] {
     const filteredLessons = this.loadAllLessons().filter(lesson => idsToFetch.includes(lesson.id));
     return filteredLessons;
+  }
+
+  getFlashcardsFromLessons(lessons: Lesson[]): Flashcard[] {
+    return lessons.flatMap(lesson => lesson.flashcards);
   }
 
   loadAllLessons() {

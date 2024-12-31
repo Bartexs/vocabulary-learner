@@ -1,6 +1,8 @@
 <div>
     <p>practice-mode works!</p>
     <app-material-selector></app-material-selector>
+    <app-exercise-selector></app-exercise-selector>
+    <button (click)="startPractice()">Start</button>
     <div *ngIf="lessonsAndExerciseChosen">
         <app-writing-exercise [flashcards]="flashcardList"></app-writing-exercise>
     </div>

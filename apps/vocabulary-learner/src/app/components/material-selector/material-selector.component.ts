@@ -4,6 +4,7 @@ import { Lesson } from '../../models/lessons';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { LessonService } from '../../services/lesson.service';
 import { ExerciseService } from '../../services/exercise.service';
+import { PracticeConfigService } from '../../services/practice-config.service';
 
 @Component({
   selector: 'app-material-selector',
@@ -18,7 +19,8 @@ export class MaterialSelectorComponent implements OnInit {
 
   constructor(
     private lessonService: LessonService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private practiceModeConfigService: PracticeConfigService
   ) {
 
   }
@@ -37,9 +39,11 @@ export class MaterialSelectorComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const selectedLessons = this.lessonsAvailable.filter(lesson => 
-      this.selectedLessonsId.includes(lesson.id)
-    );
-    console.log('Selected lessons:', selectedLessons);
+    // to be used when i want to give to practice congif lessons instead of lessonsID
+    // const selectedLessons = this.lessonsAvailable.filter(lesson => 
+    //   this.selectedLessonsId.includes(lesson.id)
+    // );
+
+    this.practiceModeConfigService.setLessonsID(this.selectedLessonsId);
   }
 }
