@@ -25,9 +25,7 @@ export class StudyComponent implements OnInit {
 
   ngOnInit() {
     this.setSessionData();
-    console.log(this.studySessionConfig);
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.studySessionConfig.lessonList);
-    console.log(this.flashcardList);
   }
 
   setSessionData() {

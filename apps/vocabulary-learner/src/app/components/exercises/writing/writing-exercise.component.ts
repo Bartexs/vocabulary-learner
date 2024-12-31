@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
-export class WritingExerciseComponent {
+export class WritingExerciseComponent implements OnInit {
   @Input() flashcards: Flashcard[] = [];
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
@@ -17,10 +17,8 @@ export class WritingExerciseComponent {
   isCorrect!: boolean;
   isFinished = false; 
 
-  constructor() {
-    console.log(this.currentFlashcard);
-    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex]; 
-    console.log(this.currentFlashcard);
+  ngOnInit() {
+    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
   }
 
   nextFlashcard() {
