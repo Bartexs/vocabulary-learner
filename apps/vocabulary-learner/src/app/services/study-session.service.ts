@@ -3,15 +3,25 @@ import { StudySessionConfig } from '../models/studySessionConfig';
 import { PracticeConfig } from '../models/practiceConfig';
 import { Lesson } from '../models/lessons';
 import { LessonService } from './lesson.service';
+import { StudySessionResults } from '../models/studySessionResults';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudySessionService {
   private config: StudySessionConfig | undefined;
+  private results!: StudySessionResults;
 
   constructor(private lessonService: LessonService) {
     
+  }
+
+  setResults(results: StudySessionResults): void {
+    this.results = results;
+  }
+
+  getResults(): StudySessionResults {
+    return this.results;
   }
 
   getConfig(): StudySessionConfig {

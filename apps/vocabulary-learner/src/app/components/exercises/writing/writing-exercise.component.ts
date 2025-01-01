@@ -2,6 +2,8 @@ import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flashcard } from '../../../models/flashcard';
 import { FormsModule } from '@angular/forms';
+import { StudySessionResults } from '../../../models/studySessionResults';
+import { Exercise } from '../../../models/exercise';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -16,9 +18,25 @@ export class WritingExerciseComponent implements OnInit {
   userInput = '';
   isCorrect!: boolean;
   isFinished = false; 
+  studySessionResults!: StudySessionResults;
 
   ngOnInit() {
     this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
+    this.initializeStudySessionResults();
+  }
+
+  initializeStudySessionResults() {
+    const exercise: Exercise = {
+      id: 0,
+      name: 'writing'
+    }
+
+    this.studySessionResults = {
+      exercise: exercise,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      totalFlashcards: 0,      
+    }
   }
 
   nextFlashcard() {
@@ -32,8 +50,16 @@ export class WritingExerciseComponent implements OnInit {
     this.isFinished = true;
     this.isCorrect = this.currentFlashcard.backSide === this.userInput;
 
+    this.studySessionResults = {
+      ...this.studySessionResults,
+      correctAnswers: this.studySessionResults.correctAnswers + (this.isCorrect ? 1 : 0),
+      wrongAnswers: this.studySessionResults.wrongAnswers + (this.isCorrect ? 0 : 1),
+      totalFlashcards: this.studySessionResults.totalFlashcards + 1,
+    };
+
     if(this.currentFlashcardIndex + 1 === this.flashcards.length) {
       console.log("set is finished");
+      console.log(this.studySessionResults);
     } else {
       this.nextFlashcard();
     }
