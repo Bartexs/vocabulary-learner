@@ -20,7 +20,6 @@ export class FlashcardCreatorBundleComponent {
     const lines = this.userInput.split('\n');
 
     const flashcardExamHistory: FlashcardExamHistory = {
-      correctExamAnswersDates: [],
       correctExamAnswersAmount: 0,
       flashcardMastered: false
     }

@@ -1,1 +1,8 @@
 <p>exam-mode works!</p>
+<div>
+    <p>Today exam material</p>
+    <button (click)="startExam = true">Start</button>
+    <div *ngIf="startExam">
+        <app-writing-exercise [flashcards]="newMaterial"></app-writing-exercise>
+    </div>
+</div>

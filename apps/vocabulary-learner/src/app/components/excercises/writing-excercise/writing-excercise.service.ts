@@ -14,7 +14,7 @@ export class WritingExcerciseService {
 
   generateDefaultFlashcard(): Flashcard[] {
     const flashcardExamHistory: FlashcardExamHistory = {
-      correctExamAnswersDates: [],
+      
       correctExamAnswersAmount: 0,
       flashcardMastered: false
     }

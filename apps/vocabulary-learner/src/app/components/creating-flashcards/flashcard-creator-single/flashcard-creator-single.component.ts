@@ -24,7 +24,6 @@ export class FlashcardCreatorSingleComponent {
       }
 
       const flashcardExamHistory: FlashcardExamHistory = {
-        correctExamAnswersDates: [],
         correctExamAnswersAmount: 0,
         flashcardMastered: false
       }
