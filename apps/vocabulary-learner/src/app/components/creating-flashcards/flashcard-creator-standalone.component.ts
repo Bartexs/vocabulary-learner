@@ -6,6 +6,7 @@ import { LessonService } from '../../services/lesson.service';
 import { FormsModule } from '@angular/forms';
 import { FlashcardCreatorBundleComponent } from "./flashcard-creator-bundle/flashcard-creator-bundle.component";
 import { FlashcardCreatorSingleComponent } from "./flashcard-creator-single/flashcard-creator-single.component";
+import { FlashcardExamHistory } from '../../models/flashcard-exam-history';
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
@@ -33,12 +34,19 @@ export class FlashcardCreatorStandaloneComponent {
       return;
     }
 
+    const flashcardExamHistory: FlashcardExamHistory = {
+      correctExamAnswersDates: [],
+      correctExamAnswersAmount: 0,
+      flashcardMastered: false
+    }
+
     this.selectedLessonId = this.selectedLesson.id;
 
     const flashcard: Flashcard = {
       id: 0,
       frontSide: this.frontSide.trim(),
       backSide: this.backSide.trim(),
+      flashcardExamHistory: flashcardExamHistory
     };
 
     // this.flashcards.push(flashcard); // Save the object to the array

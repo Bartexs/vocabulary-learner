@@ -4,6 +4,7 @@ import { WritingExcerciseService } from '../../excercises/writing-excercise/writ
 import { FormsModule } from '@angular/forms';
 
 import { Flashcard } from '../../../models/flashcard';
+import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
 
 @Component({
   selector: 'app-flashcard-creator-bundle',
@@ -17,6 +18,12 @@ export class FlashcardCreatorBundleComponent {
   
   saveAsFlashcard() {
     const lines = this.userInput.split('\n');
+
+    const flashcardExamHistory: FlashcardExamHistory = {
+      correctExamAnswersDates: [],
+      correctExamAnswersAmount: 0,
+      flashcardMastered: false
+    }
   
     const flashcards = lines
       .filter(line => line.trim() !== '') // Skip empty lines
@@ -25,7 +32,8 @@ export class FlashcardCreatorBundleComponent {
         return {
           id: 0,
           frontSide: front?.trim() || '', // Trim and handle missing front
-          backSide: back?.trim() || ''    // Trim and handle missing back
+          backSide: back?.trim() || '',    // Trim and handle missing back
+          flashcardExamHistory: flashcardExamHistory
         };
       });
       this.emitFlashcards.emit(flashcards);

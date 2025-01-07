@@ -5,6 +5,7 @@ import { WritingExcerciseService } from '../../excercises/writing-excercise/writ
 import { FormsModule } from '@angular/forms';
 import { Lesson } from '../../../models/lessons';
 import { LessonService } from '../../../services/lesson.service';
+import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
 
 @Component({
   selector: 'app-flashcard-creator-single',
@@ -22,10 +23,17 @@ export class FlashcardCreatorSingleComponent {
         return;
       }
 
+      const flashcardExamHistory: FlashcardExamHistory = {
+        correctExamAnswersDates: [],
+        correctExamAnswersAmount: 0,
+        flashcardMastered: false
+      }
+
       const flashcard: Flashcard = {
         id: 0,
         frontSide: this.frontSide.trim(),
         backSide: this.backSide.trim(),
+        flashcardExamHistory: flashcardExamHistory
       };
 
       this.frontSide = '';
