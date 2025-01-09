@@ -19,6 +19,7 @@ export class WritingExerciseComponent implements OnInit {
   isCorrect!: boolean;
   isFinished = false; 
   studySessionResults!: StudySessionResults;
+  testingType = '';
 
   ngOnInit() {
     this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
@@ -62,6 +63,29 @@ export class WritingExerciseComponent implements OnInit {
       console.log(this.studySessionResults);
     } else {
       this.nextFlashcard();
+    }
+
+    // set proficiency of the flashcard it should increase based on amount of correct answers
+    if(this.testingType === 'EXAM') this.setProficiency();
+  }
+
+  setProficiency() {
+    const flashcardTested = this.flashcards[this.currentFlashcardIndex];
+    const history = flashcardTested.flashcardExamHistory;
+    const dateNow = new Date();
+
+    // -----TODO------- create if answer is correct or if answer is wrong 
+
+    if (history.nextExamDate === undefined) {
+      // Increment the correct answers amount
+      history.correctExamAnswersAmount += 1;
+  
+      // Set the next exam date to 1 day after the current date
+      const nextExamDate = new Date(dateNow);
+      nextExamDate.setDate(dateNow.getDate() + 1);
+      history.nextExamDate = nextExamDate;
+    } else {
+      // -----TODO------- create code if flashcard nextExamDate wasn't undefined
     }
   }
 
