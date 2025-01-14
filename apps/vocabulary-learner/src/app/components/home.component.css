@@ -1,0 +1,9 @@
+.text {
+    text-align: center;
+}
+
+.container {
+    display: flex;
+    /* width: 80%; */
+}
+
