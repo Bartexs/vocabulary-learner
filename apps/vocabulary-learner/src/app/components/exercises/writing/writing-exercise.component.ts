@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flashcard } from '../../../models/flashcard';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { Exercise } from '../../../models/exercise';
 })
 export class WritingExerciseComponent implements OnInit {
   @Input() flashcards: Flashcard[] = [];
+  @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
   userInput = '';
@@ -20,10 +21,35 @@ export class WritingExerciseComponent implements OnInit {
   isFinished = false; 
   studySessionResults!: StudySessionResults;
   testingType = '';
+  showResult = false;
+  isListening = false;
+  skipNextKeyPress = false;
 
   ngOnInit() {
     this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
     this.initializeStudySessionResults();
+  }
+
+  // When answer is input, user should press enter to 
+  // proceed and show result of the answer, but HostListener 
+  // didn't wait for another key press and immedietaly moved 
+  // for next question instead of showing result and waiting for next key press, 
+  // thats why we skip first keypress
+  @HostListener('document:keydown', ['$event'])
+  handleKeyPress(): void {
+    if (this.isListening) {
+      if (this.skipNextKeyPress) {
+        this.skipNextKeyPress = false; // Skip the first key press after toggle
+        this.nextFlashcard();
+        this.toggleListening();
+        return;
+      }
+      this.skipNextKeyPress = true;
+    }
+  }
+
+  toggleListening(): void {
+    this.isListening = !this.isListening;
   }
 
   initializeStudySessionResults() {
@@ -47,9 +73,9 @@ export class WritingExerciseComponent implements OnInit {
   }
 
   public checkFlashcard(event: KeyboardEvent) {
-    if (event.key !== 'Enter') return;
+    if (event.key !== 'Enter' || this.showResult) return;
     this.isFinished = true;
-    this.isCorrect = this.currentFlashcard.backSide === this.userInput;
+    this.isCorrect = this.currentFlashcard.frontSide === this.userInput;
 
     this.studySessionResults = {
       ...this.studySessionResults,
@@ -62,7 +88,8 @@ export class WritingExerciseComponent implements OnInit {
       console.log("set is finished");
       console.log(this.studySessionResults);
     } else {
-      this.nextFlashcard();
+      this.showResult = true;
+      this.toggleListening();
     }
 
     // set proficiency of the flashcard it should increase based on amount of correct answers
@@ -92,6 +119,14 @@ export class WritingExerciseComponent implements OnInit {
   resetFlashCardTest() {
     this.isFinished = false;
     this.isCorrect = false;
+    this.showResult = false;
+    this.clearInput();
+  }
+
+  clearInput() {
     this.userInput = '';
+    this.userInputRef.nativeElement.value = '';
+    this.userInputRef.nativeElement.blur();
+    setTimeout(() => this.userInputRef.nativeElement.focus(), 0);
   }
 }

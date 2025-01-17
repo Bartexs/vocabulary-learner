@@ -1,14 +1,18 @@
-<p>writing-exercise works!</p>
 <div>
-    <p>{{this.currentFlashcard.frontSide}}</p>
+    <p>{{this.currentFlashcard.backSide}}</p>
     <div>
-        <input [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
+        <input #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
         <p>s + {{this.userInput}}</p>
     </div>
-    <div *ngIf="this.isFinished">
-        <p *ngIf="this.isCorrect">Correct!</p>
-        <p *ngIf="!this.isCorrect">Wrong!</p>
-        <p>Press any key to continue.</p>
+    <div *ngIf="showResult">
+        <div *ngIf="isCorrect">
+            <p>Correct! Great answer!</p>
+            <p>Press any key to continue...</p>
+        </div>
+        <div *ngIf="!isCorrect">
+            <p>Wrong.</p>
+            <p>Correct answer is: {{this.currentFlashcard.frontSide}}</p>
+            <p>Press any key to continue...</p>
+        </div>
     </div>
 </div>
-<p>{{this.currentFlashcard.backSide}}</p>
