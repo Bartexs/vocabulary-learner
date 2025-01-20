@@ -15,13 +15,23 @@ export class ExamModeComponent implements OnInit {
   repetitionMaterial: Flashcard[] = [];
   newMaterial: Flashcard[] = [];
   startExam = false;
+  isLoading = true;
+  modeType = "EXAM";
 
-  constructor(private lessonService: LessonService) {
+  constructor(private lessonService: LessonService,
     
+  ) {
+
   }
 
   ngOnInit() {
     this.getExamMaterial();
+  }
+
+  startExamMode() {
+    this.startExam = true;
+    console.log(this.repetitionMaterial);
+    console.log(this.newMaterial);
   }
 
   getExamMaterial() {
@@ -45,16 +55,13 @@ export class ExamModeComponent implements OnInit {
     const allLessons: Lesson[] = this.lessonService.loadAllLessons();
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
 
-    const nowDate = new Date(); 
-    const date = nowDate.getFullYear()+'/'+(nowDate.getMonth()+1)+'/'+nowDate.getDate(); 
-
     const flashcardsForCurrentExam = allFlashcards.filter(flashcard => {
       const history = flashcard.flashcardExamHistory
-      
+
       return (
         !history.flashcardMastered && 
-        history.nextExamDate != null && 
-        history.nextExamDate.toDateString() >= date)
+        history.nextExamDate != null )
+        // history.nextExamDate.toDateString() >= date.getDate)
     });
 
     return flashcardsForCurrentExam;

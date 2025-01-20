@@ -30,6 +30,7 @@ export class FlashcardCreatorSingleComponent {
 
       const flashcard: Flashcard = {
         id: 0,
+        lessonId: 0,
         frontSide: this.frontSide.trim(),
         backSide: this.backSide.trim(),
         flashcardExamHistory: flashcardExamHistory

@@ -1,8 +1,24 @@
 <p>exam-mode works!</p>
 <div>
     <p>Today exam material</p>
-    <button (click)="startExam = true">Start</button>
+    <div class="container">
+        <div>
+            <p>Repetition Material</p>
+            <p>{{repetitionMaterial.length}}</p>
+            <div *ngFor="let flashcard of repetitionMaterial">
+                <p>{{flashcard.frontSide}}</p>
+            </div>
+        </div>
+        <div>
+            <p>New Material</p>
+            <p>{{newMaterial.length}}</p>
+            <div *ngFor="let flashcard of newMaterial">
+                <p>{{flashcard.frontSide}}</p>
+            </div>
+        </div>
+    </div>
+    <button (click)="startExamMode()">Start</button>
     <div *ngIf="startExam">
-        <app-writing-exercise [flashcards]="newMaterial"></app-writing-exercise>
+        <app-writing-exercise [flashcards]="newMaterial" [modeType]="modeType"></app-writing-exercise>
     </div>
 </div>

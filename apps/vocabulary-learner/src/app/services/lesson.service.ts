@@ -41,6 +41,10 @@ export class LessonService {
     return filteredLessons;
   }
 
+  getLessonById(id: number) {
+    return this.loadAllLessons().find((lesson) => lesson.id === id);
+  }
+
   getFlashcardsFromLessons(lessons: Lesson[]): Flashcard[] {
     return lessons.flatMap(lesson => lesson.flashcards);
   }

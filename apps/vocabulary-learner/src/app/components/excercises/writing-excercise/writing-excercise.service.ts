@@ -8,25 +8,6 @@ import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
 export class WritingExcerciseService {
   private flashcards: Flashcard[] = [];
 
-  constructor() {
-    this.flashcards = this.generateDefaultFlashcard();
-  }
-
-  generateDefaultFlashcard(): Flashcard[] {
-    const flashcardExamHistory: FlashcardExamHistory = {
-      
-      correctExamAnswersAmount: 0,
-      flashcardMastered: false
-    }
-
-    const flashcards: Flashcard[] = [
-      { id: 1, frontSide: 'What is Angular?', backSide: 'A front-end framework.', flashcardExamHistory },
-      { id: 2, frontSide: 'What is TypeScript?', backSide: 'A superset of JavaScript.', flashcardExamHistory },
-    ]
-  
-    return flashcards;
-  }
-
   getFlashcard() {
     return this.flashcards;
   }

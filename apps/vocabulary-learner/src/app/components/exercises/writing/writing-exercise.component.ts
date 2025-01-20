@@ -4,6 +4,7 @@ import { Flashcard } from '../../../models/flashcard';
 import { FormsModule } from '@angular/forms';
 import { StudySessionResults } from '../../../models/studySessionResults';
 import { Exercise } from '../../../models/exercise';
+import { FlashcardService } from '../../../services/flashcard.service';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -13,6 +14,7 @@ import { Exercise } from '../../../models/exercise';
 })
 export class WritingExerciseComponent implements OnInit {
   @Input() flashcards: Flashcard[] = [];
+  @Input() modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
@@ -20,7 +22,6 @@ export class WritingExerciseComponent implements OnInit {
   isCorrect!: boolean;
   isFinished = false; 
   studySessionResults!: StudySessionResults;
-  testingType = '';
   showResult = false;
   isListening = false;
   skipNextKeyPress = false;
@@ -28,6 +29,12 @@ export class WritingExerciseComponent implements OnInit {
   ngOnInit() {
     this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
     this.initializeStudySessionResults();
+  }
+
+  constructor(
+    private flashcardService: FlashcardService,
+  ) {
+    
   }
 
   // When answer is input, user should press enter to 
@@ -74,6 +81,7 @@ export class WritingExerciseComponent implements OnInit {
 
   public checkFlashcard(event: KeyboardEvent) {
     if (event.key !== 'Enter' || this.showResult) return;
+    
     this.isFinished = true;
     this.isCorrect = this.currentFlashcard.frontSide === this.userInput;
 
@@ -84,6 +92,9 @@ export class WritingExerciseComponent implements OnInit {
       totalFlashcards: this.studySessionResults.totalFlashcards + 1,
     };
 
+    // set proficiency of the flashcard it should increase based on amount of correct answers
+    if(this.modeType === 'EXAM') this.setProficiency();
+
     if(this.currentFlashcardIndex + 1 === this.flashcards.length) {
       console.log("set is finished");
       console.log(this.studySessionResults);
@@ -91,29 +102,28 @@ export class WritingExerciseComponent implements OnInit {
       this.showResult = true;
       this.toggleListening();
     }
-
-    // set proficiency of the flashcard it should increase based on amount of correct answers
-    if(this.testingType === 'EXAM') this.setProficiency();
   }
 
   setProficiency() {
     const flashcardTested = this.flashcards[this.currentFlashcardIndex];
     const history = flashcardTested.flashcardExamHistory;
-    const dateNow = new Date();
+
+    console.log(this.currentFlashcard);
 
     // -----TODO------- create if answer is correct or if answer is wrong 
 
     if (history.nextExamDate === undefined) {
       // Increment the correct answers amount
       history.correctExamAnswersAmount += 1;
-  
-      // Set the next exam date to 1 day after the current date
-      const nextExamDate = new Date(dateNow);
-      nextExamDate.setDate(dateNow.getDate() + 1);
-      history.nextExamDate = nextExamDate;
+
+
+
+      flashcardTested.flashcardExamHistory = history;
     } else {
       // -----TODO------- create code if flashcard nextExamDate wasn't undefined
     }
+
+    this.flashcardService.modifyFlashcard(flashcardTested);
   }
 
   resetFlashCardTest() {

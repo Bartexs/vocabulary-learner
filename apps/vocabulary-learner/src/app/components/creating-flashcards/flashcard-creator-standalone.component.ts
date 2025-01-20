@@ -43,9 +43,10 @@ export class FlashcardCreatorStandaloneComponent {
 
     const flashcard: Flashcard = {
       id: 0,
+      lessonId: this.selectedLessonId,
       frontSide: this.frontSide.trim(),
       backSide: this.backSide.trim(),
-      flashcardExamHistory: flashcardExamHistory
+      flashcardExamHistory: flashcardExamHistory,
     };
 
     // this.flashcards.push(flashcard); // Save the object to the array

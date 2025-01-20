@@ -24,6 +24,7 @@ export class PracticeModeComponent implements OnInit {
   lessonsID: number[] = [];
   flashcardList: Flashcard[] = [];
   lessonsAndExerciseChosen = false;
+  modeType = "PRACTICE";
 
   constructor(
     private lessonService: LessonService,

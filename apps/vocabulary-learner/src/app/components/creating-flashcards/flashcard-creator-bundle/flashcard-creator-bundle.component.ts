@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WritingExcerciseService } from '../../excercises/writing-excercise/writing-excercise.service';
 import { FormsModule } from '@angular/forms';
@@ -13,6 +13,7 @@ import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
   styleUrl: './flashcard-creator-bundle.component.css',
 })
 export class FlashcardCreatorBundleComponent {
+  @Input() lessonID!: number;
   @Output() emitFlashcards: EventEmitter<Flashcard[]> = new EventEmitter()
   userInput = '';
   
@@ -29,7 +30,8 @@ export class FlashcardCreatorBundleComponent {
       .map(line => {
         const [front, back] = line.split('\t'); // Split by tab character
         return {
-          id: 0,
+          id: Date.now(),
+          lessonId: this.lessonID,
           frontSide: front?.trim() || '', // Trim and handle missing front
           backSide: back?.trim() || '',    // Trim and handle missing back
           flashcardExamHistory: flashcardExamHistory
