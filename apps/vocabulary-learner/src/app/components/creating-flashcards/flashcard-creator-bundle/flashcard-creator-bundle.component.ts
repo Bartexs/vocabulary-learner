@@ -1,10 +1,8 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WritingExcerciseService } from '../../excercises/writing-excercise/writing-excercise.service';
 import { FormsModule } from '@angular/forms';
-
 import { Flashcard } from '../../../models/flashcard';
-import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
+import { FlashcardProficiency } from '../../../models/flashcard-proficiency';
 
 @Component({
   selector: 'app-flashcard-creator-bundle',
@@ -20,9 +18,9 @@ export class FlashcardCreatorBundleComponent {
   saveAsFlashcard() {
     const lines = this.userInput.split('\n');
 
-    const flashcardExamHistory: FlashcardExamHistory = {
-      correctExamAnswersAmount: 0,
-      flashcardMastered: false
+    const flashcardProficiency: FlashcardProficiency = {
+      flashcardMastered: false,
+      masteryLevel: 0
     }
   
     const flashcards = lines
@@ -34,7 +32,7 @@ export class FlashcardCreatorBundleComponent {
           lessonId: this.lessonID,
           frontSide: front?.trim() || '', // Trim and handle missing front
           backSide: back?.trim() || '',    // Trim and handle missing back
-          flashcardExamHistory: flashcardExamHistory
+          flashcardProficiency: flashcardProficiency
         };
       });
       this.emitFlashcards.emit(flashcards);

@@ -1,9 +1,9 @@
-import { FlashcardExamHistory } from "./flashcard-exam-history";
+import { FlashcardProficiency } from "./flashcard-proficiency";
 
 export interface Flashcard {
     id: number,
     lessonId: number,
     frontSide: string,
     backSide: string,
-    flashcardExamHistory: FlashcardExamHistory
+    flashcardProficiency: FlashcardProficiency
 }

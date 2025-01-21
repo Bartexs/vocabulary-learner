@@ -6,7 +6,7 @@ import { LessonService } from '../../services/lesson.service';
 import { FormsModule } from '@angular/forms';
 import { FlashcardCreatorBundleComponent } from "./flashcard-creator-bundle/flashcard-creator-bundle.component";
 import { FlashcardCreatorSingleComponent } from "./flashcard-creator-single/flashcard-creator-single.component";
-import { FlashcardExamHistory } from '../../models/flashcard-exam-history';
+import { FlashcardProficiency } from '../../models/flashcard-proficiency';
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
@@ -34,9 +34,9 @@ export class FlashcardCreatorStandaloneComponent {
       return;
     }
 
-    const flashcardExamHistory: FlashcardExamHistory = {
-      correctExamAnswersAmount: 0,
-      flashcardMastered: false
+    const flashcardProficiency: FlashcardProficiency = {
+      flashcardMastered: false,
+      masteryLevel: 0
     }
 
     this.selectedLessonId = this.selectedLesson.id;
@@ -46,7 +46,7 @@ export class FlashcardCreatorStandaloneComponent {
       lessonId: this.selectedLessonId,
       frontSide: this.frontSide.trim(),
       backSide: this.backSide.trim(),
-      flashcardExamHistory: flashcardExamHistory,
+      flashcardProficiency: flashcardProficiency,
     };
 
     // this.flashcards.push(flashcard); // Save the object to the array

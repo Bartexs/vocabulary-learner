@@ -1,11 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flashcard } from '../../../models/flashcard';
-import { WritingExcerciseService } from '../../excercises/writing-excercise/writing-excercise.service';
 import { FormsModule } from '@angular/forms';
-import { Lesson } from '../../../models/lessons';
-import { LessonService } from '../../../services/lesson.service';
-import { FlashcardExamHistory } from '../../../models/flashcard-exam-history';
+import { FlashcardProficiency } from '../../../models/flashcard-proficiency';
 
 @Component({
   selector: 'app-flashcard-creator-single',
@@ -23,9 +20,9 @@ export class FlashcardCreatorSingleComponent {
         return;
       }
 
-      const flashcardExamHistory: FlashcardExamHistory = {
-        correctExamAnswersAmount: 0,
-        flashcardMastered: false
+      const flashcardProficiency: FlashcardProficiency = {
+        flashcardMastered: false,
+        masteryLevel: 0
       }
 
       const flashcard: Flashcard = {
@@ -33,7 +30,7 @@ export class FlashcardCreatorSingleComponent {
         lessonId: 0,
         frontSide: this.frontSide.trim(),
         backSide: this.backSide.trim(),
-        flashcardExamHistory: flashcardExamHistory
+        flashcardProficiency: flashcardProficiency
       };
 
       this.frontSide = '';

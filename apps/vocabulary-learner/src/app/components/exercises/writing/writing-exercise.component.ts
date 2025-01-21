@@ -108,7 +108,7 @@ export class WritingExerciseComponent implements OnInit {
 
   setProficiency() {
     const flashcardTested = this.flashcards[this.currentFlashcardIndex];
-    const history = flashcardTested.flashcardExamHistory;
+    const history = flashcardTested.flashcardProficiency;
 
     console.log(this.currentFlashcard);
 
@@ -116,10 +116,9 @@ export class WritingExerciseComponent implements OnInit {
 
     if (history.nextExamDate === undefined) {
       // Increment the correct answers amount
-      history.correctExamAnswersAmount += 1;
       const date = this.dateUtilsService.getTodayDate();
       history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
-      flashcardTested.flashcardExamHistory = history;
+      flashcardTested.flashcardProficiency = history;
     } else {
       // -----TODO------- create code if flashcard nextExamDate wasn't undefined
     }

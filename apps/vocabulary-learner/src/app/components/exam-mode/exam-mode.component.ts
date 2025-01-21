@@ -47,7 +47,7 @@ export class ExamModeComponent implements OnInit {
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
 
     const flashcardsWithEmptyHistory = allFlashcards.filter(flashcard => {
-      const history = flashcard.flashcardExamHistory;
+      const history = flashcard.flashcardProficiency;
       return history.nextExamDate === undefined;
     });
 
@@ -59,7 +59,7 @@ export class ExamModeComponent implements OnInit {
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
 
     const flashcardsForCurrentExam = allFlashcards.filter(flashcard => {
-      const history = flashcard.flashcardExamHistory
+      const history = flashcard.flashcardProficiency
       return (
         !history.flashcardMastered && 
         history.nextExamDate != null &&
