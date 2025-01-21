@@ -3,5 +3,5 @@ export interface FlashcardExamHistory {
     correctExamAnswersAmount: number,
     // if flashcard examed 5 times correct - set as mastered
     flashcardMastered: boolean,
-    nextExamDate?: Date,
+    nextExamDate?: string,
 }

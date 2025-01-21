@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { StudySessionResults } from '../../../models/studySessionResults';
 import { Exercise } from '../../../models/exercise';
 import { FlashcardService } from '../../../services/flashcard.service';
+import { DateUtilsService } from '../../../services/date-utils.service';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -33,6 +34,7 @@ export class WritingExerciseComponent implements OnInit {
 
   constructor(
     private flashcardService: FlashcardService,
+    private dateUtilsService: DateUtilsService
   ) {
     
   }
@@ -115,9 +117,8 @@ export class WritingExerciseComponent implements OnInit {
     if (history.nextExamDate === undefined) {
       // Increment the correct answers amount
       history.correctExamAnswersAmount += 1;
-
-
-
+      const date = this.dateUtilsService.getTodayDate();
+      history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
       flashcardTested.flashcardExamHistory = history;
     } else {
       // -----TODO------- create code if flashcard nextExamDate wasn't undefined

@@ -4,6 +4,7 @@ import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.
 import { LessonService } from '../../services/lesson.service';
 import { Flashcard } from '../../models/flashcard';
 import { Lesson } from '../../models/lessons';
+import { DateUtilsService } from '../../services/date-utils.service';
 
 @Component({
   selector: 'app-exam-mode',
@@ -18,7 +19,9 @@ export class ExamModeComponent implements OnInit {
   isLoading = true;
   modeType = "EXAM";
 
-  constructor(private lessonService: LessonService,
+  constructor(
+    private lessonService: LessonService,
+    private dateUtilsService: DateUtilsService
     
   ) {
 
@@ -57,11 +60,10 @@ export class ExamModeComponent implements OnInit {
 
     const flashcardsForCurrentExam = allFlashcards.filter(flashcard => {
       const history = flashcard.flashcardExamHistory
-
       return (
         !history.flashcardMastered && 
-        history.nextExamDate != null )
-        // history.nextExamDate.toDateString() >= date.getDate)
+        history.nextExamDate != null &&
+        this.dateUtilsService.isTestedToday(history.nextExamDate))
     });
 
     return flashcardsForCurrentExam;
