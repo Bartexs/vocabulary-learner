@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Flashcard } from '../../../models/flashcard';
 import { FlashcardProficiency } from '../../../models/flashcard-proficiency';
+import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-flashcard-creator-bundle',
@@ -28,7 +29,7 @@ export class FlashcardCreatorBundleComponent {
       .map(line => {
         const [front, back] = line.split('\t'); // Split by tab character
         return {
-          id: Date.now(),
+          id: Math.floor(Math.random() * 1000000),
           lessonId: this.lessonID,
           frontSide: front?.trim() || '', // Trim and handle missing front
           backSide: back?.trim() || '',    // Trim and handle missing back
