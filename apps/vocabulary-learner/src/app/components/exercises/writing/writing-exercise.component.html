@@ -1,10 +1,16 @@
-<div>
-    <p>{{this.currentFlashcard.backSide}}</p>
-    <div>
-        <input #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
-        <p>s + {{this.userInput}}</p>
+<div class="border container">
+    <div class="row">
+        <!-- <p>MODE:</p> -->
+        <!-- <p>{{modeType}}</p> -->
     </div>
-    <div *ngIf="showResult">
+    <div class="row">
+        <p class="main-text">{{this.currentFlashcard.backSide}}</p>
+        <!-- <p class="gray">{{this.currentFlashcard.frontSide}}</p> -->
+    </div>
+    <div class="row">
+        <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
+    </div>
+    <div class="row" *ngIf="showResult">
         <div *ngIf="isCorrect">
             <p>Correct! Great answer!</p>
             <p>Press any key to continue...</p>

@@ -1,0 +1,59 @@
+.border {
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 10px;    /* Rounded corners */
+    padding: 10px;          /* Optional: Inner spacing */
+    background-color: #fff; /* Optional: Background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
+    width: 60%;                     /* 60% of screen width */
+    margin: 0 auto;   
+    height: 300px;
+}
+
+.styled-input {
+    border: 1px solid #ccc;         /* Light gray border */
+    border-radius: 10px;            /* Rounded corners */
+    padding: 10px;                  /* Inner spacing */
+    background-color: #fff;         /* Background color */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    width: 60%;                     /* 60% of screen width */
+    margin: 0 auto;                 /* Center the element horizontally */
+    display: block;                 /* Ensure it takes the full width specified */
+    font-size: 16px;                /* Text size */
+    outline: none;                  /* Remove default outline */
+    transition: border-color 0.3s, box-shadow 0.3s; /* Smooth hover/focus effects */
+}
+  
+.styled-input:focus {
+    border-color: #007bff;          /* Change border color on focus */
+    box-shadow: 0 2px 6px rgba(0, 123, 255, 0.4); /* Slightly more prominent shadow */
+}
+
+.gray {
+    color: lightgray;
+}
+
+.container {
+    display: flex;
+    flex-direction: column; /* Stack divs in a column */
+    gap: 20px;              /* Space between column divs */
+}
+
+.row {
+    display: flex;
+    flex-direction: row;    /* Align child divs side by side */
+    justify-content: space-evenly;
+    gap: 10px;              /* Space between child divs in a row */
+}
+
+.box {
+    display: flex;
+    align-items: center;    /* Center content vertically */
+    justify-content: center;/* Center content horizontally */
+}
+
+.main-text {
+    font-family: Arial, sans-serif; /* Choose a clean font */
+    font-size: 25px;               /* Base font size for the text */
+    line-height: 1.2;              /* Improve readability with spacing between lines */
+    color: #333;                   /* Dark gray text color */
+}
