@@ -95,7 +95,8 @@ export class WritingExerciseComponent implements OnInit {
     };
 
     // set proficiency of the flashcard it should increase based on amount of correct answers
-    if(this.modeType === 'EXAM') this.setProficiency();
+    
+    if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
 
     if(this.currentFlashcardIndex + 1 === this.flashcards.length) {
       console.log("set is finished");
@@ -106,23 +107,35 @@ export class WritingExerciseComponent implements OnInit {
     }
   }
 
-  setProficiency() {
+  setProficiency(isCorrect: boolean) {
     const flashcardTested = this.flashcards[this.currentFlashcardIndex];
     const history = flashcardTested.flashcardProficiency;
 
-    console.log(this.currentFlashcard);
+    if(isCorrect) {
+      if(history.nextExamDate === undefined) {
+        const date = this.dateUtilsService.getTodayDate();
+        history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
+        history.masteryLevel = 1;
+        flashcardTested.flashcardProficiency = history;
+      } else {
+        const date = history.nextExamDate;
 
-    // -----TODO------- create if answer is correct or if answer is wrong 
+        switch (flashcardTested.flashcardProficiency.masteryLevel) {
+          case 1:
+            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 3, 'yyyy-MM-dd');
+            history.masteryLevel = 2;
+            break;
+          case 2:
+            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 5, 'yyyy-MM-dd');
+            history.masteryLevel = 3;
+            break;
+        }
 
-    if (history.nextExamDate === undefined) {
-      // Increment the correct answers amount
-      const date = this.dateUtilsService.getTodayDate();
-      history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
-      flashcardTested.flashcardProficiency = history;
+        flashcardTested.flashcardProficiency = history;
+      }
     } else {
-      // -----TODO------- create code if flashcard nextExamDate wasn't undefined
+      history.nextExamDate = undefined;
     }
-
     this.flashcardService.modifyFlashcard(flashcardTested);
   }
 
