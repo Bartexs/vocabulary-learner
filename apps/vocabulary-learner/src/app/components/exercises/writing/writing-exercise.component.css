@@ -57,3 +57,17 @@
     line-height: 1.2;              /* Improve readability with spacing between lines */
     color: #333;                   /* Dark gray text color */
 }
+
+.green-text {
+    font-family: Arial, sans-serif; /* Font style */
+    font-size: 24px;               /* Font size */
+    color: #28a745;                /* Green text color */
+    font-weight: 700;
+}
+
+.red-text {
+    color: #dc3545; 
+    font-family: Arial, sans-serif; /* Font style */
+    font-size: 24px;               /* Font size */
+    font-weight: 700;
+}

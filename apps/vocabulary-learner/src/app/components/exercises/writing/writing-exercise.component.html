@@ -11,12 +11,11 @@
         <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
     </div>
     <div class="row" *ngIf="showResult">
-        <div *ngIf="isCorrect">
+        <div *ngIf="isCorrect" class="green-text">
             <p>Correct! Great answer!</p>
             <p>Press any key to continue...</p>
         </div>
-        <div *ngIf="!isCorrect">
-            <p>Wrong.</p>
+        <div *ngIf="!isCorrect" class="red-text">
             <p>Correct answer is: {{this.currentFlashcard.frontSide}}</p>
             <p>Press any key to continue...</p>
         </div>
