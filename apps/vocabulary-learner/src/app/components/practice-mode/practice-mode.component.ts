@@ -6,6 +6,9 @@ import { Flashcard } from '../../models/flashcard';
 import { BrowsingExerciseComponent } from '../exercises/browsing/browsing-exercise.component';
 import { LessonService } from '../../services/lesson.service';
 import { ExerciseSummary } from '../../models/exercise-Summary';
+import { ComponentRegistry } from '../../models/exercise-registry';
+import { DynamicExerciseComponent } from '../exercises/dynamic-exercise.component';
+import { ExerciseService } from '../../services/exercise.service';
 
 @Component({
   selector: 'app-practice-mode',
@@ -18,16 +21,37 @@ export class PracticeModeComponent implements OnInit  {
   @Input() exerciseList: Exercise[] = [];
   @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
   flashcardList: Flashcard[] = [];
+  currentExercise!: Exercise;
+  currentExerciseIndex = 1;
 
   constructor(
     private lessonService: LessonService,
+    private exerciseService: ExerciseService,
   ) {
 
   }
 
   ngOnInit() {
+    this.exerciseList = this.exerciseService.getExerciseList();
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
-    this.loadComponent(BrowsingExerciseComponent, this.flashcardList);
+    this.setInitialExercise();
+    this.loadExerciseComponent(this.currentExercise);
+  }
+
+  private setInitialExercise(): void {
+    if (this.exerciseList.length > 0) {
+      this.currentExercise = this.exerciseList[this.currentExerciseIndex];
+    } else {
+      console.warn('Exercise list is empty.');
+    }
+  }
+
+  loadExerciseComponent(exercise: Exercise) {
+    const exerciseComponent = ComponentRegistry[exercise.componentName];
+
+    if (exerciseComponent) {
+      this.loadComponent(exerciseComponent, this.flashcardList);
+    }
   }
 
   loadComponent<T>(component: Type<T>, data: Flashcard[]) {
@@ -37,7 +61,7 @@ export class PracticeModeComponent implements OnInit  {
     // Create the component dynamically
     const componentRef = this.container.createComponent(component);
 
-    const instance = componentRef.instance as BrowsingExerciseComponent;
+    const instance = componentRef.instance as DynamicExerciseComponent;
 
     instance.flashcardList = data;
 
@@ -51,4 +75,9 @@ export class PracticeModeComponent implements OnInit  {
     console.log(data);
   }
 
+  nextExercise() {
+    this.currentExerciseIndex += 1;
+    this.currentExercise = this.exerciseList[this.currentExerciseIndex];
+    this.loadExerciseComponent(this.currentExercise);
+  }
 }
