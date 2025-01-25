@@ -4,6 +4,7 @@ import { ExerciseService } from '../../services/exercise.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PracticeModeService } from '../../services/practice-mode.service';
 import { PracticeConfigService } from '../../services/practice-config.service';
+import { Exercise } from '../../models/exercise';
 
 @Component({
   selector: 'app-exercise-selector',
@@ -12,7 +13,7 @@ import { PracticeConfigService } from '../../services/practice-config.service';
   styleUrl: './exercise-selector.component.css',
 })
 export class ExerciseSelectorComponent implements OnInit {
-  exerciseList: string[] = [];
+  exerciseList: Exercise[] = [];
   selectedExercises: string[] = [];
 
   constructor(

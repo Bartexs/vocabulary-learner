@@ -49,7 +49,8 @@ export class PracticeModeSelectorComponent implements OnInit {
   startPractice() {
     const config = this.practiceConfigService.getConfig();
     this.studySessionService.setStudySessionConfigByUsingPracticeConfig(config);
-    this.router.navigate(['/study-session']);
+    // this.router.navigate(['/study-session']);
+    this.router.navigate(['/practice']);
     this.lessonsAndExerciseChosen = true;
   }
 }

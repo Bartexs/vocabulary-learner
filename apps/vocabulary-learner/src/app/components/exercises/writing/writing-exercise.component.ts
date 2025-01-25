@@ -64,7 +64,8 @@ export class WritingExerciseComponent implements OnInit {
   initializeStudySessionResults() {
     const exercise: Exercise = {
       id: 0,
-      name: 'writing'
+      name: 'writing',
+      componentName: "writing"
     }
 
     this.studySessionResults = {
