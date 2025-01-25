@@ -4,7 +4,7 @@
     padding: 10px;          /* Optional: Inner spacing */
     background-color: #fff; /* Optional: Background color */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Subtle shadow */
-    width: 60%;                     /* 60% of screen width */
+    width: 60vw;                     /* 60% of screen width */
     margin: 0 auto;   
     height: 300px;
 }

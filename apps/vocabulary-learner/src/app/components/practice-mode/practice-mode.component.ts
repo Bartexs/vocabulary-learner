@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Exercise } from '../../models/exercise';
 import { Flashcard } from '../../models/flashcard';
-import { BrowsingExerciseComponent } from '../exercises/browsing/browsing-exercise.component';
 import { LessonService } from '../../services/lesson.service';
 import { ExerciseSummary } from '../../models/exercise-Summary';
 import { ComponentRegistry } from '../../models/exercise-registry';
@@ -22,7 +21,7 @@ export class PracticeModeComponent implements OnInit  {
   @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
   flashcardList: Flashcard[] = [];
   currentExercise!: Exercise;
-  currentExerciseIndex = 1;
+  currentExerciseIndex = 0;
 
   constructor(
     private lessonService: LessonService,

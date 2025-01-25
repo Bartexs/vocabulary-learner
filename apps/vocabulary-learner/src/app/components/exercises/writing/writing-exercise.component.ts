@@ -6,6 +6,7 @@ import { StudySessionResults } from '../../../models/studySessionResults';
 import { Exercise } from '../../../models/exercise';
 import { FlashcardService } from '../../../services/flashcard.service';
 import { DateUtilsService } from '../../../services/date-utils.service';
+import { DynamicExerciseComponent } from '../dynamic-exercise.component';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -13,8 +14,8 @@ import { DateUtilsService } from '../../../services/date-utils.service';
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
-export class WritingExerciseComponent implements OnInit {
-  @Input() flashcards: Flashcard[] = [];
+export class WritingExerciseComponent extends DynamicExerciseComponent implements OnInit  {
+  // @Input() flashcards: Flashcard[] = [];
   @Input() modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   currentFlashcard!: Flashcard;
@@ -28,7 +29,8 @@ export class WritingExerciseComponent implements OnInit {
   skipNextKeyPress = false;
 
   ngOnInit() {
-    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
+    console.log(this.flashcardList);
+    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.initializeStudySessionResults();
   }
 
@@ -36,7 +38,7 @@ export class WritingExerciseComponent implements OnInit {
     private flashcardService: FlashcardService,
     private dateUtilsService: DateUtilsService
   ) {
-    
+    super();
   }
 
   // When answer is input, user should press enter to 
@@ -79,7 +81,7 @@ export class WritingExerciseComponent implements OnInit {
   nextFlashcard() {
     this.currentFlashcardIndex += 1;
     this.resetFlashCardTest();
-    this.currentFlashcard = this.flashcards[this.currentFlashcardIndex];
+    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
   }
 
   public checkFlashcard(event: KeyboardEvent) {
@@ -99,7 +101,7 @@ export class WritingExerciseComponent implements OnInit {
     
     if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
 
-    if(this.currentFlashcardIndex + 1 === this.flashcards.length) {
+    if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
       console.log("set is finished");
       console.log(this.studySessionResults);
     } else {
@@ -109,7 +111,7 @@ export class WritingExerciseComponent implements OnInit {
   }
 
   setProficiency(isCorrect: boolean) {
-    const flashcardTested = this.flashcards[this.currentFlashcardIndex];
+    const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
     const history = flashcardTested.flashcardProficiency;
 
     if(isCorrect) {

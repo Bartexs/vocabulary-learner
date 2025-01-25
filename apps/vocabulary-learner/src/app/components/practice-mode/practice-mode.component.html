@@ -1,11 +1,13 @@
 <div class="container">
-    <p>ME</p>
     <div class="row" >
         <div *ngFor="let exercise of exerciseList">
             <span>Exercise: {{exercise.name}}</span>
         </div>
     </div>
-    <ng-container #dynamicHost></ng-container>
-
-    <button (click)="nextExercise()">Next</button>
+    <div class="row">
+        <ng-container #dynamicHost></ng-container>
+    </div>
+    <div class="row">
+        <button (click)="nextExercise()">Next</button>
+    </div>
 </div>

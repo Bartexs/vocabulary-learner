@@ -6,14 +6,13 @@ import { Lesson } from '../../../models/lessons';
 import { LessonService } from '../../../services/lesson.service';
 import { PracticeConfigService } from '../../../services/practice-config.service';
 import { StudySessionService } from '../../../services/study-session.service';
-import { WritingExerciseComponent } from "../../exercises/writing/writing-exercise.component";
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseSelectorComponent } from "./exercise-selector/exercise-selector.component";
 import { MaterialSelectorComponent } from "./material-selector/material-selector.component";
 
 @Component({
   selector: 'app-practice-mode-selector',
-  imports: [CommonModule, WritingExerciseComponent, MatCheckboxModule, ExerciseSelectorComponent, MaterialSelectorComponent],
+  imports: [CommonModule, MatCheckboxModule, ExerciseSelectorComponent, MaterialSelectorComponent],
   templateUrl: './practice-mode-selector.component.html',
   styleUrl: './practice-mode-selector.component.css',
 })
