@@ -1,59 +1,54 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Exercise } from '../../models/exercise';
 import { Flashcard } from '../../models/flashcard';
+import { BrowsingExerciseComponent } from '../exercises/browsing/browsing-exercise.component';
 import { LessonService } from '../../services/lesson.service';
-import { Lesson } from '../../models/lessons';
-import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.component";
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MaterialSelectorComponent } from "../material-selector/material-selector.component";
-import { ExerciseSelectorComponent } from "../exercise-selector/exercise-selector.component";
-import { PracticeConfigService } from '../../services/practice-config.service';
-import { StudySessionService } from '../../services/study-session.service';
-import { Router } from '@angular/router';
-
+import { ExerciseSummary } from '../../models/exercise-Summary';
 
 @Component({
   selector: 'app-practice-mode',
-  imports: [CommonModule, FormsModule, WritingExerciseComponent, MatCheckboxModule, MaterialSelectorComponent, ExerciseSelectorComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './practice-mode.component.html',
   styleUrl: './practice-mode.component.css',
   standalone: true
 })
-export class PracticeModeComponent implements OnInit {
-  lessonsID: number[] = [];
+export class PracticeModeComponent implements OnInit  {
+  @Input() exerciseList: Exercise[] = [];
+  @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
   flashcardList: Flashcard[] = [];
-  lessonsAndExerciseChosen = false;
-  modeType = "PRACTICE";
 
   constructor(
     private lessonService: LessonService,
-    private practiceConfigService: PracticeConfigService,
-    private studySessionService: StudySessionService,
-    private router: Router
   ) {
 
   }
 
-  ngOnInit(): void {
-    this.setMaterialToPractice();
+  ngOnInit() {
+    this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
+    this.loadComponent(BrowsingExerciseComponent, this.flashcardList);
   }
 
-  setMaterialToPractice() {
-    this.lessonsID = this.lessonService.getMaterialToPractice(); // Retrieve the lesson
-    if (this.lessonsID.length > 0) {
-      const lessons: Lesson[] = this.lessonService.getLessonsByID(this.lessonService.getMaterialToPractice());
-      this.flashcardList = lessons.flatMap(lesson => lesson.flashcards);
-    } else {
-      console.log("list is empty");
-      // give option to practice today material or certain lessons 
-    }
+  loadComponent<T>(component: Type<T>, data: Flashcard[]) {
+    // Clear previous components
+    this.container.clear();
+
+    // Create the component dynamically
+    const componentRef = this.container.createComponent(component);
+
+    const instance = componentRef.instance as BrowsingExerciseComponent;
+
+    instance.flashcardList = data;
+
+    instance.dataEmitter.subscribe((emittedData: ExerciseSummary) => {
+      this.receiveSummary(emittedData);
+    });
   }
 
-  startPractice() {
-    const config = this.practiceConfigService.getConfig();
-    this.studySessionService.setStudySessionConfigByUsingPracticeConfig(config);
-    this.router.navigate(['/study-session']);
-    this.lessonsAndExerciseChosen = true;
+  receiveSummary(data: ExerciseSummary) {
+    console.log("gotta");
+    console.log(data);
   }
+
 }

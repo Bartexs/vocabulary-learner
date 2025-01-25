@@ -1,0 +1,13 @@
+<div>
+    <app-material-selector></app-material-selector>
+    <app-exercise-selector></app-exercise-selector>
+    <span>Advanced settings</span>
+    <p>Split material between exercises</p>
+    <p>Use same material for each exercise</p>
+    <div>
+        <button (click)="startPractice()">Start</button>
+        <div *ngIf="lessonsAndExerciseChosen">
+            <app-writing-exercise [flashcards]="flashcardList" [modeType]="modeType"></app-writing-exercise>
+        </div>
+    </div>
+</div>

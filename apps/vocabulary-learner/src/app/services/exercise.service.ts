@@ -12,6 +12,7 @@ export class ExerciseService {
 
   populateExerciseList() {
     this.exerciseList.push("Writing");
+    this.exerciseList.push("Browse");
   }
 
   getExerciseList() {

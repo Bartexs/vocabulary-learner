@@ -1,9 +1,9 @@
-<div>
-    <p>practice-mode works!</p>
-    <app-material-selector></app-material-selector>
-    <app-exercise-selector></app-exercise-selector>
-    <button (click)="startPractice()">Start</button>
-    <div *ngIf="lessonsAndExerciseChosen">
-        <app-writing-exercise [flashcards]="flashcardList" [modeType]="modeType"></app-writing-exercise>
+<div class="container">
+    <p>ME</p>
+    <div class="row" >
+        <div *ngFor="let exercise of exerciseList">
+            <span>Exercise: {{exercise.name}}</span>
+        </div>
     </div>
+    <ng-container #dynamicHost></ng-container>
 </div>
