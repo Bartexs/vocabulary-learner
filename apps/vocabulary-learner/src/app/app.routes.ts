@@ -5,7 +5,7 @@ import { BrowseLessonsComponent } from './components/browse-lessons/browse-lesso
 import { FlashcardCreatorStandaloneComponent } from './components/creating-flashcards/flashcard-creator-standalone.component';
 import { StudyComponent } from './components/study/study.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
-import { PracticeModeSelectorComponent } from './components/practice-mode/practice-mode-selector.component';
+import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
 import { PracticeModeComponent } from './components/practice-mode/practice-mode.component';
 
 export const appRoutes: Route[] = [

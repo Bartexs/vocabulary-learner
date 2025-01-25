@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExerciseService } from '../../services/exercise.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { PracticeModeService } from '../../services/practice-mode.service';
-import { PracticeConfigService } from '../../services/practice-config.service';
-import { Exercise } from '../../models/exercise';
+import { Exercise } from 'apps/vocabulary-learner/src/app/models/exercise';
+import { ExerciseService } from 'apps/vocabulary-learner/src/app/services/exercise.service';
+import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/practice-config.service';
 
 @Component({
   selector: 'app-exercise-selector',

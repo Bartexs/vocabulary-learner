@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Lesson } from '../../models/lessons';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { LessonService } from '../../services/lesson.service';
-import { ExerciseService } from '../../services/exercise.service';
-import { PracticeConfigService } from '../../services/practice-config.service';
-import { Exercise } from '../../models/exercise';
+import { Exercise } from 'apps/vocabulary-learner/src/app/models/exercise';
+import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
+import { ExerciseService } from 'apps/vocabulary-learner/src/app/services/exercise.service';
+import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
+import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/practice-config.service';
 
 @Component({
   selector: 'app-material-selector',
