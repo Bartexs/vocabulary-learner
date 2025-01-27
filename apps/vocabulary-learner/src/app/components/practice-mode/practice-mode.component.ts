@@ -6,7 +6,9 @@ import { LessonService } from '../../services/lesson.service';
 import { ExerciseSummary } from '../../models/exercise-Summary';
 import { ComponentRegistry } from '../../models/exercise-registry';
 import { DynamicExerciseComponent } from '../exercises/dynamic-exercise.component';
-import { Exercise, ExerciseType, getExercises } from '../../models/exercise';
+import { ExerciseType, getExercises } from '../../models/exercise';
+import { Router } from '@angular/router';
+import { SessionSummaryService } from '../session-summary/session-summary.service';
 
 @Component({
   selector: 'app-practice-mode',
@@ -21,15 +23,19 @@ export class PracticeModeComponent implements OnInit  {
   flashcardList: Flashcard[] = [];
   currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
+  exerciseSummaryList: ExerciseSummary[] = [];
 
   constructor(
     private lessonService: LessonService,
+    private router: Router,
+    private sessionSummaryService: SessionSummaryService
   ) {
 
   }
 
   ngOnInit() {
-    this.exerciseList = getExercises();
+    // change it when passing exercise list from selector implemented
+    this.exerciseList = [getExercises()[0]];
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
     this.setInitialExercise();
     this.loadExerciseComponent(this.currentExercise);
@@ -68,8 +74,14 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   receiveSummary(data: ExerciseSummary) {
-    console.log("gotta");
-    console.log(data);
+    if(this.exerciseList.length === this.currentExerciseIndex + 1) {
+      this.sessionSummaryService.setExerciseSummaryList(this.exerciseSummaryList);
+      this.router.navigate(['/session-summary']);
+      return; 
+    }
+
+    this.exerciseSummaryList.push(data);
+    this.nextExercise();
   }
 
   nextExercise() {

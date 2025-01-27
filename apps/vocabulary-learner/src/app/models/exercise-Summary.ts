@@ -1,4 +1,4 @@
-import { Exercise, ExerciseType } from "./exercise";
+import { ExerciseType } from "./exercise";
 import { Flashcard } from "./flashcard";
 
 export interface ExerciseSummary {
