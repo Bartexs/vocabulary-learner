@@ -1,7 +1,7 @@
-import { Exercise } from "./exercise";
+import { ExerciseType } from "./exercise";
 import { Lesson } from "./lessons";
 
 export interface StudySessionConfig {
-        exerciseList: Exercise[],
+        exerciseList: ExerciseType[],
         lessonList: Lesson[],
 }

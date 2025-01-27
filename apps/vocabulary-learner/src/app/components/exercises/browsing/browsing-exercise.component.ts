@@ -1,8 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flashcard } from '../../../models/flashcard';
 import { ExerciseSummary } from '../../../models/exercise-Summary';
 import { DynamicExerciseComponent } from '../dynamic-exercise.component';
+import { Exercise } from '../../../models/exercise';
 
 @Component({
   selector: 'app-browsing-exercise',
@@ -17,6 +17,12 @@ export class BrowsingExerciseComponent extends DynamicExerciseComponent {
   onClick() {
     const newSummary: ExerciseSummary = {
       id: 0,
+      exercise: Exercise.Browse,
+      correctAnswers: 0,
+      wrongAnswers: 0,
+      totalFlashcards: 0,
+      correctFlashcards: [],
+      wrongFlashcards: []
     }
     this.dataEmitter.emit(newSummary);
   }

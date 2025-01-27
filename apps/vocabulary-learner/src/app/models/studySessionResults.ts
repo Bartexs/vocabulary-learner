@@ -1,7 +1,7 @@
-import { Exercise } from "./exercise";
+import { ExerciseType } from "./exercise";
 
 export interface StudySessionResults {
-    exercise: Exercise,
+    exercise: ExerciseType,
     correctAnswers: number,
     wrongAnswers: number,
     totalFlashcards: number,

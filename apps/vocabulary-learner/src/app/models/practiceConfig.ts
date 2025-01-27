@@ -1,6 +1,7 @@
-import { Exercise } from "./exercise";
+import { ExerciseType } from "./exercise";
+
 
 export interface PracticeConfig {
-    exerciseList: Exercise[],
+    exerciseList: ExerciseType[],
     lessonsID: number[],
 }

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { PracticeConfig } from '../models/practiceConfig';
-import { Exercise } from '../models/exercise';
+import { ExerciseType } from '../models/exercise';
 
 @Injectable({
   providedIn: 'root'
@@ -23,7 +23,7 @@ export class PracticeConfigService {
     this.practiceConfig.lessonsID = lessonsID;
   }
 
-  setExercises(exercises: Exercise[]) {
+  setExercises(exercises: ExerciseType[]) {
     this.practiceConfig.exerciseList = exercises;
   }
 

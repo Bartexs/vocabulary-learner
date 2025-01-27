@@ -1,13 +1,12 @@
 import { Component, Input, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Exercise } from '../../models/exercise';
 import { Flashcard } from '../../models/flashcard';
 import { LessonService } from '../../services/lesson.service';
 import { ExerciseSummary } from '../../models/exercise-Summary';
 import { ComponentRegistry } from '../../models/exercise-registry';
 import { DynamicExerciseComponent } from '../exercises/dynamic-exercise.component';
-import { ExerciseService } from '../../services/exercise.service';
+import { Exercise, ExerciseType, getExercises } from '../../models/exercise';
 
 @Component({
   selector: 'app-practice-mode',
@@ -17,21 +16,20 @@ import { ExerciseService } from '../../services/exercise.service';
   standalone: true
 })
 export class PracticeModeComponent implements OnInit  {
-  @Input() exerciseList: Exercise[] = [];
+  @Input() exerciseList: ExerciseType[] = [];
   @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
   flashcardList: Flashcard[] = [];
-  currentExercise!: Exercise;
+  currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
 
   constructor(
     private lessonService: LessonService,
-    private exerciseService: ExerciseService,
   ) {
 
   }
 
   ngOnInit() {
-    this.exerciseList = this.exerciseService.getExerciseList();
+    this.exerciseList = getExercises();
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
     this.setInitialExercise();
     this.loadExerciseComponent(this.currentExercise);
@@ -45,7 +43,7 @@ export class PracticeModeComponent implements OnInit  {
     }
   }
 
-  loadExerciseComponent(exercise: Exercise) {
+  loadExerciseComponent(exercise: ExerciseType) {
     const exerciseComponent = ComponentRegistry[exercise.componentName];
 
     if (exerciseComponent) {

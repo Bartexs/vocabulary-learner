@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Exercise } from 'apps/vocabulary-learner/src/app/models/exercise';
-import { ExerciseService } from 'apps/vocabulary-learner/src/app/services/exercise.service';
+import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/models/exercise';
 import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/practice-config.service';
 
 @Component({
@@ -11,19 +10,14 @@ import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/
   templateUrl: './exercise-selector.component.html',
   styleUrl: './exercise-selector.component.css',
 })
-export class ExerciseSelectorComponent implements OnInit {
-  exerciseList: Exercise[] = [];
+export class ExerciseSelectorComponent {
+  exerciseList: ExerciseType[] = getExercises();
   selectedExercises: string[] = [];
 
   constructor(
-    private exerciseService: ExerciseService,
     private practiceConfigService: PracticeConfigService
   ) {
     
-  }
-
-  ngOnInit() {
-    this.exerciseList = this.exerciseService.getExerciseList();
   }
 
   toggleSelection(exercise: string, isChecked: boolean): void {

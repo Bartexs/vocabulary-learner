@@ -1,12 +1,13 @@
-import { Component, ElementRef, HostListener, Input, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Flashcard } from '../../../models/flashcard';
 import { FormsModule } from '@angular/forms';
-import { StudySessionResults } from '../../../models/studySessionResults';
-import { Exercise } from '../../../models/exercise';
 import { FlashcardService } from '../../../services/flashcard.service';
 import { DateUtilsService } from '../../../services/date-utils.service';
 import { DynamicExerciseComponent } from '../dynamic-exercise.component';
+import { ExerciseSummary } from '../../../models/exercise-Summary';
+import { ExerciseService } from '../exercise.service';
+import { Exercise } from '../../../models/exercise';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -18,25 +19,26 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   // @Input() flashcards: Flashcard[] = [];
   @Input() modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
+  exercise = Exercise.Writing;
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
   userInput = '';
   isCorrect!: boolean;
   isFinished = false; 
-  studySessionResults!: StudySessionResults;
+  exerciseSummary!: ExerciseSummary;
   showResult = false;
   isListening = false;
   skipNextKeyPress = false;
 
   ngOnInit() {
-    console.log(this.flashcardList);
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    this.initializeStudySessionResults();
+    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
   }
 
   constructor(
     private flashcardService: FlashcardService,
-    private dateUtilsService: DateUtilsService
+    private dateUtilsService: DateUtilsService,
+    private exerciseService: ExerciseService
   ) {
     super();
   }
@@ -63,21 +65,6 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     this.isListening = !this.isListening;
   }
 
-  initializeStudySessionResults() {
-    const exercise: Exercise = {
-      id: 0,
-      name: 'writing',
-      componentName: "writing"
-    }
-
-    this.studySessionResults = {
-      exercise: exercise,
-      correctAnswers: 0,
-      wrongAnswers: 0,
-      totalFlashcards: 0,      
-    }
-  }
-
   nextFlashcard() {
     this.currentFlashcardIndex += 1;
     this.resetFlashCardTest();
@@ -90,20 +77,13 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     this.isFinished = true;
     this.isCorrect = this.currentFlashcard.frontSide === this.userInput;
 
-    this.studySessionResults = {
-      ...this.studySessionResults,
-      correctAnswers: this.studySessionResults.correctAnswers + (this.isCorrect ? 1 : 0),
-      wrongAnswers: this.studySessionResults.wrongAnswers + (this.isCorrect ? 0 : 1),
-      totalFlashcards: this.studySessionResults.totalFlashcards + 1,
-    };
-
-    // set proficiency of the flashcard it should increase based on amount of correct answers
+    this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
     if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
 
     if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
       console.log("set is finished");
-      console.log(this.studySessionResults);
+      this.dataEmitter.emit(this.exerciseSummary);
     } else {
       this.showResult = true;
       this.toggleListening();

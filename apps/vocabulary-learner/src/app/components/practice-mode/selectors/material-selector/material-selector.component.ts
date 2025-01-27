@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { Exercise } from 'apps/vocabulary-learner/src/app/models/exercise';
+import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/models/exercise';
 import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
-import { ExerciseService } from 'apps/vocabulary-learner/src/app/services/exercise.service';
 import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
 import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/practice-config.service';
 
@@ -15,12 +14,11 @@ import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/
 })
 export class MaterialSelectorComponent implements OnInit {
   lessonsAvailable: Lesson[] = [];
-  exerciseAvailable: Exercise[] = [];
+  exerciseAvailable: ExerciseType[] = [];
   selectedLessonsId: number[] = [];
 
   constructor(
     private lessonService: LessonService,
-    private exerciseService: ExerciseService,
     private practiceModeConfigService: PracticeConfigService
   ) {
 
@@ -28,7 +26,7 @@ export class MaterialSelectorComponent implements OnInit {
 
   ngOnInit() {
     this.lessonsAvailable = this.lessonService.loadAllLessons();
-    this.exerciseAvailable = this.exerciseService.getExerciseList();
+    this.exerciseAvailable = getExercises();
   }
 
   toggleSelection(lessonId: number, isChecked: boolean) {
