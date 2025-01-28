@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudySessionService } from '../../services/study-session.service';
 import { StudySessionConfig } from '../../models/studySessionConfig';
-import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.component";
 import { LessonService } from '../../services/lesson.service';
 import { Flashcard } from '../../models/flashcard';
 
 @Component({
   selector: 'app-study',
-  imports: [CommonModule, WritingExerciseComponent],
+  imports: [CommonModule],
   templateUrl: './study.component.html',
   styleUrl: './study.component.css',
 })

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { WritingExerciseComponent } from "../exercises/writing/writing-exercise.component";
 import { LessonService } from '../../services/lesson.service';
 import { Flashcard } from '../../models/flashcard';
 import { Lesson } from '../../models/lessons';
@@ -8,7 +7,7 @@ import { DateUtilsService } from '../../services/date-utils.service';
 
 @Component({
   selector: 'app-exam-mode',
-  imports: [CommonModule, WritingExerciseComponent],
+  imports: [CommonModule],
   templateUrl: './exam-mode.component.html',
   styleUrl: './exam-mode.component.css',
 })

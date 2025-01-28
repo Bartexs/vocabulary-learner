@@ -4,7 +4,6 @@ import { LessonService } from '../../services/lesson.service';
 import { Lesson } from '../../models/lessons';
 import { FormsModule } from '@angular/forms';
 import { LessonDetailsViewComponent } from "./lesson-details-view.component";
-import { Flashcard } from '../../models/flashcard';
 import { Router } from '@angular/router';
 
 @Component({

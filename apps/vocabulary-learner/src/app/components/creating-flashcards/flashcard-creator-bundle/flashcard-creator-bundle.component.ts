@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Flashcard } from '../../../models/flashcard';
 import { FlashcardProficiency } from '../../../models/flashcard-proficiency';
-import { v4 as uuidv4 } from 'uuid';
 
 @Component({
   selector: 'app-flashcard-creator-bundle',
