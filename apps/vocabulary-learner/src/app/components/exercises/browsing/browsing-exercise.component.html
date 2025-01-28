@@ -1,16 +1,24 @@
-<div class="flex-col">
-    <div>
-        <span>{{this.currentFlashcard.backSide}}</span>
-    </div>
-    <div>
-        <button (click)="toggleShowCorrectAnswer()">Check</button>
+<div class="flex-col center">
+    <div *ngIf="!showCorrectAnswer" class="flex-col">
+        <div class="box text center">
+            <h1>{{this.currentFlashcard.backSide}}</h1>
+        </div>
+        <div class="button-container center">
+            <button class="border button"(click)="toggleShowCorrectAnswer()">Check</button>
+        </div>
     </div>
     <div *ngIf="showCorrectAnswer" class="flex-col">
         <div class="flex-col">
-            <span>{{this.currentFlashcard.frontSide}}</span>
-            <span>Did you know the answer?</span>
-            <button (click)="saveAnswer(true)">I knew</button>
-            <button (click)="saveAnswer(false)">I didn't know</button>
+            <div class="box-answer text center"> 
+                <h1>{{this.currentFlashcard.frontSide}}</h1>
+            </div>
+            <div>
+                <span>Did you know the answer?</span>
+            </div>
+            <div class="flex-row center">
+                <button (click)="saveAnswer(true)">Correct</button>
+                <button (click)="saveAnswer(false)">Wrong</button>
+            </div>
         </div>
     </div>
 </div>

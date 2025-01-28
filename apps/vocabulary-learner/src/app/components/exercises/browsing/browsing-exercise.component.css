@@ -1,4 +1,82 @@
-.flex-col {
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .flex-col {
     display: flex;
     flex-direction: column;
-}
+    align-items: center;
+    gap: 16px; /* Adds spacing between items */
+  }
+  
+  .flex-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px; /* Adds spacing between buttons */
+  }
+  
+  .center {
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .box {
+    background-color: #ffffff;
+    border: 2px solid #4a90e2;
+    border-radius: 8px;
+    padding: 70px 60px 70px 60px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+  }
+
+  .box-answer {
+    background: linear-gradient(135deg, #4e54c8, #8f94fb); /* Gradient background */
+    border: none;
+    border-radius: 16px; /* Larger rounded corners */
+    padding: 70px 60px 70px 60px; /* Increased padding for more space */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+    text-align: center;
+    color: white; /* White text for contrast */
+    width: 350px; /* Fixed width for consistency */
+  }
+  
+  .text h1 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .button-container {
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border: 2px solid #4a90e2;
+    border-radius: 8px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+  }
+  
+  button:hover {
+    background-color: #357abd;
+  }
+  
+  button:active {
+    transform: scale(0.95);
+  }
+  
+  span {
+    font-size: 16px;
+    color: #555;
+  }
