@@ -9,3 +9,7 @@ export type ExerciseType = typeof Exercise[keyof typeof Exercise];
 export function getExercises(): ExerciseType[] {
     return Object.values(Exercise);
 }
+
+export function getExercisesByNames(exerciseNames: string[]): ExerciseType[] {
+    return Object.values(Exercise).filter(exercise => exerciseNames.includes(exercise.name));
+}

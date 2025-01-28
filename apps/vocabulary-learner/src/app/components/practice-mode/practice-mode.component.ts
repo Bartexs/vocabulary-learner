@@ -35,7 +35,7 @@ export class PracticeModeComponent implements OnInit  {
 
   ngOnInit() {
     // change it when passing exercise list from selector implemented
-    this.exerciseList = [getExercises()[0]];
+    this.exerciseList = getExercises();
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
     this.setInitialExercise();
     this.loadExerciseComponent(this.currentExercise);

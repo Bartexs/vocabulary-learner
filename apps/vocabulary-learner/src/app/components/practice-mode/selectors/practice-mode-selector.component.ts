@@ -9,6 +9,7 @@ import { StudySessionService } from '../../../services/study-session.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseSelectorComponent } from "./exercise-selector/exercise-selector.component";
 import { MaterialSelectorComponent } from "./material-selector/material-selector.component";
+import { ExerciseType } from '../../../models/exercise';
 
 @Component({
   selector: 'app-practice-mode-selector',
@@ -51,5 +52,9 @@ export class PracticeModeSelectorComponent implements OnInit {
     // this.router.navigate(['/study-session']);
     this.router.navigate(['/practice']);
     this.lessonsAndExerciseChosen = true;
+  }
+
+  chosenExercisesChanged(data: ExerciseType[]) {
+    console.log(data);
   }
 }

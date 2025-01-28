@@ -1,6 +1,6 @@
 <div>
     <app-material-selector></app-material-selector>
-    <app-exercise-selector></app-exercise-selector>
+    <app-exercise-selector (exerciseListEmmiter)="chosenExercisesChanged($event)"></app-exercise-selector>
     <span>Advanced settings</span>
     <p>Split material between exercises</p>
     <p>Use same material for each exercise</p>

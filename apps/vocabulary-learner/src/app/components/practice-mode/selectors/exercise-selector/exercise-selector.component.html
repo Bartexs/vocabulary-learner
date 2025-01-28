@@ -1,5 +1,4 @@
 <p>Choose exercise type:</p>
 <div>
     <mat-checkbox *ngFor="let exercise of exerciseList"  (change)="toggleSelection(exercise.name, $event.checked)">{{exercise.name}}</mat-checkbox>
-    <button (click)="onSubmit()">Submit</button>
 </div>
