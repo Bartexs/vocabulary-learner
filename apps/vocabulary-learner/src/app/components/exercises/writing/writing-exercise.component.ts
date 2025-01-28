@@ -20,12 +20,9 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   @Input() modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   exercise = Exercise.Writing;
-  currentFlashcard!: Flashcard;
-  currentFlashcardIndex = 0;
   userInput = '';
   isCorrect!: boolean;
   isFinished = false; 
-  exerciseSummary!: ExerciseSummary;
   showResult = false;
   isListening = false;
   skipNextKeyPress = false;
@@ -82,8 +79,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
 
     if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
-      console.log("set is finished");
-      this.dataEmitter.emit(this.exerciseSummary);
+      this.finishExercise()
     } else {
       this.showResult = true;
       this.toggleListening();

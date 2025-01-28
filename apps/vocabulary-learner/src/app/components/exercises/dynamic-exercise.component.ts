@@ -12,4 +12,15 @@ import { Flashcard } from '../../models/flashcard';
 export class DynamicExerciseComponent {
   @Input() flashcardList: Flashcard[] = [];
   @Output() dataEmitter = new EventEmitter<ExerciseSummary>();
+  exerciseSummary!: ExerciseSummary;
+  currentFlashcard!: Flashcard;
+  currentFlashcardIndex = 0;
+
+  finishExercise(): void {
+    this.dataEmitter.emit(this.exerciseSummary);
+  }
+
+  isLastFlashcard(): boolean {
+    return this.currentFlashcardIndex + 1 >= this.flashcardList.length;
+  }
 }

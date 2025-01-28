@@ -1,5 +1,16 @@
-<p>browsing-exercise works!</p>
-<div>
-    <div *ngFor="let flashcard of flashcardList">{{flashcard.frontSide}}</div>
+<div class="flex-col">
+    <div>
+        <span>{{this.currentFlashcard.backSide}}</span>
+    </div>
+    <div>
+        <button (click)="toggleShowCorrectAnswer()">Check</button>
+    </div>
+    <div *ngIf="showCorrectAnswer" class="flex-col">
+        <div class="flex-col">
+            <span>{{this.currentFlashcard.frontSide}}</span>
+            <span>Did you know the answer?</span>
+            <button (click)="saveAnswer(true)">I knew</button>
+            <button (click)="saveAnswer(false)">I didn't know</button>
+        </div>
+    </div>
 </div>
-<button (click)="onClick()">Click Click</button>
