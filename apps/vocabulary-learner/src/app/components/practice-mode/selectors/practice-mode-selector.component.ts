@@ -4,12 +4,12 @@ import { Router } from '@angular/router';
 import { Flashcard } from '../../../models/flashcard';
 import { Lesson } from '../../../models/lessons';
 import { LessonService } from '../../../services/lesson.service';
-import { PracticeConfigService } from '../../../services/practice-config.service';
-import { StudySessionService } from '../../../services/study-session.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseSelectorComponent } from "./exercise-selector/exercise-selector.component";
 import { MaterialSelectorComponent } from "./material-selector/material-selector.component";
 import { ExerciseType } from '../../../models/exercise';
+import { PracticeModeConfig } from '../models/practice-mode-config';
+import { PracticeModeService } from '../services/practice-mode.service';
 
 @Component({
   selector: 'app-practice-mode-selector',
@@ -22,17 +22,18 @@ export class PracticeModeSelectorComponent implements OnInit {
   flashcardList: Flashcard[] = [];
   lessonsAndExerciseChosen = false;
   modeType = "PRACTICE";
+  practiceModeConfig!: PracticeModeConfig
 
   constructor(
     private lessonService: LessonService,
-    private practiceConfigService: PracticeConfigService,
-    private studySessionService: StudySessionService,
-    private router: Router
+    private router: Router,
+    private practiceModeService: PracticeModeService,
   ) {
   }
 
   ngOnInit(): void {
     this.setMaterialToPractice();
+    this.practiceModeConfig = this.initializePracticeModeConfig();
   }
 
   setMaterialToPractice() {
@@ -47,14 +48,21 @@ export class PracticeModeSelectorComponent implements OnInit {
   }
 
   startPractice() {
-    const config = this.practiceConfigService.getConfig();
-    this.studySessionService.setStudySessionConfigByUsingPracticeConfig(config);
-    // this.router.navigate(['/study-session']);
+    this.practiceModeService.setPracticeModeConfig(this.practiceModeConfig);
     this.router.navigate(['/practice']);
-    this.lessonsAndExerciseChosen = true;
   }
 
   chosenExercisesChanged(data: ExerciseType[]) {
-    console.log(data);
+    this.practiceModeConfig = {
+      ...this.practiceModeConfig,
+      exerciseList: data
+    };
+  }
+
+  initializePracticeModeConfig(): PracticeModeConfig {
+    return {
+      exerciseList: [],
+      lessonList: []
+    }
   }
 }

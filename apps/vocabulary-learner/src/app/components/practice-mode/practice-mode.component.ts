@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/core';
+import { Component, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Flashcard } from '../../models/flashcard';
@@ -6,9 +6,11 @@ import { LessonService } from '../../services/lesson.service';
 import { ExerciseSummary } from '../../models/exercise-Summary';
 import { ComponentRegistry } from '../../models/exercise-registry';
 import { DynamicExerciseComponent } from '../exercises/dynamic-exercise.component';
-import { ExerciseType, getExercises } from '../../models/exercise';
+import { ExerciseType } from '../../models/exercise';
 import { Router } from '@angular/router';
 import { SessionSummaryService } from '../session-summary/session-summary.service';
+import { PracticeModeService } from './services/practice-mode.service';
+import { PracticeModeConfig } from './models/practice-mode-config';
 
 @Component({
   selector: 'app-practice-mode',
@@ -18,27 +20,37 @@ import { SessionSummaryService } from '../session-summary/session-summary.servic
   standalone: true
 })
 export class PracticeModeComponent implements OnInit  {
-  @Input() exerciseList: ExerciseType[] = [];
+  exerciseList: ExerciseType[] = [];
   @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
   flashcardList: Flashcard[] = [];
   currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
   exerciseSummaryList: ExerciseSummary[] = [];
+  config!: PracticeModeConfig;
 
   constructor(
     private lessonService: LessonService,
     private router: Router,
-    private sessionSummaryService: SessionSummaryService
+    private sessionSummaryService: SessionSummaryService,
+    private practiceModeService: PracticeModeService,
   ) {
 
   }
 
   ngOnInit() {
-    // change it when passing exercise list from selector implemented
-    this.exerciseList = getExercises();
+    this.setConfig();
+    this.setExerciseList();
     this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
     this.setInitialExercise();
     this.loadExerciseComponent(this.currentExercise);
+  }
+
+  private setConfig() {
+    this.config = this.practiceModeService.getPracticeModeConfig();
+  }
+
+  private setExerciseList() {
+    this.exerciseList = this.config.exerciseList;
   }
 
   private setInitialExercise(): void {

@@ -10,11 +10,11 @@ import { PracticeModeComponent } from './components/practice-mode/practice-mode.
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
-    { path: 'practice', component: PracticeModeSelectorComponent },
+    { path: 'practice-selector', component: PracticeModeSelectorComponent },
     { path: 'exam', component: ExamModeComponent },
     { path: 'create-flashcard', component: FlashcardCreatorStandaloneComponent }, 
     { path: 'browse-lessons', component: BrowseLessonsComponent },
     { path: 'study-session', component: StudyComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
-    { path: 'test', component: PracticeModeComponent }
+    { path: 'practice', component: PracticeModeComponent }
 ];
