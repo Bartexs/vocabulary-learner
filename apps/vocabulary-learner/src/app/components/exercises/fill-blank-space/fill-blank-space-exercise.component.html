@@ -1,5 +1,14 @@
-<p>fill-blank-space-exercise works!</p>
-<div>
-    <div *ngFor="let flashcard of flashcardList">{{flashcard.frontSide}}</div>
-</div>
-<button (click)="onClick()">Click Click</button>
+<input type="text" [(ngModel)]="word" placeholder="Enter a phrase">
+<button (click)="maskLetters()">Mask Letters</button>
+
+<p>Original: {{ word }}</p>
+<p>Masked: <span *ngFor="let letter of maskedWord.split(''); let i = index">
+  <span *ngIf="letter === '_'">
+    <input type="text" [(ngModel)]="userInput[i]" maxlength="1" size="1" />
+  </span>
+  <span *ngIf="letter === ' '">&nbsp;</span>
+  <span *ngIf="letter !== '_' && letter !== ' '">{{ letter }}</span>
+</span></p>
+
+<button (click)="checkAnswer()">Check Answer</button>
+<p>{{ feedbackMessage }}</p>
