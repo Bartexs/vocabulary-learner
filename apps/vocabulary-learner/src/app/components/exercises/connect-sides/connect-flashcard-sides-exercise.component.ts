@@ -10,16 +10,23 @@ import { DynamicExerciseComponent } from '../dynamic-exercise.component';
 import { Exercise, ExerciseType } from '../../../models/exercise';
 import { ExerciseService } from '../exercise.service';
 
+export interface BackSideWithCorrectIndex {
+  word: string,
+  correctIndex: number,
+}
+
 @Component({
   selector: 'app-connect-flashcard-sides-exercise',
   imports: [CommonModule, CdkDropList, CdkDrag],
   templateUrl: './connect-flashcard-sides-exercise.component.html',
   styleUrl: './connect-flashcard-sides-exercise.component.css',
 })
+
 export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseComponent implements OnInit {
   exercise: ExerciseType = Exercise.ConnectFlashcardSides;
   frontSideContainer: string[] = [];
-  backSideContainer: string[] = [];
+  backSideContainer: BackSideWithCorrectIndex[] = [];
+  showAnswer = false;
 
   constructor(private exerciseService: ExerciseService) {
     super();
@@ -36,13 +43,31 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
     })
 
     this.backSideContainer = this.flashcardList.map(flashcard => {
-      return flashcard.backSide;
-    })
+      return {
+        word: flashcard.backSide,
+        correctIndex: this.flashcardList.indexOf(flashcard),
+      }
+    });
+
+    this.backSideContainer = this.shuffleArray(this.backSideContainer);
   }
 
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    };
+  drop(event: CdkDragDrop<BackSideWithCorrectIndex[]>) {
+    if (event.previousIndex !== event.currentIndex) {
+      // Swap elements instead of moving them
+      [this.backSideContainer[event.previousIndex], this.backSideContainer[event.currentIndex]] = 
+      [this.backSideContainer[event.currentIndex], this.backSideContainer[event.previousIndex]];
+    }
+  }
+
+  checkAnswer() {
+    this.showAnswer =! this.showAnswer;
+  }
+
+  shuffleArray<T>(array: T[]): T[] {
+    return array
+      .map(value => ({ value, sort: Math.random() })) // Assign a random sort key
+      .sort((a, b) => a.sort - b.sort) // Sort based on the random key
+      .map(({ value }) => value); // Extract values
   }
 }

@@ -1,4 +1,5 @@
 <div>
+  <div>
     <div class="example-container">
         <h2>To do</h2>
         <div class="example-list"> 
@@ -16,9 +17,21 @@
         [cdkDropListData]="this.backSideContainer"
         class="example-list"
         (cdkDropListDropped)="drop($event)">
-        @for (item of backSideContainer; track item) {
-          <div class="example-box" cdkDrag>{{item}}</div>
+        @for (item of backSideContainer; track item; let i = $index) {
+          <div class="example-box" cdkDrag>{{item.word}}
+            <span *ngIf="item.correctIndex === i && this.showAnswer">correct</span> 
+            <span *ngIf="item.correctIndex !== i && this.showAnswer">WRONG!</span> 
+          </div>
         }
       </div>
     </div>
+  </div>
+  <div>
+    <div *ngIf="this.showAnswer">
+      <p>Press any key to continue...</p>
+    </div>
+    <div>
+      <button (click)="checkAnswer()">Check</button>
+    </div>
+  </div>
 </div>
