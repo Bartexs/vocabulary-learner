@@ -1,0 +1,16 @@
+<div class="container">
+    <div class="folders-section">
+      <h1>Folders</h1>
+      <div class="folder-list">
+        <div *ngFor="let folder of folderList" class="folder-item">
+          <span class="folder-name">{{ folder.folderName }}</span>
+          <mat-icon class="folder-icon edit-icon" aria-hidden="false" aria-label="Edit folder icon" fontIcon="edit_document"></mat-icon>
+          <mat-icon class="folder-icon delete-icon" aria-hidden="false" aria-label="Delete folder icon" fontIcon="delete"></mat-icon>
+        </div>
+      </div>
+      <div class="add-folder">
+        <mat-icon class="folder-icon add-icon" aria-hidden="false" aria-label="Add new folder icon" fontIcon="add_circle"></mat-icon>
+      </div>
+    </div>
+</div>
+  

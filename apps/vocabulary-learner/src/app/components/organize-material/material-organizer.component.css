@@ -1,0 +1,79 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 85vh;
+    background-color: #f4f4f4;
+}
+  
+.folders-section {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 350px;
+}
+  
+h1 {
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    color: #333;
+}
+  
+.folder-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+  
+.folder-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f9f9f9;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+}
+  
+.folder-item:hover {
+    background: #e0e0e0;
+}
+  
+.folder-name {
+    flex-grow: 1;
+    font-size: 16px;
+    color: #555;
+}
+  
+.folder-icon {
+    cursor: pointer;
+    font-size: 22px;
+    transition: color 0.3s ease;
+}
+  
+.edit-icon:hover {
+    color: #1976d2;
+}
+  
+.delete-icon:hover {
+    color: #d32f2f;
+}
+  
+.add-folder {
+    text-align: center;
+    margin-top: 15px;
+}
+  
+.add-icon {
+    font-size: 26px;
+    color: #388e3c;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+  
+.add-icon:hover {
+    color: #2e7d32;
+}
+  
