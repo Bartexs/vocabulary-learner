@@ -1,7 +1,37 @@
-<nav>
-    <a href="#">Home</a>
-    <a href="/exam">Exam</a>
-    <a href="/practice-selector">Practice</a>
-    <a href="/create-flashcard">Create new flashcard</a>
-    <a href="/browse-lessons">Browse Lessons</a>
+<nav class="flex-row container">
+    <div>
+        <a href="#">
+            <mat-icon aria-hidden="false" aria-label="Home icon" fontIcon="home"></mat-icon>
+        </a>
+    </div>
+    <div class="flex-row gap">
+        <div>
+            <a href="/practice-selector">Exercise</a>
+        </div>
+        <div>
+            <a href="/browse-lessons">Organize</a>
+        </div>
+    </div>
+    <div class="flex-row gap-low">
+        <div class="add-menu">
+            <mat-icon [matMenuTriggerFor]="addMenu" aria-hidden="false" aria-label="Add elements icon" fontIcon="add_circle_outline"></mat-icon>
+            <mat-menu #addMenu="matMenu">
+                <button mat-menu-item>Add Flashcard <mat-icon fontIcon="note_stack"></mat-icon></button>
+                <button mat-menu-item>Add Lesson <mat-icon fontIcon="library_books"></mat-icon></button>
+                <button mat-menu-item>Add Folder <mat-icon fontIcon="create_new_folder"></mat-icon></button>
+            </mat-menu>
+        </div>
+        <div class="flex-row gap-low">
+            <div>
+                <a href="#">
+                    <mat-icon aria-hidden="false" aria-label="Profile icon" fontIcon="account_circle"></mat-icon>
+                </a>
+            </div>
+            <div>
+                <a href="#">
+                    <mat-icon aria-hidden="false" aria-label="Login icon" fontIcon="login"></mat-icon>
+                </a>
+            </div>
+        </div>
+    </div>
 </nav>
