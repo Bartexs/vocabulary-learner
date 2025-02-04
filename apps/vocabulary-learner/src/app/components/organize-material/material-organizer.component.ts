@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { Folder } from '../../models/folder';
 import { MatIconModule } from '@angular/material/icon';
+import { CreatorService } from './creators/creator.service';
 
 @Component({
   selector: 'app-material-organizer',
@@ -14,32 +15,10 @@ export class MaterialOrganizerComponent implements OnInit {
   folderList: Folder[] = [];
 
   ngOnInit() {
-    this.createDummyFolders();
+    this.folderList = this.creatorService.loadAllFolders();
   }
 
-  createDummyFolders() {
-    const list = [];
-
-    const folderOne: Folder = {
-      id: 1,
-      folderName: 'German',
-      lessonList: []
-    }
-
-    const folderTwo: Folder = {
-      id: 2,
-      folderName: 'Romanian',
-      lessonList: []
-    }
-
-    const folderThree: Folder = {
-      id: 3,
-      folderName: 'French',
-      lessonList: []
-    }
-
-    list.push(folderOne, folderTwo, folderThree)
-
-    this.folderList = list;
+  constructor(private creatorService: CreatorService) {
+    
   }
 }
