@@ -21,4 +21,10 @@ export class MaterialOrganizerComponent implements OnInit {
   constructor(private creatorService: CreatorService) {
     
   }
+
+  removeFolder(index: number) {
+    const folder = this.folderList[index];
+    
+    this.creatorService.deleteFolder(folder);
+  }
 }
