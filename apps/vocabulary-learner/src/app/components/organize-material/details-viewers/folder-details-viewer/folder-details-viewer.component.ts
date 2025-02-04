@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Folder } from 'apps/vocabulary-learner/src/app/models/folder';
-import { CreatorService } from '../../creators/creator.service';
+import { Folder } from 'apps/vocabulary-learner/src/app/models/folder/folder';
+import { FolderService } from 'apps/vocabulary-learner/src/app/models/folder/folder.service';
 
 @Component({
   selector: 'app-folder-details-viewer',
@@ -16,7 +16,7 @@ export class FolderDetailsViewerComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private creatorService: CreatorService,
+    private folderService: FolderService,
   ) {
     
   }
@@ -28,7 +28,7 @@ export class FolderDetailsViewerComponent implements OnInit {
   retrieveIdFromURL() {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.folder = this.creatorService.getFolderById(id)
+      this.folder = this.folderService.getFolderById(id)
       this.isLoading = false;
     });
   }

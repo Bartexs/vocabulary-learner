@@ -1,4 +1,4 @@
-import { Lesson } from "./lessons";
+import { Lesson } from "../lessons";
 
 export interface Folder {
     id: number, 
