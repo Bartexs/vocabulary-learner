@@ -36,10 +36,10 @@ export class CreatorService {
   getFolderById(id: number) {
     const savedFolder = localStorage.getItem(this.folderKeyBeginning + id);
     if (savedFolder) {
-      alert('Folder loaded from localStorage!');
+      console.log('Folder loaded from localStorage!');
       return JSON.parse(savedFolder);
     } else {
-      alert('No folder found in localStorage.');
+      console.log('No folder found in localStorage.');
     }
   }
 
