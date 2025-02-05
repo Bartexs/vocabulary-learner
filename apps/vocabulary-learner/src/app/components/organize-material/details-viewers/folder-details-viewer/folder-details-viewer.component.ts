@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
 import { FolderService } from '../../../../models/folder/folder.service';
 import { Folder } from '../../../../models/folder/folder';
 
 @Component({
   selector: 'app-folder-details-viewer',
-  imports: [CommonModule, MatIconModule],
+  imports: [CommonModule, MatIconModule, RouterLink],
   templateUrl: './folder-details-viewer.component.html',
   styleUrl: './folder-details-viewer.component.css',
 })

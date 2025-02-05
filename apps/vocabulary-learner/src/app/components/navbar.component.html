@@ -17,7 +17,7 @@
             <mat-icon [matMenuTriggerFor]="addMenu" aria-hidden="false" aria-label="Add elements icon" fontIcon="add_circle_outline"></mat-icon>
             <mat-menu #addMenu="matMenu">
                 <button mat-menu-item>Add Flashcard <mat-icon fontIcon="note_stack"></mat-icon></button>
-                <button mat-menu-item>Add Lesson <mat-icon fontIcon="library_books"></mat-icon></button>
+                <button mat-menu-item [routerLink]="['/lesson-creator']">Add Lesson <mat-icon fontIcon="library_books"></mat-icon></button>
                 <button mat-menu-item>Add Folder <mat-icon fontIcon="create_new_folder"></mat-icon></button>
             </mat-menu>
         </div>

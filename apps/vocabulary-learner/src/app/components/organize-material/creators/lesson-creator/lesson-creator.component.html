@@ -1,0 +1,19 @@
+<p>lesson-creator works!</p>
+<div>
+    <div *ngIf="folder">
+        <div>
+            <p>{{folder.folderName}}</p>
+        </div>
+        <div *ngIf="folder.lessonList.length > 0">
+            <p>Existing lessons</p>
+            <div *ngFor="let lesson of folder.lessonList">
+                <p>{{lesson.name}}</p>
+            </div>
+        </div>
+    </div>
+    <div *ngIf="!folder">
+        <div *ngFor="let folder of folderList">
+            <p>{{folder.folderName}}</p>
+        </div>
+    </div>
+</div>
