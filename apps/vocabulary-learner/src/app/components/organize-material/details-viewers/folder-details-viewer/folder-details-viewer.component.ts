@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Folder } from 'apps/vocabulary-learner/src/app/models/folder/folder';
-import { FolderService } from 'apps/vocabulary-learner/src/app/models/folder/folder.service';
+import { MatIconModule } from '@angular/material/icon';
+import { FolderService } from '../../../../models/folder/folder.service';
+import { Folder } from '../../../../models/folder/folder';
 
 @Component({
   selector: 'app-folder-details-viewer',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIconModule],
   templateUrl: './folder-details-viewer.component.html',
   styleUrl: './folder-details-viewer.component.css',
 })

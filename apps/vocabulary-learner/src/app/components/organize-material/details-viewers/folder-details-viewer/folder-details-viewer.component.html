@@ -1,4 +1,22 @@
-<div *ngIf="!isLoading">
-    <p>folder-details-viewer works!</p>
-    <p>{{folder.folderName}}</p>
+<div class="container" *ngIf="!isLoading">
+    <div>
+        <div>
+            <p>{{folder.folderName}}</p>
+        </div>
+        <div>
+            <div *ngIf="folder.lessonList.length === 0">
+                <p>Lessons list is empty</p>
+            </div>
+            <div *ngIf="folder.lessonList.length > 0">
+                <div *ngFor="let lesson of folder.lessonList">
+                    <p>{{lesson.name}}</p>
+                </div>
+            </div>
+            <div>
+                <a href="/lesson-creator"> 
+                    <mat-icon class="folder-icon add-icon" aria-hidden="false" aria-label="Add new folder icon" fontIcon="add_circle"></mat-icon>
+                </a>
+            </div>
+        </div>
+    </div>
 </div>
