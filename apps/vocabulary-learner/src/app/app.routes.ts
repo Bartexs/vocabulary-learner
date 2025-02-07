@@ -10,6 +10,7 @@ import { MaterialOrganizerComponent } from './components/organize-material/mater
 import { FolderCreatorComponent } from './components/organize-material/creators/folder-creator/folder-creator.component';
 import { FolderDetailsViewerComponent } from './components/organize-material/details-viewers/folder-details-viewer/folder-details-viewer.component';
 import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
+import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -24,4 +25,5 @@ export const appRoutes: Route[] = [
     { path: 'folder-details/:id', component: FolderDetailsViewerComponent },
     { path: 'lesson-creator/:id', component: LessonCreatorComponent },
     { path: 'lesson-creator', component: LessonCreatorComponent },
+    { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },
 ];

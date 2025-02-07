@@ -9,7 +9,7 @@
             </div>
             <div *ngIf="folder.lessonList.length > 0">
                 <div *ngFor="let lesson of folder.lessonList">
-                    <p>{{lesson.name}}</p>
+                    <p>{{lesson.name}}<button [routerLink]="['/lesson-details', lesson.id]">Edit</button></p>
                 </div>
             </div>
             <div>
