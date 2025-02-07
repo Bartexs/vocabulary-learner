@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Folder } from '../../../../models/folder/folder';
 import { FolderService } from 'apps/vocabulary-learner/src/app/models/folder/folder.service';
 
 @Component({
@@ -18,12 +17,7 @@ export class FolderCreatorComponent {
   }
 
   onSubmit() {
-    const newFolder: Folder = {
-      id: Date.now(),
-      folderName: this.userInput,
-      lessonList: []
-    }
-
-    this.folderService.saveFolder(newFolder);
+    const folder = this.folderService.createFolder(this.userInput);
+    this.folderService.saveFolder(folder);
   }
 }

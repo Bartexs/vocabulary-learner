@@ -47,4 +47,12 @@ export class FolderService {
     localStorage.removeItem(this.folderKeyBeginning + folder.id);
   }
 
+  createFolder(folderName: string): Folder {
+    return {
+      id: Date.now(),
+      folderName: folderName,
+      lessonList: []
+    }
+  }
+
 }

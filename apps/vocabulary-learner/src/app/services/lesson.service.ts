@@ -79,4 +79,13 @@ export class LessonService {
       alert('No lesson found in localStorage.');
     }
   }
+
+  createLesson(folderId: number, lessonName: string, flashcardList: Flashcard[]): Lesson {
+    return {
+      id: this.generateLessonId(),
+      folderId: folderId,
+      name: lessonName,
+      flashcards: flashcardList
+    }
+  }
 }
