@@ -1,20 +1,21 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Flashcard } from '../../../models/flashcard';
-import { FlashcardProficiency } from '../../../models/flashcard-proficiency';
+import { FlashcardProficiency } from 'apps/vocabulary-learner/src/app/models/flashcard-proficiency';
+import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
+import { Flashcard } from 'apps/vocabulary-learner/src/app/models/flashcard';
 
 @Component({
-  selector: 'app-flashcard-creator-bundle',
+  selector: 'app-flashcard-creator',
   imports: [CommonModule, FormsModule],
-  templateUrl: './flashcard-creator-bundle.component.html',
-  styleUrl: './flashcard-creator-bundle.component.css',
+  templateUrl: './flashcard-creator.component.html',
+  styleUrl: './flashcard-creator.component.css',
 })
-export class FlashcardCreatorBundleComponent {
-  @Input() lessonID!: number;
+export class FlashcardCreatorComponent {
+  @Input() lesson!: Lesson;
   @Output() emitFlashcards: EventEmitter<Flashcard[]> = new EventEmitter()
   userInput = '';
-  
+
   saveAsFlashcard() {
     const lines = this.userInput.split('\n');
 
@@ -29,7 +30,7 @@ export class FlashcardCreatorBundleComponent {
         const [front, back] = line.split('\t'); // Split by tab character
         return {
           id: Math.floor(Math.random() * 1000000),
-          lessonId: this.lessonID,
+          lessonId: this.lesson.id,
           frontSide: front?.trim() || '', // Trim and handle missing front
           backSide: back?.trim() || '',    // Trim and handle missing back
           flashcardProficiency: flashcardProficiency

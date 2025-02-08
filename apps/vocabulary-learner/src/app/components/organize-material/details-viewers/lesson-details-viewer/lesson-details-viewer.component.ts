@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
 import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
-import { FlashcardCreatorBundleComponent } from "../../../creating-flashcards/flashcard-creator-bundle/flashcard-creator-bundle.component";
 import { Flashcard } from 'apps/vocabulary-learner/src/app/models/flashcard';
+import { FlashcardCreatorComponent } from "../../creators/flashcard-creator/flashcard-creator.component";
 
 @Component({
   selector: 'app-lesson-details-viewer',
-  imports: [CommonModule, FlashcardCreatorBundleComponent],
+  imports: [CommonModule, FlashcardCreatorComponent],
   templateUrl: './lesson-details-viewer.component.html',
   styleUrl: './lesson-details-viewer.component.css',
 })

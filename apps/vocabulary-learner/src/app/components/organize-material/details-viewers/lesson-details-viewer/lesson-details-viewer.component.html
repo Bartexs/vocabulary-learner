@@ -10,5 +10,5 @@
         </div>
     </div>
     <button>Add flashcards</button>
-    <app-flashcard-creator-bundle (emitFlashcards)="addFlashcardsToLesson($event)" [lessonID]="lesson.id"></app-flashcard-creator-bundle>
+    <app-flashcard-creator (emitFlashcards)="addFlashcardsToLesson($event)" [lesson]="lesson"></app-flashcard-creator>
 </div>
