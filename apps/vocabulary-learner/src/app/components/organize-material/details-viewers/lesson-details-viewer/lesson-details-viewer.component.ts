@@ -34,7 +34,9 @@ export class LessonDetailsViewerComponent implements OnInit {
   }
 
   addFlashcardsToLesson(flashcardList: Flashcard[]) {
-    this.lesson.flashcards = flashcardList;
+    flashcardList.map(flashcard => {
+      this.lesson.flashcards.push(flashcard);
+    });
     this.lessonService.updateLesson(this.lesson);
   }
 } 
