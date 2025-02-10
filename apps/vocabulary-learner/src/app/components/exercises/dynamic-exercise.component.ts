@@ -23,4 +23,9 @@ export class DynamicExerciseComponent {
   isLastFlashcard(): boolean {
     return this.currentFlashcardIndex + 1 >= this.flashcardList.length;
   }
+
+    moveToNextFlashcard() {
+    this.currentFlashcardIndex++; // Increment index
+    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex]; // Update current flashcard
+  }
 }

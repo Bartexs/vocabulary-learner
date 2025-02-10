@@ -1,0 +1,20 @@
+<div>
+    <div *ngIf="!isShowConcept">
+        <p>{{this.currentFlashcard.frontSide}}</p>
+        <p>{{this.currentFlashcard.backSide}}</p>
+    </div>
+    <div *ngIf="isShowConcept">
+        <div>
+            <p>{{this.currentFlashcard.backSide}}</p>
+        </div>
+        <div class="row">
+            <div  class="border" *ngFor="let flashcard of definitionList; index as i" (keydown)="handleKeyPress(flashcard, i)" (click)="check(flashcard)" tabindex="0">
+                <p>{{flashcard.frontSide}}</p>
+            </div>
+        </div>
+        <div>
+            <p>Repeat</p>
+            <p>Move to next batch</p>
+        </div>
+    </div>
+</div>
