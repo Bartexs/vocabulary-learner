@@ -1,20 +1,28 @@
-<div>
-    <div *ngIf="!isShowConcept">
-        <p>{{this.currentFlashcard.frontSide}}</p>
-        <p>{{this.currentFlashcard.backSide}}</p>
+<div class="container">
+    <div *ngIf="!isShowConcept" class="text-center">
+        <p class="front">{{ currentFlashcard.frontSide }}</p>
+        <p class="back">{{ currentFlashcard.backSide }}</p>
     </div>
-    <div *ngIf="isShowConcept">
-        <div>
-            <p>{{this.currentFlashcard.backSide}}</p>
+    
+    <div *ngIf="isShowConcept" class="content">
+        <div class="text-center">
+            <p class="back">{{ currentFlashcard.backSide }}</p>
         </div>
-        <div class="row">
-            <div  class="border" *ngFor="let flashcard of definitionList; index as i" (keydown)="handleKeyPress(flashcard, i)" (click)="check(flashcard)" tabindex="0">
-                <p>{{flashcard.frontSide}}</p>
+        
+        <div class="grid-container">
+            <div  
+                class="flashcard"
+                *ngFor="let flashcard of definitionList; index as i" 
+                (keydown)="handleKeyPress(flashcard, i)" 
+                (click)="check(flashcard)" 
+                tabindex="0">
+                <p class="text">{{ flashcard.frontSide }}</p>
             </div>
         </div>
-        <div>
-            <p>Repeat</p>
-            <p>Move to next batch</p>
+        
+        <div class="button-group">
+            <button class="repeat-btn">Repeat</button>
+            <button class="next-btn">Move to next batch</button>
         </div>
     </div>
 </div>
