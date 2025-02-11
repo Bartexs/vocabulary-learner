@@ -1,14 +1,14 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FlashcardProficiency } from 'apps/vocabulary-learner/src/app/models/flashcard-proficiency';
-import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
-import { Flashcard } from 'apps/vocabulary-learner/src/app/models/flashcard';
+import { Flashcard } from '../../../../../../../src/app/models/flashcard';
+import { FlashcardProficiency } from '../../../../../../../src/app/models/flashcard-proficiency';
+import { Lesson } from '../../../../../../../src/app/models/lessons';
 
 @Component({
   selector: 'app-flashcard-creator',
   imports: [CommonModule, FormsModule],
-  templateUrl: './flashcard-creator.component.html',
+  templateUrl: '././flashcard-creator.component.html',
   styleUrl: './flashcard-creator.component.css',
 })
 export class FlashcardCreatorComponent {

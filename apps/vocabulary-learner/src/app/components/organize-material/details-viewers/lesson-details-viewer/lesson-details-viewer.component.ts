@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
-import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
-import { Flashcard } from 'apps/vocabulary-learner/src/app/models/flashcard';
-import { FlashcardCreatorComponent } from "../../creators/flashcard-creator/flashcard-creator.component";
+import { Lesson } from '../../../../../../src/app/models/lessons';
+import { LessonService } from '../../../../../../src/app/services/lesson.service';
+import { Flashcard } from '../../../../../../src/app/models/flashcard';
+import { FlashcardCreatorComponent } from '../../creators/flashcard-creator/mini/flashcard-creator.component';
 
 @Component({
   selector: 'app-lesson-details-viewer',
