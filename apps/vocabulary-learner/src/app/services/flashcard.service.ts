@@ -34,4 +34,8 @@ export class FlashcardService {
     this.lessonService.saveLesson(lesson);
     return true;
   }
+
+  getFlashcards(lessonID: number): Flashcard[] | undefined {
+    return this.lessonService.getLessonById(lessonID)?.flashcards;
+  }
 }
