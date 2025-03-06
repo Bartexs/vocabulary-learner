@@ -1,10 +1,29 @@
-<div>
-    <app-material-selector></app-material-selector>
-    <app-exercise-selector (exerciseListEmmiter)="chosenExercisesChanged($event)"></app-exercise-selector>
-    <span>Advanced settings</span>
-    <p>Split material between exercises</p>
-    <p>Use same material for each exercise</p>
-    <div>
+<div class="container">
+    <div class="selectors">
+        <div class="card">
+            <app-material-selector></app-material-selector>
+        </div>
+        <div class="card">
+            <app-exercise-selector (exerciseListEmmiter)="chosenExercisesChanged($event)"></app-exercise-selector>
+        </div>
+    </div>
+
+    <div class="advanced-settings-toggle">
+        <button (click)="isShowAdvancedSettings = !isShowAdvancedSettings">
+            {{ isShowAdvancedSettings ? 'Hide' : 'Show' }} advanced settings
+        </button>
+    </div>
+
+    <div class="advanced-settings" *ngIf="isShowAdvancedSettings">
+        <h3>Advanced settings</h3>
+        <ul>
+            <li>Split material between exercises</li>
+            <li>Use same material for each exercise</li>
+            <li>Set amount of mistakes before repeat</li>
+        </ul>
+    </div>
+
+    <div class="start-button">
         <button (click)="startPractice()">Start</button>
     </div>
 </div>

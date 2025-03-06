@@ -22,7 +22,8 @@ export class PracticeModeSelectorComponent implements OnInit {
   flashcardList: Flashcard[] = [];
   lessonsAndExerciseChosen = false;
   modeType = "PRACTICE";
-  practiceModeConfig!: PracticeModeConfig
+  practiceModeConfig!: PracticeModeConfig;
+  isShowAdvancedSettings = false;
 
   constructor(
     private lessonService: LessonService,
