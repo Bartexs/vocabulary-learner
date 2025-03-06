@@ -3,7 +3,7 @@ import { HomeComponent } from './components/home.component';
 import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
-import { PracticeModeComponent } from './components/practice-mode/practice-mode.component';
+import { PracticeModeComponent } from './components/practice-mode/exercises-container/practice-mode.component';
 import { MaterialOrganizerComponent } from './components/organize-material/material-organizer.component';
 import { FolderCreatorComponent } from './components/organize-material/creators/folder-creator/folder-creator.component';
 import { FolderDetailsViewerComponent } from './components/organize-material/details-viewers/folder-details-viewer/folder-details-viewer.component';
