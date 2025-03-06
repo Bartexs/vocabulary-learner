@@ -33,7 +33,7 @@ export class PracticeModeSelectorComponent implements OnInit {
 
   ngOnInit(): void {
     this.setMaterialToPractice();
-    this.practiceModeConfig = this.initializePracticeModeConfig();
+    this.practiceModeConfig = this.practiceModeService.initializePracticeModeConfig();
   }
 
   setMaterialToPractice() {
@@ -57,12 +57,5 @@ export class PracticeModeSelectorComponent implements OnInit {
       ...this.practiceModeConfig,
       exerciseList: data
     };
-  }
-
-  initializePracticeModeConfig(): PracticeModeConfig {
-    return {
-      exerciseList: [],
-      lessonList: []
-    }
   }
 }

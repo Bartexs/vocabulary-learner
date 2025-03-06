@@ -4,7 +4,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/models/exercise';
 import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
 import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
-import { PracticeConfigService } from 'apps/vocabulary-learner/src/app/services/practice-config.service';
+import { PracticeModeService } from '../../services/practice-mode.service';
 
 @Component({
   selector: 'app-material-selector',
@@ -19,7 +19,7 @@ export class MaterialSelectorComponent implements OnInit {
 
   constructor(
     private lessonService: LessonService,
-    private practiceModeConfigService: PracticeConfigService
+    private practiceModeService: PracticeModeService
   ) {
 
   }
@@ -35,14 +35,12 @@ export class MaterialSelectorComponent implements OnInit {
     } else {
       this.selectedLessonsId = this.selectedLessonsId.filter(id => id !== lessonId);
     }
+    this.onSelectedLessonListUpdate();
   }
 
-  onSubmit(): void {
-    // to be used when i want to give to practice congif lessons instead of lessonsID
-    // const selectedLessons = this.lessonsAvailable.filter(lesson => 
-    //   this.selectedLessonsId.includes(lesson.id)
-    // );
-
-    this.practiceModeConfigService.setLessonsID(this.selectedLessonsId);
-  }
+  onSelectedLessonListUpdate() {
+    const config = this.practiceModeService.getPracticeModeConfig();
+    config.lessonList = this.lessonService.getLessonsByID(this.selectedLessonsId);
+    this.practiceModeService.setPracticeModeConfig(config);
+  };
 }

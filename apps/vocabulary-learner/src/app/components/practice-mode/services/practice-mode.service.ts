@@ -14,4 +14,11 @@ export class PracticeModeService {
   getPracticeModeConfig(): PracticeModeConfig {
     return this.practiceModeConfig
   }
+
+  initializePracticeModeConfig(): PracticeModeConfig {
+    return this.practiceModeConfig = {
+      lessonList: [],
+      exerciseList: [],
+    };
+  }
 }

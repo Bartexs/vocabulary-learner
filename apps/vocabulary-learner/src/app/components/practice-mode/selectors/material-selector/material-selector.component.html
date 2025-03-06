@@ -1,4 +1,2 @@
-<p>material-selector works!</p>
 <p>Choose lessons to practice:</p>
 <mat-checkbox *ngFor="let lesson of lessonsAvailable" (change)="toggleSelection(lesson.id, $event.checked)">{{lesson.name}}</mat-checkbox>
-<button mat-raised-button color="primary" (click)="onSubmit()">Set lessons</button>

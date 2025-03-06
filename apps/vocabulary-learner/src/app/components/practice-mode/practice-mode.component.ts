@@ -26,7 +26,6 @@ export class PracticeModeComponent implements OnInit  {
   currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
   exerciseSummaryList: ExerciseSummary[] = [];
-  config!: PracticeModeConfig;
 
   constructor(
     private lessonService: LessonService,
@@ -38,19 +37,18 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   ngOnInit() {
-    this.setConfig();
     this.setExerciseList();
-    this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.lessonService.loadAllLessons());
+    this.setFlashcardList();
     this.setInitialExercise();
     this.loadExerciseComponent(this.currentExercise);
   }
 
-  private setConfig() {
-    this.config = this.practiceModeService.getPracticeModeConfig();
+  private setFlashcardList() {
+    this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.practiceModeService.getPracticeModeConfig().lessonList);
   }
 
   private setExerciseList() {
-    this.exerciseList = this.config.exerciseList;
+    this.exerciseList = this.practiceModeService.getPracticeModeConfig().exerciseList;
   }
 
   private setInitialExercise(): void {
