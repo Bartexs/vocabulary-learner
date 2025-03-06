@@ -1,12 +1,17 @@
 import { Injectable } from '@angular/core';
 import { Flashcard } from '../models/flashcard';
 import { LessonService } from './lesson.service';
+import { Lesson } from '../models/lessons';
+import { DateUtilsService } from './date-utils.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FlashcardService {
-  constructor(private lessonService: LessonService) {
+  constructor(
+    private lessonService: LessonService,
+    private dateUtilsService: DateUtilsService
+  ) {
 
   }
 
@@ -37,5 +42,36 @@ export class FlashcardService {
 
   getFlashcards(lessonID: number): Flashcard[] | undefined {
     return this.lessonService.getLessonById(lessonID)?.flashcards;
+  }
+
+  getNewFlashcards(): Flashcard[] {
+    const allLessons: Lesson[] = this.lessonService.loadAllLessons();
+    const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
+
+    const flashcardsWithEmptyHistory = allFlashcards.filter(flashcard => {
+      const history = flashcard.flashcardProficiency;
+      return history.nextExamDate === undefined;
+    });
+
+    return flashcardsWithEmptyHistory;
+  }
+
+  getRepetitionMaterial(): Flashcard[] {
+    const allLessons: Lesson[] = this.lessonService.loadAllLessons();
+    const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
+
+    const flashcardsForCurrentExam = allFlashcards.filter(flashcard => {
+      const history = flashcard.flashcardProficiency
+      return (
+        !history.flashcardMastered && 
+        history.nextExamDate != null &&
+        this.dateUtilsService.isTestedToday(history.nextExamDate))
+    });
+
+    return flashcardsForCurrentExam;
+  }
+
+  isFlashcardNew(flashcard: Flashcard): boolean {
+    return flashcard.flashcardProficiency.nextExamDate === undefined;
   }
 }

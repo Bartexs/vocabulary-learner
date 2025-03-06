@@ -41,6 +41,7 @@ export class ExamModeComponent implements OnInit {
     this.newMaterial = this.getNewMaterial();
   }
 
+  // to be removed, functionality moved to flashcard service
   getNewMaterial(): Flashcard[] {
     const allLessons: Lesson[] = this.lessonService.loadAllLessons();
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
@@ -53,6 +54,7 @@ export class ExamModeComponent implements OnInit {
     return flashcardsWithEmptyHistory;
   }
 
+  // to be removed, functionality moved to flashcard service
   getRepetitionMaterial(): Flashcard[] {
     const allLessons: Lesson[] = this.lessonService.loadAllLessons();
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
