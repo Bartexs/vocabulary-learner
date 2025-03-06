@@ -1,7 +1,6 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './components/home.component';
 import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
-import { StudyComponent } from './components/study/study.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
 import { PracticeModeComponent } from './components/practice-mode/practice-mode.component';
@@ -17,7 +16,6 @@ export const appRoutes: Route[] = [
     { path: 'practice-selector', component: PracticeModeSelectorComponent },
     { path: 'exam', component: ExamModeComponent },
     { path: 'browse-lessons', component: MaterialOrganizerComponent },
-    { path: 'study-session', component: StudyComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
     { path: 'practice', component: PracticeModeComponent },
     { path: 'folder-creator', component: FolderCreatorComponent },
