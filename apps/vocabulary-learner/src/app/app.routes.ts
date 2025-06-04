@@ -10,6 +10,7 @@ import { FolderDetailsViewerComponent } from './components/organize-material/det
 import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
 import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
+import { RegisterComponent } from './components/register/RegisterComponent.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -24,4 +25,5 @@ export const appRoutes: Route[] = [
     { path: 'lesson-creator', component: LessonCreatorComponent },
     { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },
     { path: 'flashcard-creator', component: FlashcardCreatorStandaloneComponent },
+    { path: 'register', component: RegisterComponent },
 ];
