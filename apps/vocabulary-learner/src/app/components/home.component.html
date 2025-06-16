@@ -1,76 +1,17 @@
-<div class="text">
-
-    <!-- add ngIf user has any flashcards -->
+<div class="menu">
     <div>
-        <div>
-            <h1>Learning plan for today:</h1>
-        </div>
-        <div>
-            <div>
-                <h2>Overview:</h2>
-            </div>
-            <div>
-                <div>
-                    <div *ngIf="newFlashcardList">
-                        <p>{{newFlashcardList.length}} new flashcards</p>
-                    </div>
-                    <div *ngIf="!newFlashcardList">
-                        <div>
-                            <p>No new flashcards.</p>
-                        </div>
-                        <div>
-                            <button>Create</button>
-                            <p>Press button to add some!</p>
-                        </div>
-                    </div>
-                </div>
-                <div>
-                    <div *ngIf="repetitionFlashcardList">
-                        <p>{{repetitionFlashcardList.length}} flashcards for repetition</p>
-                    </div>
-                    <div *ngIf="!repetitionFlashcardList">
-                        <p>No flashcards for repetition</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div>
-            <div>
-                <h2>Details:</h2>
-            </div>
-            <div style="display: flex; flex-direction: row;">
-                @for (folder of folderList; track folder) {
-                    <div>
-                        <p>{{folder.folder.folderName}}</p>
-                        <p>20 new words</p>
-                        <p>10 revisions</p>
-                        <p>Press start to try to pass new material</p>
-                        <p>Or press practice to train new words before exam</p>
-                    </div>
-                }
-            </div>
-        </div>
+        <a href="/exam">
+            <button>Exam</button>
+        </a>
     </div>
-
-    <!-- ngIf user don't have any flashcards -->
     <div>
-
+        <a href="/practice">
+            <button>Practice</button>
+        </a>
     </div>
-  
     <div>
-        <div>
-            <a routerLink="/practice-selector">Practice</a>
-        </div>
-        <div>
-            <a routerLink="/create-flashcard">Create new flashcard</a>
-        </div>
-        <div>
-            <a routerLink="/browse-lessons">Browse Lessons</a>
-        </div>
-    </div>
-
-    <div>
-        <button (click)="clearLocalStorage()">Clear LocalData</button>
+        <a href="/flashcard-creator">
+            <button>Add Flashcards</button>
+        </a>
     </div>
 </div>
-
