@@ -1,17 +1,20 @@
 <div class="menu">
-    <div>
-        <a href="/exam">
-            <button>Exam</button>
-        </a>
-    </div>
-    <div>
-        <a href="/practice">
-            <button>Practice</button>
-        </a>
-    </div>
-    <div>
-        <a href="/flashcard-creator">
-            <button>Add Flashcards</button>
-        </a>
-    </div>
+  <div class="tooltip">
+    <a href="/exam" class="btn-link disabled">📝 Exam</a>
+    <span class="disabled-icon">❗</span>
+    <span class="tooltip-text">Take a quick test</span>
+    <p class="disabled-note">Exam is unavailable until you've added flashcards.</p>
+  </div>
+
+  <div class="tooltip">
+    <a href="/practice" class="btn-link disabled">🎯 Practice</a>
+    <span class="disabled-icon">❗</span>
+    <span class="tooltip-text">Practice your flashcards</span>
+    <p class="disabled-note">Practice is locked until you review your first flashcard.</p>
+  </div>
+
+  <div class="tooltip">
+    <a href="/flashcard-creator" class="btn-link">➕ Add Flashcards</a>
+    <span class="tooltip-text">Add new flashcards to your deck</span>
+  </div>
 </div>

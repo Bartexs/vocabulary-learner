@@ -23,6 +23,8 @@ interface FolderWithFlashcards {
 })
 
 export class HomeComponent implements OnInit {
+  examEnabled = false;
+  practiceEnabled = true;
   repetitionFlashcardList: Flashcard[] | undefined;
   newFlashcardList: Flashcard[] | undefined;
   folderList: FolderWithFlashcards[] | undefined;
