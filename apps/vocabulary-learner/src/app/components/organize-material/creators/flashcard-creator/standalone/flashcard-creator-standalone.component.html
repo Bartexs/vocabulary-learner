@@ -1,41 +1,61 @@
 <div>
-  <div>
-      <p>Flashcard - creator</p>
-  </div>
-  <div>
-    <form>
-        <p>Select Folder</p>
-        <mat-form-field>
-          <mat-label>Choose folder</mat-label>
-          <mat-select (selectionChange)="selectedFolderChange()" [(ngModel)]="selectedFolder" name="folder">
-            @for (folder of folderList; track folder) {
-              <mat-option [value]="folder.folderName">{{folder.folderName}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-    </form>
-  </div>  
-  <div *ngIf="lessonList">
-    <form>
-        <p>Select Lesson</p>
-        <mat-form-field>
-          <mat-label>Choose lesson</mat-label>
-          <mat-select (selectionChange)="selectedLessonChange()" [(ngModel)]="selectedLesson" name="lesson">
-            @for (lesson of lessonList; track lesson) {
-              <mat-option [value]="lesson.name">{{lesson.name}}</mat-option>
-            }
-          </mat-select>
-        </mat-form-field>
-    </form>
-  </div>
-  <div>
-
-  </div>
-  <div>
-    <div *ngIf="flashcardList">
-      @for(flashcard of flashcardList; track flashcard) {
-        <p>{{flashcard.backSide}}{{flashcard.frontSide}}</p>
-      }
+  <div *ngIf="folderList?.length === 0">
+    <div>
+      <p>You don’t have any folders yet.</p>
+      <p>Start by creating your first one!</p>
     </div>
-  </div>  
+    <div>
+      <div>
+        Folder Name:
+        <input [(ngModel)]="folderName">
+      </div>
+      <div>
+        Lesson Name:
+        <input [(ngModel)]="lessonName">
+      </div>
+    </div>
+    <div>
+      <button (click)="createFolder()">Create</button>
+    </div>
+  </div>
+  <div *ngIf="folderList?.length !== 0">
+    <div>
+      <form>
+          <p>Choose Folder</p>
+          <mat-form-field>
+            <mat-label>Choose folder</mat-label>
+            <mat-select (selectionChange)="selectedFolderChange()" [(ngModel)]="selectedFolder" name="folder">
+              @for (folder of folderList; track folder) {
+                <mat-option [value]="folder.folderName">{{folder.folderName}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+      </form>
+    </div>  
+    <div *ngIf="lessonList">
+      <form>
+          <p>Select Lesson</p>
+          <mat-form-field>
+            <mat-label>Choose lesson</mat-label>
+            <mat-select (selectionChange)="selectedLessonChange()" [(ngModel)]="userLessonSelection" name="lesson">
+              @for (lesson of lessonList; track lesson) {
+                <mat-option [value]="lesson.name">{{lesson.name}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+      </form>
+    </div>
+    <div>
+    </div>
+    <div *ngIf="userLessonSelection">
+      <div>
+        <app-flashcard-creator [lesson]="selectedLesson"></app-flashcard-creator>
+      </div>
+      <div *ngIf="flashcardList">
+        @for(flashcard of flashcardList; track flashcard) {
+          <p>{{flashcard.backSide}}{{flashcard.frontSide}}</p>
+        }
+      </div>
+    </div>  
+  </div>
 </div>

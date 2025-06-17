@@ -9,28 +9,44 @@ import { Folder } from '../../../../../../../src/app/models/folder/folder';
 import { FolderService } from '../../../../../../../src/app/models/folder/folder.service';
 import { Flashcard } from '../../../../../../../src/app/models/flashcard';
 import { FlashcardService } from '../../../../../../../src/app/services/flashcard.service';
+import { FolderCreatorComponent } from "../../folder-creator/folder-creator.component";
+import { LessonService } from '../../../../../../../src/app/services/lesson.service';
+import { FlashcardCreatorComponent } from "../mini/flashcard-creator.component";
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FolderCreatorComponent, FlashcardCreatorComponent],
   templateUrl: './flashcard-creator-standalone.component.html',
   styleUrl: './flashcard-creator-standalone.component.css',
 })
 export class FlashcardCreatorStandaloneComponent implements OnInit{
   folderList: Folder[] | undefined;
   lessonList: Lesson[] | undefined;
-  selectedLesson!: string;
+  userLessonSelection!: string;
+  selectedLesson!: Lesson;
   selectedFolder!: string;
   flashcardList!: Flashcard[] | undefined;
+  folderName = '';
+  lessonName = '';
 
   constructor(
     private folderService: FolderService,
-    private flashcardService: FlashcardService
+    private flashcardService: FlashcardService,
+    private lessonService: LessonService
   ) {
     
   }
-
+  
   ngOnInit() {
+    this.folderList = this.folderService.loadAllFolders();
+  }
+
+  createFolder() {
+    const folder = this.folderService.createFolder(this.folderName);
+    const lesson = this.lessonService.createLesson(folder.id, this.lessonName, []);
+    this.lessonService.saveLesson(lesson);
+    folder.lessonList.push(lesson);
+    this.folderService.saveFolder(folder);
     this.folderList = this.folderService.loadAllFolders();
   }
 
@@ -50,7 +66,7 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   }
 
   selectedLessonChange() {
-    const lessonFound = this.lessonList?.find((element) => element.name === this.selectedLesson)
+    const lessonFound = this.lessonList?.find((element) => element.name === this.userLessonSelection)
 
     if(lessonFound) this.flashcardList = this.flashcardService.getFlashcards(lessonFound.id);    
   }
