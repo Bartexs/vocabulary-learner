@@ -1,2 +1,13 @@
-<textarea matInput [(ngModel)]="userInput"></textarea>
-<button (click)="saveAsFlashcard()">Click to submit</button>
+<div class="input-wrapper">
+  <textarea
+    matInput
+    [(ngModel)]="userInput"
+    placeholder="Type your flashcard content here"
+    class="custom-textarea"
+    rows="6">
+  </textarea>
+
+  <button (click)="saveAsFlashcard()" class="btn-link">
+    Click to Submit
+  </button>
+</div>

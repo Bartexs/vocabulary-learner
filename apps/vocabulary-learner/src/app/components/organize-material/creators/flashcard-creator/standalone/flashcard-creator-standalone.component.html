@@ -1,61 +1,68 @@
-<div>
-  <div *ngIf="folderList?.length === 0">
-    <div>
-      <p>You don’t have any folders yet.</p>
-      <p>Start by creating your first one!</p>
+<div class="folder-wrapper">
+  <div *ngIf="folderList?.length === 0" class="folder-empty">
+    <div class="empty-message">
+      <p class="heading">You don’t have any folders yet.</p>
+      <p class="subtext">Start by creating your first one!</p>
     </div>
-    <div>
-      <div>
-        Folder Name:
-        <input [(ngModel)]="folderName">
+
+    <div class="input-section">
+      <div class="input-group">
+        <p class="field-label">Folder Name</p>
+        <input [(ngModel)]="folderName" class="input-field" placeholder="e.g. Spanish Basics" />
       </div>
-      <div>
-        Lesson Name:
-        <input [(ngModel)]="lessonName">
+      <div class="input-group">
+        <p class="field-label">Lesson Name</p>
+        <input [(ngModel)]="lessonName" class="input-field" placeholder="e.g. Greetings & Introductions" />
       </div>
     </div>
-    <div>
-      <button (click)="createFolder()">Create</button>
+
+    <div class="action-section">
+      <button (click)="createFolder()" class="primary-btn">Create</button>
     </div>
   </div>
-  <div *ngIf="folderList?.length !== 0">
-    <div>
+
+  <div *ngIf="folderList?.length !== 0" class="folder-selection">
+    <div class="section">
       <form>
-          <p>Choose Folder</p>
-          <mat-form-field>
-            <mat-label>Choose folder</mat-label>
-            <mat-select (selectionChange)="selectedFolderChange()" [(ngModel)]="selectedFolder" name="folder">
-              @for (folder of folderList; track folder) {
-                <mat-option [value]="folder.folderName">{{folder.folderName}}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
-      </form>
-    </div>  
-    <div *ngIf="lessonList">
-      <form>
-          <p>Select Lesson</p>
-          <mat-form-field>
-            <mat-label>Choose lesson</mat-label>
-            <mat-select (selectionChange)="selectedLessonChange()" [(ngModel)]="userLessonSelection" name="lesson">
-              @for (lesson of lessonList; track lesson) {
-                <mat-option [value]="lesson.name">{{lesson.name}}</mat-option>
-              }
-            </mat-select>
-          </mat-form-field>
+        <p class="heading">Select a Folder</p>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Choose folder</mat-label>
+          <mat-select (selectionChange)="selectedFolderChange()" [(ngModel)]="selectedFolder" name="folder">
+            @for (folder of folderList; track folder) {
+              <mat-option [value]="folder.folderName">{{folder.folderName}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
       </form>
     </div>
-    <div>
+
+    <div *ngIf="lessonList" class="section">
+      <form>
+        <p class="heading">Select a Lesson</p>
+        <mat-form-field appearance="fill" class="form-field">
+          <mat-label>Choose lesson</mat-label>
+          <mat-select (selectionChange)="selectedLessonChange()" [(ngModel)]="userLessonSelection" name="lesson">
+            @for (lesson of lessonList; track lesson) {
+              <mat-option [value]="lesson.name">{{lesson.name}}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+      </form>
     </div>
-    <div *ngIf="userLessonSelection">
-      <div>
+
+    <div *ngIf="userLessonSelection" class="section">
+      <div class="creator-section">
         <app-flashcard-creator [lesson]="selectedLesson"></app-flashcard-creator>
       </div>
-      <div *ngIf="flashcardList">
+
+      <div *ngIf="flashcardList" class="flashcard-list">
         @for(flashcard of flashcardList; track flashcard) {
-          <p>{{flashcard.backSide}}{{flashcard.frontSide}}</p>
+          <p class="flashcard-item">
+            <strong>Front:</strong> {{flashcard.frontSide}}<br>
+            <strong>Back:</strong> {{flashcard.backSide}}
+          </p>
         }
       </div>
-    </div>  
+    </div>
   </div>
 </div>
