@@ -1,15 +1,17 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/AuthResponse';
 import { AuthRequest } from '../models/AuthRequest';
 import { environment } from '../../environments/environment';
+import { AppUser } from '../../app/models/appUser';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private baseUrl = `${environment.apiUrl}/auth`;
+  private currentUser$ = new BehaviorSubject<AppUser | null>(null);
 
   constructor(private http: HttpClient) {}
 
@@ -27,5 +29,21 @@ export class AuthService {
 
   logout(): void {
     localStorage.removeItem('token');
+    this.currentUser$.next(null);
+  }
+
+  loadCurrentUser() {
+    this.getCurrentUser().subscribe({
+      next: (user) => this.currentUser$.next(user),
+      error: () => this.logout()
+    })
+  }
+
+  get appUser$(): Observable<AppUser | null> {
+    return this.currentUser$.asObservable();
+  }
+
+  getCurrentUser(): Observable<AppUser> {
+    return this.http.get<AppUser>(`${environment.apiUrl}/users/me`);
   }
 }

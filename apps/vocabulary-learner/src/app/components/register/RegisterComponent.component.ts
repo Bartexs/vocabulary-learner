@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, Validators, FormBuilder, FormGroup } from '@angular/forms';
+// eslint-disable-next-line @nx/enforce-module-boundaries
 import { AuthService } from 'apps/vocabulary-learner/src/security/services/auth-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register-component',
@@ -13,7 +15,7 @@ export class RegisterComponent {
   form: FormGroup;
   message = '';
 
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
@@ -27,6 +29,7 @@ export class RegisterComponent {
       next: (res) => {
         this.message = 'Registration successful! Token: ' + res.token;
         localStorage.setItem('token', res.token);
+        this.router.navigate([''])
       },
       error: () => {
         this.message = 'Registration failed.';
