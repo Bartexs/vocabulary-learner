@@ -1,24 +1,20 @@
-<p>exam-mode works!</p>
-<div>
-    <p>Today exam material</p>
-    <div class="container">
-        <div>
-            <p>Repetition Material</p>
-            <p>{{repetitionMaterial.length}}</p>
-            <div *ngFor="let flashcard of repetitionMaterial">
-                <p>{{flashcard.frontSide}}</p>
-            </div>
-        </div>
-        <div>
-            <p>New Material</p>
-            <p>{{newMaterial.length}}</p>
-            <div *ngFor="let flashcard of newMaterial">
-                <p>{{flashcard.frontSide}}</p>
-            </div>
-        </div>
+<section class="exam-verification">
+  <h2>Verify Your Knowledge</h2>
+
+  <div class="flashcard-stats">
+    <div class="stat-item">
+      <h3>Repetition</h3>
+      <p>{{ repetitionMaterial.length }} flashcards to repeat</p>
     </div>
-    <button (click)="startExamMode()">Start</button>
-    <div *ngIf="startExam">
-        <!-- <app-writing-exercise [flashcards]="newMaterial" [modeType]="modeType"></app-writing-exercise> -->
+    <div class="stat-item">
+      <h3>New Flashcards</h3>
+      <p>{{ newMaterial.length }} new flashcards</p>
     </div>
-</div>
+  </div>
+
+  <button class="start-btn" (click)="startExamMode()">Start</button>
+
+  <div *ngIf="startExam">
+    <!-- <app-writing-exercise [flashcards]="newMaterial" [modeType]="modeType"></app-writing-exercise> -->
+  </div>
+</section>
