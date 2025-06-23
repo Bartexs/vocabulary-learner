@@ -1,0 +1,18 @@
+.lesson-selection {
+  max-width: 400px;
+  margin: 1rem auto;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #242223;
+}
+
+.lesson-selection p {
+  font-weight: 600;
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}

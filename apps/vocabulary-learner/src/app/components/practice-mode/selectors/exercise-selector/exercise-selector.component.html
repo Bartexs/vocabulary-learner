@@ -1,4 +1,8 @@
-<p>Choose exercise type:</p>
-<div>
-    <mat-checkbox *ngFor="let exercise of exerciseList"  (change)="toggleSelection(exercise.name, $event.checked)">{{exercise.name}}</mat-checkbox>
-</div>
+<section class="exercise-selection">
+  <p>Choose exercise type:</p>
+  <div class="checkbox-group">
+    <mat-checkbox *ngFor="let exercise of exerciseList" (change)="toggleSelection(exercise.name, $event.checked)">
+      {{ exercise.name }}
+    </mat-checkbox>
+  </div>
+</section>

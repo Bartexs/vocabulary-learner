@@ -1,2 +1,8 @@
-<p>Choose lessons to practice:</p>
-<mat-checkbox *ngFor="let lesson of lessonsAvailable" (change)="toggleSelection(lesson.id, $event.checked)">{{lesson.name}}</mat-checkbox>
+<section class="lesson-selection">
+  <p>Choose lessons to practice:</p>
+  <div class="checkbox-group">
+    <mat-checkbox *ngFor="let lesson of lessonsAvailable" (change)="toggleSelection(lesson.id, $event.checked)">
+      {{lesson.name}}
+    </mat-checkbox>
+  </div>
+</section>
