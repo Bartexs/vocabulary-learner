@@ -1,11 +1,6 @@
 <div class="border container">
     <div class="row">
-        <!-- <p>MODE:</p> -->
-        <!-- <p>{{modeType}}</p> -->
-    </div>
-    <div class="row">
         <p class="main-text">{{this.currentFlashcard.backSide}}</p>
-        <!-- <p class="gray">{{this.currentFlashcard.frontSide}}</p> -->
     </div>
     <div class="row">
         <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
