@@ -41,6 +41,11 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
     this.folderList = this.folderService.loadAllFolders();
   }
 
+  flashcardsCreated() {
+    this.selectedLessonChange();
+    console.log(this.flashcardList);
+  }
+
   createFolder() {
     const folder = this.folderService.createFolder(this.folderName);
     const lesson = this.lessonService.createLesson(folder.id, this.lessonName, []);
@@ -66,8 +71,11 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   }
 
   selectedLessonChange() {
-    const lessonFound = this.lessonList?.find((element) => element.name === this.userLessonSelection)
+    const lessonFound = this.lessonList?.find((element) => element.name === this.userLessonSelection);
 
-    if(lessonFound) this.flashcardList = this.flashcardService.getFlashcards(lessonFound.id);    
+    if(lessonFound) {
+      this.selectedLesson = lessonFound;
+      this.flashcardList = this.flashcardService.getFlashcards(lessonFound.id);   
+    }
   }
 }

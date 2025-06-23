@@ -51,10 +51,13 @@
     </div>
 
     <div *ngIf="userLessonSelection" class="section">
+      
+      <!-- Adding flashcards in bundle -->
       <div class="creator-section">
-        <app-flashcard-creator [lesson]="selectedLesson"></app-flashcard-creator>
+        <app-flashcard-creator [lesson]="selectedLesson" (emitFlashcards)="flashcardsCreated()"></app-flashcard-creator>
       </div>
 
+      <!-- Display the list of flashcards -->
       <div *ngIf="flashcardList" class="flashcard-list">
         @for(flashcard of flashcardList; track flashcard) {
           <p class="flashcard-item">
