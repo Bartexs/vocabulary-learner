@@ -84,13 +84,16 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   receiveSummary(data: ExerciseSummary) {
+    // push indivdual exercise results to session summary
+    this.exerciseSummaryList.push(data);
+
+    // if there is no more exercises, pass all exercises summary to its service and reroute
     if(this.exerciseList.length === this.currentExerciseIndex + 1) {
       this.sessionSummaryService.setExerciseSummaryList(this.exerciseSummaryList);
       this.router.navigate(['/session-summary']);
       return; 
     }
 
-    this.exerciseSummaryList.push(data);
     this.nextExercise();
   }
 

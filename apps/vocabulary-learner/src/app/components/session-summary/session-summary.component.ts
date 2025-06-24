@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudySessionService } from '../../services/study-session.service';
+import { SessionSummaryService } from './session-summary.service';
+import { ExerciseSummary } from '../../models/exercise-Summary';
 
 @Component({
   selector: 'app-session-summary',
@@ -9,11 +10,12 @@ import { StudySessionService } from '../../services/study-session.service';
   styleUrl: './session-summary.component.css',
 })
 export class SessionSummaryComponent {
+  sessionSummary: ExerciseSummary[];
 
   constructor(
-    private studySessionService: StudySessionService
+    private sessionSummaryService: SessionSummaryService
   ) {
-    console.log(this.studySessionService);
+    this.sessionSummary = this.sessionSummaryService.getSessionSummary();
   }
 
 }

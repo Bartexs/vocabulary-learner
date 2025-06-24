@@ -10,4 +10,8 @@ export class SessionSummaryService {
   setExerciseSummaryList(exerciseSummaryList: ExerciseSummary[]): void {
     this.exerciseSummaryList = exerciseSummaryList;
   }
+
+  getSessionSummary(): ExerciseSummary[] {
+    return this.exerciseSummaryList;
+  }
 }

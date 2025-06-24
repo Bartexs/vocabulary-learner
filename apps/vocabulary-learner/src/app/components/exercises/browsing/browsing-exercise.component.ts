@@ -41,8 +41,8 @@ export class BrowsingExerciseComponent extends DynamicExerciseComponent implemen
     this.toggleShowCorrectAnswer(); // Toggle display logic
   }
 
-  saveAnswer(isKnown: boolean) {
-    this.exerciseService.modifyExerciseSummary(this.currentFlashcard, isKnown, this.exerciseSummary);
+  saveAnswer(isCorrect: boolean) {
+    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, isCorrect, this.exerciseSummary);
     this.nextFlashcard();
   }
 }

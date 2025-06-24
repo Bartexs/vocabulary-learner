@@ -1,1 +1,20 @@
-<p>session-summary works!</p>
+<div class="results-wrapper">
+  <div class="results-header">
+    <h1>You did great!</h1>
+    <h3>Check your results summary:</h3>
+  </div>
+
+  <div class="results-summary">
+      <p *ngFor="let summary of sessionSummary" class="summary-item">
+        <strong class="exercise-name">{{ summary.exercise.name }}</strong> exercise:
+        <span class="correct-count">{{ summary.correctAnswers }}</span> correct out of
+        <span class="total-count">{{ summary.totalFlashcards }}</span>
+      </p>
+  </div>
+
+  <div class="results-actions">
+    <a href="/practice-selector" class="btn-link">Select different material to practice</a>
+    <p class="or-separator">or</p>
+    <a href="/flashcard-creator" class="btn-link">Create new flashcards</a>
+  </div>
+</div>

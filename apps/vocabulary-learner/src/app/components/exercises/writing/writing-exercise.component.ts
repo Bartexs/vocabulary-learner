@@ -74,7 +74,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     this.isFinished = true;
     this.isCorrect = this.currentFlashcard.frontSide === this.userInput;
 
-    this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
+    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
     if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
 
