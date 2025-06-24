@@ -35,7 +35,6 @@ export class AuthService {
   loadCurrentUser() {
     this.getCurrentUser().subscribe({
       next: (user) => this.currentUser$.next(user),
-      error: () => this.logout()
     })
   }
 
@@ -43,7 +42,7 @@ export class AuthService {
     return this.currentUser$.asObservable();
   }
 
-  getCurrentUser(): Observable<AppUser> {
+  private getCurrentUser(): Observable<AppUser> {
     return this.http.get<AppUser>(`${environment.apiUrl}/users/me`);
   }
 }

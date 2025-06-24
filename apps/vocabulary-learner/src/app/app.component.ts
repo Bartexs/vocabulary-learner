@@ -13,22 +13,21 @@ import { AuthService } from '../security/services/auth-service.service';
 })
 export class AppComponent implements OnInit {
   title = 'vocabulary-learner';
-  isUser = true;
+  isUser = false;
 
   constructor (private authService: AuthService) {
 
   }
 
   ngOnInit() {
-    console.log("this.authService.appUser$");
-
     const token = localStorage.getItem('token');
     if(token) {
       this.authService.loadCurrentUser();
-        
+      this.authService.appUser$.subscribe((user) => {
+          if(user) this.isUser = true
+        }
+      )
     }
-
-    console.log(token);
   }
 
 }

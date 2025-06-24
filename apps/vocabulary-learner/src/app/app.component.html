@@ -8,16 +8,17 @@
     <nav>
         <div class="nav-content">
             <div class="nav-links">
-            <a href="#">Home</a>
+                <a href="#">Home</a>
             </div>
-            <!-- <div *ngIf="!isUser">
-                <button class="signup">Sign Up</button>
+            <div *ngIf="!isUser">
                 <a href="/register">Register</a>
             </div>
-            <div *ngIf="isUser">
-                <a>Account Details</a>
-                <a>Logout</a>
-            </div> -->
+            <div *ngIf="isUser" class="nav-links">
+                <a href="/user">Account Details</a>
+            </div>
+            <div *ngIf="isUser" class="nav-links">
+                <a href="/logout">Logout</a>
+            </div>
         </div>
     </nav>
     <router-outlet></router-outlet>
