@@ -5,6 +5,7 @@ import { AuthResponse } from '../models/AuthResponse';
 import { AuthRequest } from '../models/AuthRequest';
 import { environment } from '../../environments/environment';
 import { AppUser } from '../../app/models/appUser';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class AuthService {
   private baseUrl = `${environment.apiUrl}/auth`;
   private currentUser$ = new BehaviorSubject<AppUser | null>(null);
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private router: Router) {}
 
   login(data: AuthRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/login`, data).pipe(
@@ -23,13 +24,16 @@ export class AuthService {
 
   register(data: AuthRequest): Observable<AuthResponse> {
     return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data).pipe(
-      tap(res => localStorage.setItem('token', res.token))
+      tap(res => { 
+        localStorage.setItem('token', res.token);
+      })
     );
   }
 
   logout(): void {
     localStorage.removeItem('token');
     this.currentUser$.next(null);
+    window.location.reload();
   }
 
   loadCurrentUser() {

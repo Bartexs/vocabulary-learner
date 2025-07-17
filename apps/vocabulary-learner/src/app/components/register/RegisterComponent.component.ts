@@ -28,12 +28,18 @@ export class RegisterComponent {
     this.authService.register(this.form.value).subscribe({
       next: (res) => {
         this.message = 'Registration successful! Token: ' + res.token;
-        localStorage.setItem('token', res.token);
-        this.router.navigate([''])
+        this.refreshUser();
       },
       error: () => {
         this.message = 'Registration failed.';
       }
+    });
+  }
+
+  refreshUser(): void {
+    this.authService.loadCurrentUser();
+        this.router.navigate(['/home']).then(() => {
+      window.location.reload();
     });
   }
 }

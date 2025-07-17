@@ -16,6 +16,7 @@ import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
+    { path: 'home', component: HomeComponent },
     { path: 'practice-selector', component: PracticeModeSelectorComponent },
     { path: 'exam', component: ExamModeComponent },
     { path: 'browse-lessons', component: MaterialOrganizerComponent },
