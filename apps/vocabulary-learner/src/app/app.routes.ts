@@ -11,6 +11,8 @@ import { LessonCreatorComponent } from './components/organize-material/creators/
 import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
 import { RegisterComponent } from './components/register/RegisterComponent.component';
+import { LandingPageComponent } from './components/landing-page.component';
+import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -26,4 +28,6 @@ export const appRoutes: Route[] = [
     { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },
     { path: 'flashcard-creator', component: FlashcardCreatorStandaloneComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'landing-page', component: LandingPageComponent },
+    { path: 'demo-mode', component: DemoModeComponent }
 ];
