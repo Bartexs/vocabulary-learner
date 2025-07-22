@@ -10,7 +10,6 @@ import { ExerciseType } from '../../../models/exercise';
 import { Router } from '@angular/router';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { PracticeModeService } from '../services/practice-mode.service';
-import { PracticeModeConfig } from '../models/practice-mode-config';
 
 @Component({
   selector: 'app-practice-mode',
