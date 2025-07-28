@@ -13,6 +13,7 @@ import { FlashcardCreatorStandaloneComponent } from './components/organize-mater
 import { RegisterComponent } from './components/register/RegisterComponent.component';
 import { LandingPageComponent } from './components/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
+import { LoginComponent } from './components/login/login.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -29,6 +30,7 @@ export const appRoutes: Route[] = [
     { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },
     { path: 'flashcard-creator', component: FlashcardCreatorStandaloneComponent },
     { path: 'register', component: RegisterComponent },
+    { path: 'login', component: LoginComponent },
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'demo-mode', component: DemoModeComponent }
 ];
