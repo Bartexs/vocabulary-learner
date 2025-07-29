@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LessonService } from '../../services/lesson.service';
 import { Flashcard } from '../../core/models/flashcard';
 import { Lesson } from '../../core/models/lessons';
-import { DateUtilsService } from '../../services/date-utils.service';
+import { DateUtilsService } from '../../core/services/date-utils.service';
+import { LessonService } from '../../core/services/lesson.service';
 
 @Component({
   selector: 'app-exam-mode',

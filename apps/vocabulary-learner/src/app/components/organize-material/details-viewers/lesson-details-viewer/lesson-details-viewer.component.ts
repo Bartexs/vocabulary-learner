@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { Lesson } from '../../../../core/models/lessons';
-import { LessonService } from '../../../../../../src/app/services/lesson.service';
 import { Flashcard } from '../../../../core/models/flashcard';
+import { Lesson } from '../../../../core/models/lessons';
+import { LessonService } from '../../../../core/services/lesson.service';
 import { FlashcardCreatorComponent } from '../../creators/flashcard-creator/mini/flashcard-creator.component';
 
 @Component({

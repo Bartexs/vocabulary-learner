@@ -8,14 +8,14 @@ import { Lesson } from '../../../../../core/models/lessons';
 import { Folder } from '../../../../../core/models/folder/folder';
 import { FolderService } from '../../../../../core/models/folder/folder.service';
 import { Flashcard } from '../../../../../core/models/flashcard';
-import { FlashcardService } from '../../../../../../../src/app/services/flashcard.service';
-import { FolderCreatorComponent } from "../../folder-creator/folder-creator.component";
-import { LessonService } from '../../../../../../../src/app/services/lesson.service';
-import { FlashcardCreatorComponent } from "../mini/flashcard-creator.component";
+import { FlashcardService } from 'apps/vocabulary-learner/src/app/core/services/flashcard.service';
+import { LessonService } from 'apps/vocabulary-learner/src/app/core/services/lesson.service';
+import { FolderCreatorComponent } from '../../folder-creator/folder-creator.component';
+import { FlashcardCreatorComponent } from '../mini/flashcard-creator.component';
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FolderCreatorComponent, FlashcardCreatorComponent],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FlashcardCreatorComponent],
   templateUrl: './flashcard-creator-standalone.component.html',
   styleUrl: './flashcard-creator-standalone.component.css',
 })

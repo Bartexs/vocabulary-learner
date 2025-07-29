@@ -4,7 +4,7 @@ import { DynamicExerciseComponent } from '../dynamic-exercise.component';
 import { ExerciseService } from '../exercise.service';
 import { Exercise, ExerciseType } from '../../../core/models/exercise';
 import { Flashcard } from '../../../core/models/flashcard';
-import { UtilsService } from '../../../services/utils.service';
+import { UtilsService } from '../../../core/services/utils.service';
 
 @Component({
   selector: 'app-answer-chosing-timed',

@@ -4,8 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Flashcard } from '../../../../../core/models/flashcard';
 import { FlashcardProficiency } from '../../../../../core/models/flashcard-proficiency';
 import { Lesson } from '../../../../../core/models/lessons';
-// eslint-disable-next-line @nx/enforce-module-boundaries
-import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
+import { LessonService } from '../../../../../core/services/lesson.service';
 
 @Component({
   selector: 'app-flashcard-creator',
