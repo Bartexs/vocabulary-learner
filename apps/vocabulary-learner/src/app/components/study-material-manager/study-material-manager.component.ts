@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { StudyMaterialManagerService } from './study-material-manager.service';
-import { Folder } from '../../models/folder/folder';
+import { Folder } from '../../core/models/folder/folder';
 
 @Component({
   selector: 'app-study-material-manager',

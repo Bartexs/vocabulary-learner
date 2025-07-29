@@ -1,9 +1,9 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Flashcard } from '../../../../../../../src/app/models/flashcard';
-import { FlashcardProficiency } from '../../../../../../../src/app/models/flashcard-proficiency';
-import { Lesson } from '../../../../../../../src/app/models/lessons';
+import { Flashcard } from '../../../../../core/models/flashcard';
+import { FlashcardProficiency } from '../../../../../core/models/flashcard-proficiency';
+import { Lesson } from '../../../../../core/models/lessons';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
 

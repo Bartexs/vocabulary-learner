@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SessionSummaryService } from './session-summary.service';
-import { ExerciseSummary } from '../../models/exercise-Summary';
+import { ExerciseSummary } from '../../core/models/exercise-Summary';
 
 @Component({
   selector: 'app-session-summary',

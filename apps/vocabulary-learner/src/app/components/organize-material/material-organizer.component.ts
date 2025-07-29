@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatSidenavModule } from '@angular/material/sidenav';
-import { Folder } from '../../models/folder/folder';
+import { Folder } from '../../core/models/folder/folder';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
-import { FolderService } from '../../models/folder/folder.service';
+import { FolderService } from '../../core/models/folder/folder.service';
 
 @Component({
   selector: 'app-material-organizer',

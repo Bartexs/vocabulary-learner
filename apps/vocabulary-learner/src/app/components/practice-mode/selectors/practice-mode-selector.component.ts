@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Flashcard } from '../../../models/flashcard';
-import { Lesson } from '../../../models/lessons';
+import { Flashcard } from '../../../core/models/flashcard';
+import { Lesson } from '../../../core/models/lessons';
 import { LessonService } from '../../../services/lesson.service';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseSelectorComponent } from "./exercise-selector/exercise-selector.component";
 import { MaterialSelectorComponent } from "./material-selector/material-selector.component";
-import { ExerciseType } from '../../../models/exercise';
+import { ExerciseType } from '../../../core/models/exercise';
 import { PracticeModeConfig } from '../models/practice-mode-config';
 import { PracticeModeService } from '../services/practice-mode.service';
 

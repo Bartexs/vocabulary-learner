@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {  ExerciseType } from '../../models/exercise';
-import { ExerciseSummary } from '../../models/exercise-Summary';
-import { Flashcard } from '../../models/flashcard';
+import {  ExerciseType } from '../../core/models/exercise';
+import { ExerciseSummary } from '../../core/models/exercise-Summary';
+import { Flashcard } from '../../core/models/flashcard';
 
 @Injectable({
   providedIn: 'root'

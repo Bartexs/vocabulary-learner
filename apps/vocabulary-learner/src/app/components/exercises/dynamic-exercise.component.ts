@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExerciseSummary } from '../../models/exercise-Summary';
-import { Flashcard } from '../../models/flashcard';
+import { ExerciseSummary } from '../../core/models/exercise-Summary';
+import { Flashcard } from '../../core/models/flashcard';
 
 @Component({
   selector: 'app-dynamic-exercise',

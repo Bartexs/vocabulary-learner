@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ExerciseSummary } from '../../models/exercise-Summary';
+import { ExerciseSummary } from '../../core/models/exercise-Summary';
 
 @Injectable({
   providedIn: 'root'

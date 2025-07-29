@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/models/exercise';
-import { Lesson } from 'apps/vocabulary-learner/src/app/models/lessons';
+import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/core/models/exercise';
+import { Lesson } from 'apps/vocabulary-learner/src/app/core/models/lessons';
 import { LessonService } from 'apps/vocabulary-learner/src/app/services/lesson.service';
 import { PracticeModeService } from '../../services/practice-mode.service';
 

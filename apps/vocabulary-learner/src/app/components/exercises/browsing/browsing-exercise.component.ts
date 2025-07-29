@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../dynamic-exercise.component';
-import { Exercise } from '../../../models/exercise';
+import { Exercise } from '../../../core/models/exercise';
 import { ExerciseService } from '../exercise.service';
 
 @Component({

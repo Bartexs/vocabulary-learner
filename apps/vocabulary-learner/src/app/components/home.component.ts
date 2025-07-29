@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Flashcard } from '../models/flashcard';
+import { Flashcard } from '../core/models/flashcard';
 import { FlashcardService } from '../services/flashcard.service';
-import { Folder } from '../models/folder/folder';
-import { FolderService } from '../models/folder/folder.service';
+import { Folder } from '../core/models/folder/folder';
+import { FolderService } from '../core/models/folder/folder.service';
 import { LessonService } from '../services/lesson.service';
 import { DateUtilsService } from '../services/date-utils.service';
 

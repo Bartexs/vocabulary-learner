@@ -1,13 +1,13 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flashcard } from '../../../models/flashcard';
+import { Flashcard } from '../../../core/models/flashcard';
 import { FormsModule } from '@angular/forms';
 import { FlashcardService } from '../../../services/flashcard.service';
 import { DateUtilsService } from '../../../services/date-utils.service';
 import { DynamicExerciseComponent } from '../dynamic-exercise.component';
-import { ExerciseSummary } from '../../../models/exercise-Summary';
+import { ExerciseSummary } from '../../../core/models/exercise-Summary';
 import { ExerciseService } from '../exercise.service';
-import { Exercise } from '../../../models/exercise';
+import { Exercise } from '../../../core/models/exercise';
 
 @Component({
   selector: 'app-writing-exercise',

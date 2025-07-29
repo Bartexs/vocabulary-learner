@@ -4,7 +4,7 @@ import { BehaviorSubject, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/AuthResponse';
 import { AuthRequest } from '../models/AuthRequest';
 import { environment } from '../../environments/environment';
-import { AppUser } from '../../app/models/appUser';
+import { AppUser } from '../../app/core/models/appUser';
 import { Router } from '@angular/router';
 
 @Injectable({

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { StudySessionConfig } from '../models/studySessionConfig';
-import { PracticeConfig } from '../models/practiceConfig';
-import { Lesson } from '../models/lessons';
+import { StudySessionConfig } from '../core/models/studySessionConfig';
+import { PracticeConfig } from '../core/models/practiceConfig';
+import { Lesson } from '../core/models/lessons';
 import { LessonService } from './lesson.service';
-import { StudySessionResults } from '../models/studySessionResults';
+import { StudySessionResults } from '../core/models/studySessionResults';
 
 @Injectable({
   providedIn: 'root'

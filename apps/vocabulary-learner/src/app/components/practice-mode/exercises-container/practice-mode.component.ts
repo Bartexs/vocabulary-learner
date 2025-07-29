@@ -1,12 +1,12 @@
 import { Component, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Flashcard } from '../../../models/flashcard';
+import { Flashcard } from '../../../core/models/flashcard';
 import { LessonService } from '../../../services/lesson.service';
-import { ExerciseSummary } from '../../../models/exercise-Summary';
-import { ComponentRegistry } from '../../../models/exercise-registry';
+import { ExerciseSummary } from '../../../core/models/exercise-Summary';
+import { ComponentRegistry } from '../../../core/models/exercise-registry';
 import { DynamicExerciseComponent } from '../../exercises/dynamic-exercise.component';
-import { ExerciseType } from '../../../models/exercise';
+import { ExerciseType } from '../../../core/models/exercise';
 import { Router } from '@angular/router';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { PracticeModeService } from '../services/practice-mode.service';

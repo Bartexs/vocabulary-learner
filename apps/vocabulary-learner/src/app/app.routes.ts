@@ -10,10 +10,10 @@ import { FolderDetailsViewerComponent } from './components/organize-material/det
 import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
 import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
-import { RegisterComponent } from './components/register/RegisterComponent.component';
+import { RegisterComponent } from './features/auth/register/RegisterComponent.component';
 import { LandingPageComponent } from './components/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
-import { LoginComponent } from './components/login/login.component';
+import { LoginComponent } from './features/auth/login/login.component';
 import { StudyMaterialManagerComponent } from './components/study-material-manager/study-material-manager.component';
 
 export const appRoutes: Route[] = [

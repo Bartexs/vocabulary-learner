@@ -7,7 +7,7 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { DynamicExerciseComponent } from '../dynamic-exercise.component';
-import { Exercise, ExerciseType } from '../../../models/exercise';
+import { Exercise, ExerciseType } from '../../../core/models/exercise';
 import { ExerciseService } from '../exercise.service';
 
 export interface BackSideWithCorrectIndex {

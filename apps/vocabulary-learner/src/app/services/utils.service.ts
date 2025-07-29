@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Flashcard } from '../models/flashcard';
+import { Flashcard } from '../core/models/flashcard';
 
 @Injectable({
   providedIn: 'root'

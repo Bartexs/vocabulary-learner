@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FolderService } from 'apps/vocabulary-learner/src/app/models/folder/folder.service';
+import { FolderService } from 'apps/vocabulary-learner/src/app/core/models/folder/folder.service';
 
 @Component({
   selector: 'app-folder-creator',

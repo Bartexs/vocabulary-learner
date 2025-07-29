@@ -1,5 +1,5 @@
-import { ExerciseType } from "../../../models/exercise";
-import { Lesson } from "../../../models/lessons";
+import { ExerciseType } from "../../../core/models/exercise";
+import { Lesson } from "../../../core/models/lessons";
 
 export interface PracticeModeConfig {
     lessonList: Lesson[]

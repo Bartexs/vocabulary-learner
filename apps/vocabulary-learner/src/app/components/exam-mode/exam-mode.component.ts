@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LessonService } from '../../services/lesson.service';
-import { Flashcard } from '../../models/flashcard';
-import { Lesson } from '../../models/lessons';
+import { Flashcard } from '../../core/models/flashcard';
+import { Lesson } from '../../core/models/lessons';
 import { DateUtilsService } from '../../services/date-utils.service';
 
 @Component({

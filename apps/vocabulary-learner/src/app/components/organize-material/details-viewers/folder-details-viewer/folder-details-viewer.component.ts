@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { MatIconModule } from '@angular/material/icon';
-import { FolderService } from '../../../../models/folder/folder.service';
-import { Folder } from '../../../../models/folder/folder';
+import { FolderService } from '../../../../core/models/folder/folder.service';
+import { Folder } from '../../../../core/models/folder/folder';
 
 @Component({
   selector: 'app-folder-details-viewer',

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Flashcard } from '../models/flashcard';
+import { Flashcard } from '../core/models/flashcard';
 import { LessonService } from './lesson.service';
-import { Lesson } from '../models/lessons';
+import { Lesson } from '../core/models/lessons';
 import { DateUtilsService } from './date-utils.service';
 
 @Injectable({

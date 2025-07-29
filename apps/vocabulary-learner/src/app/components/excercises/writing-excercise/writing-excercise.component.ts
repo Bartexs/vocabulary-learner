@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WritingExcerciseService } from './writing-excercise.service';
 import { WritingFlashcardComponent } from "./writing-flashcard.component";
-import { Flashcard } from '../../../models/flashcard';
+import { Flashcard } from '../../../core/models/flashcard';
 
 @Component({
   selector: 'app-writing-excercise',
