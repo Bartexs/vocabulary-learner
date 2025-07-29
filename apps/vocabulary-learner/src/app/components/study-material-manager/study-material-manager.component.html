@@ -1,0 +1,15 @@
+<p>study-material-manager works!</p>
+<div>
+    <div>
+        <h1>Folders:</h1>
+    </div>
+    <div *ngIf="!isLoading">
+        <div *ngIf="!userFolders || userFolders.length === 0">
+            <p>Folders list is empty!</p>
+        </div>
+        <div *ngFor="let folder of userFolders">
+            <p>{{folder.name}}</p>
+        </div>
+    </div>
+</div>
+<button (click)="getUserFolders()">Click</button>

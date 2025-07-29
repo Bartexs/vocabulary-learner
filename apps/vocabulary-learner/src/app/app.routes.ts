@@ -14,6 +14,7 @@ import { RegisterComponent } from './components/register/RegisterComponent.compo
 import { LandingPageComponent } from './components/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './components/login/login.component';
+import { StudyMaterialManagerComponent } from './components/study-material-manager/study-material-manager.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -32,5 +33,6 @@ export const appRoutes: Route[] = [
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'landing-page', component: LandingPageComponent },
-    { path: 'demo-mode', component: DemoModeComponent }
+    { path: 'demo-mode', component: DemoModeComponent },
+    { path: 'manage-study-material', component: StudyMaterialManagerComponent },
 ];
