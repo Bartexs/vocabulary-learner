@@ -58,7 +58,7 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   selectedFolderChange() {
     this.resetInputs();
 
-    const folderFound = this.folderList?.find((element) => element.folderName === this.selectedFolder);
+    const folderFound = this.folderList?.find((element) => element.name === this.selectedFolder);
  
     if(folderFound) {
       this.lessonList = folderFound.lessonList;

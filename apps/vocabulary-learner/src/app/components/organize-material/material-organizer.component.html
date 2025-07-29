@@ -4,7 +4,7 @@
       <div class="folder-list">
         <div *ngFor="let folder of folderList; index as i" class="folder-item">
           <a [routerLink]="['/folder-details', folder.id]">
-            <span class="folder-name">{{ folder.folderName }}</span>
+            <span class="folder-name">{{ folder.name }}</span>
           </a>
           <mat-icon class="folder-icon edit-icon" aria-hidden="false" aria-label="Edit folder icon" fontIcon="edit_document"></mat-icon>
           <mat-icon class="folder-icon delete-icon" aria-hidden="false" aria-label="Delete folder icon" fontIcon="delete" (click)="removeFolder(i)"></mat-icon>

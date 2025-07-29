@@ -1,7 +1,7 @@
 <div>
     <div *ngIf="folder">
         <div>
-            <p>{{folder.folderName}}</p>
+            <p>{{folder.name}}</p>
         </div>
     </div>
     <div *ngIf="!folder">
@@ -11,7 +11,7 @@
               <mat-label>Choose folder</mat-label>
               <mat-select (selectionChange)="selectedFolderChange()" [(ngModel)]="selectedValue" name="folder">
                 @for (folder of folderList; track folder) {
-                  <mat-option [value]="folder.folderName">{{folder.folderName}}</mat-option>
+                  <mat-option [value]="folder.name">{{folder.name}}</mat-option>
                 }
               </mat-select>
             </mat-form-field>

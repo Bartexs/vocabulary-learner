@@ -50,7 +50,7 @@ export class FolderService {
   createFolder(folderName: string): Folder {
     return {
       id: Date.now(),
-      folderName: folderName,
+      name: folderName,
       lessonList: []
     }
   }

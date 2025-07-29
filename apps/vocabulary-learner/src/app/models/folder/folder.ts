@@ -2,6 +2,6 @@ import { Lesson } from "../lessons";
 
 export interface Folder {
     id: number, 
-    folderName: string,
+    name: string,
     lessonList: Lesson[];
 }

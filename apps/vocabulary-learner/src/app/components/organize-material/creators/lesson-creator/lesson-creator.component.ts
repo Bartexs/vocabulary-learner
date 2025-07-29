@@ -41,7 +41,7 @@ export class LessonCreatorComponent implements OnInit {
   }
 
   selectedFolderChange() {
-    const folderFound = this.folderList?.find((element) => element.folderName === this.selectedValue)
+    const folderFound = this.folderList?.find((element) => element.name === this.selectedValue)
 
     if(folderFound) this.selectedFolder = folderFound;
   }
