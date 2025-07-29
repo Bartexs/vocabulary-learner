@@ -15,6 +15,8 @@ export class LoginComponent {
   message = '';
 
   constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
+    localStorage.removeItem("token");
+
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required]
