@@ -17,8 +17,10 @@ export class StudyMaterialManagerService {
   }
 
   addUserFolder(folder: Folder): Observable<Folder> {
-    console.log(folder);
-
     return this.http.post<Folder>(`${environment.apiUrl}/api/folders/me`, { name: folder.name });
+  }
+
+  removeFolder(folder: Folder): Observable<void> {
+    return this.http.delete<void>(`${environment.apiUrl}/api/folders/${folder.id}`);
   }
 }
