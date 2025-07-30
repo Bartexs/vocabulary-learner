@@ -14,7 +14,7 @@ export class FolderService {
     
   }
 
-  getUserFolders(): Observable<Folder[]> {
+  getFolders(): Observable<Folder[]> {
     return this.folderGateway.getFolders();
   }
 
