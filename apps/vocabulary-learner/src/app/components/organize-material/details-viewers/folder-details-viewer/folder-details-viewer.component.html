@@ -3,12 +3,15 @@
         <div>
             <p>{{folder.name}}</p>
         </div>
-        <div>
-            <div *ngIf="folder.lessonList.length === 0">
+        <div *ngIf="isLoading">
+            <mat-spinner></mat-spinner>
+        </div>
+        <div *ngIf="!isLoading">
+            <div *ngIf="lessons.length === 0">
                 <p>Lessons list is empty</p>
             </div>
-            <div *ngIf="folder.lessonList.length > 0">
-                <div *ngFor="let lesson of folder.lessonList">
+            <div *ngIf="lessons.length > 0">
+                <div *ngFor="let lesson of lessons">
                     <p>{{lesson.name}}<button [routerLink]="['/lesson-details', lesson.id]">Edit</button></p>
                 </div>
             </div>

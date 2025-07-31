@@ -1,0 +1,18 @@
+import { Injectable } from '@angular/core';
+import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
+import { Observable } from 'rxjs';
+import { FlashcardGatewayService } from './flashcard-gateway.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class FlashcardService {
+
+  constructor(
+    private flashcardGateway: FlashcardGatewayService,
+  ) { }
+
+  getFlashcardsByLessonId(lessonId: number): Observable<Flashcard[]> {
+    return this.flashcardGateway.getFlashcardsByLessonId(lessonId);
+  }
+}
