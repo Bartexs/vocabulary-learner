@@ -16,8 +16,9 @@ export class StudyMaterialManagerComponent {
   folders: Folder[] = [];
   isLoading = true;
 
-  constructor(private studyMaterialManagerService: StudyMaterialManagerService) {
-    this.addUserFolder();
+  constructor(
+    private studyMaterialManagerService: StudyMaterialManagerService,
+  ) {
     this.getUserFolders();
   }
 
@@ -25,18 +26,6 @@ export class StudyMaterialManagerComponent {
     this.studyMaterialManagerService.getUserFolders().subscribe((folders) => {
       this.folders = folders;
       this.isLoading = false;
-    });
-  }
-
-  addUserFolder() {
-    const folder: Folder = {
-      id: 1,
-      name: 'test1',
-      lessonList: []
-    };
-
-    this.studyMaterialManagerService.addUserFolder(folder).subscribe((res) => {
-      console.log(res);
     });
   }
   
