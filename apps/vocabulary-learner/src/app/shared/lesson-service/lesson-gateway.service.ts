@@ -19,4 +19,8 @@ export class LessonGatewayService {
   getLessonsByFolderId(folderId: number): Observable<Lesson[]> {
     return this.http.get<Lesson[]>(`${this.baseUrl}/by-folder/${folderId}`);
   }
+
+  getLessonById(lessonId: number): Observable<Lesson> {
+    return this.http.get<Lesson>(`${this.baseUrl}/${lessonId}`);
+  }
 }

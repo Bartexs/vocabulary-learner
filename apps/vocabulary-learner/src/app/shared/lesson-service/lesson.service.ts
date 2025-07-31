@@ -7,7 +7,7 @@ import { Lesson } from '@vocabulary-learner/core/models/lessons';
   providedIn: 'root'
 })
 export class LessonService {
-
+  
   constructor(
      private lessonGateway: LessonGatewayService,
   ) {
@@ -16,5 +16,9 @@ export class LessonService {
 
    getLessonsByFolderId(folderId: number): Observable<Lesson[]> {
     return this.lessonGateway.getLessonsByFolderId(folderId);
+   }
+
+   getLessonById(lessonId: number): Observable<Lesson> {
+    return this.lessonGateway.getLessonById(lessonId);
    }
 }

@@ -1,14 +1,26 @@
 <div>
-    <p>{{lesson.name}}</p>
-    <div *ngIf="lesson.flashcards.length === 0">
-        <p>Flashcard list empty!</p>
+  <div *ngIf="isLoading">
+    <mat-progress-spinner></mat-progress-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && lesson">
+    <p>{{ lesson.name }}</p>
+
+    <div *ngIf="lesson.flashcards?.length === 0">
+      <p>Flashcard list empty!</p>
     </div>
-    <div *ngIf="lesson.flashcards.length > 0">
-        <p>Flashcards in lesson:</p>
-        <div *ngFor="let flashcard of lesson.flashcards">
-            <p>{{flashcard.frontSide}}</p>
-        </div>
+
+    <div>
+      <p>Flashcards in lesson:</p>
+      <div *ngFor="let flashcard of lesson.flashcards">
+        <p>{{ flashcard.frontSide }}</p>
+      </div>
     </div>
+
     <button>Add flashcards</button>
-    <app-flashcard-creator (emitFlashcards)="addFlashcardsToLesson($event)" [lesson]="lesson"></app-flashcard-creator>
+    <app-flashcard-creator
+      [lesson]="lesson"
+      (emitFlashcards)="addFlashcardsToLesson($event)">
+    </app-flashcard-creator>
+  </div>
 </div>
