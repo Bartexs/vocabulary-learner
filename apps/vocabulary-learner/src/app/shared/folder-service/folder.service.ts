@@ -18,6 +18,10 @@ export class FolderService {
     return this.folderGateway.getFolders();
   }
 
+  getFolderById(folderId: number): Observable<Folder> {
+    return this.folderGateway.getFolderById(folderId);
+  }
+
   addFolder(folder: Folder): Observable<Folder> {
     return this.folderGateway.addFolder(folder);
   }

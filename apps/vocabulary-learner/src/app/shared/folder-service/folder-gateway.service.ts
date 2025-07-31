@@ -15,6 +15,10 @@ export class FolderGatewayService {
     return this.http.get<Folder[]>(`${environment.apiUrl}/api/folders/me`);
   }
 
+  getFolderById(folderId: number): Observable<Folder> {
+    return this.http.get<Folder>(`${environment.apiUrl}/api/folders/${folderId}`);
+  }
+
   addFolder(folder: Folder): Observable<Folder> {
     return this.http.post<Folder>(`${environment.apiUrl}/api/folders/me`, { name: folder.name });
   }
