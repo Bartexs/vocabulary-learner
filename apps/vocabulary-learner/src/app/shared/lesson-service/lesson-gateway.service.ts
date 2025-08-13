@@ -23,4 +23,13 @@ export class LessonGatewayService {
   getLessonById(lessonId: number): Observable<Lesson> {
     return this.http.get<Lesson>(`${this.baseUrl}/${lessonId}`);
   }
+
+  addLesson(lesson: Lesson, folderId: number): Observable<Lesson> {
+    const bodyRequest = {
+      name: lesson.name,
+      folderId: folderId
+    };
+
+    return this.http.post<Lesson>(`${this.baseUrl}/me`, bodyRequest);
+  }
 }

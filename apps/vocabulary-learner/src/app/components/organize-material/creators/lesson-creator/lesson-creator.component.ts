@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Folder } from '../../../../core/models/folder/folder';
-import { FolderService } from '../../../../core/models/folder/folder.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
-import { LessonService } from 'apps/vocabulary-learner/src/app/core/services/lesson.service';
+import { FolderService } from '@vocabulary-learner/shared/folder-service/folder.service';
+import { LessonService } from '@vocabulary-learner/shared/lesson-service/lesson.service';
 
 @Component({
   selector: 'app-lesson-creator',
@@ -16,7 +16,7 @@ import { LessonService } from 'apps/vocabulary-learner/src/app/core/services/les
   styleUrl: './lesson-creator.component.css',
 })
 export class LessonCreatorComponent implements OnInit {
-  folder: Folder | undefined;
+  folder!: Folder;
   folderList: Folder[] = [];
   selectedValue = "";
   selectedFolder!: Folder;
@@ -49,12 +49,22 @@ export class LessonCreatorComponent implements OnInit {
   retrieveIdFromURL() {
     this.route.paramMap.subscribe(params => {
       const id = Number(params.get('id'));
-      this.folder = this.folderService.getFolderById(id)
-
-      if(!this.folder) {
-        this.folderList = this.folderService.loadAllFolders();
-      }
+      this.folderService.getFolderById(id).subscribe({
+        next: (folder) => {
+          this.folder = folder;
+        },
+        error: err => console.error(err)
+      })
     });
+  }
+
+  loadAllFolders() {
+    if(!this.folder) {
+      this.folderService.getFolders().subscribe({
+        next: (folders) => {this.folderList = folders},
+        error: (err) => {console.error(err)}
+      });
+    }
   }
 
   toggleFlashcards() {
@@ -63,10 +73,15 @@ export class LessonCreatorComponent implements OnInit {
 
   addLesson() {
     if (this.lessonName.trim()) {
-      const lesson = this.lessonService.createLesson(this.selectedFolder?.id, this.lessonName, []);
-      this.lessonService.saveLesson(lesson);
+      const lesson = this.lessonService.mapToLesson(this.selectedFolder?.id, this.lessonName, []);
+
+      this.lessonService.addLesson(lesson, this.folder.id).subscribe({
+        next: (lesson) => console.log(lesson),
+        error: (err) => console.error(err),
+      });
+
       this.selectedFolder.lessonList.push(lesson);
-      this.folderService.saveFolder(this.selectedFolder);
+      this.folderService.addFolder(this.selectedFolder);
       this.lessonName = '';
     } else {
       console.warn('Lesson name cannot be empty.');

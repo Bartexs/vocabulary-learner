@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { FolderService } from 'apps/vocabulary-learner/src/app/core/models/folder/folder.service';
+import { FolderService } from '../../../../shared/folder-service/folder.service';
 
 @Component({
   selector: 'app-folder-creator',
@@ -12,12 +12,22 @@ import { FolderService } from 'apps/vocabulary-learner/src/app/core/models/folde
 export class FolderCreatorComponent {
   userInput = "";
 
-  constructor(private folderService: FolderService) {
+  constructor(
+    private folderService: FolderService,
+  ) {
     
   }
 
   onSubmit() {
-    const folder = this.folderService.createFolder(this.userInput);
-    this.folderService.saveFolder(folder);
+    const folder = this.folderService.mapToFolder(this.userInput);
+
+    this.folderService.addFolder(folder).subscribe({
+      next: (folder) => {
+        console.log("Folder " + folder.name + " created!")
+      },
+      error: (err) => {
+        console.log('Failed to create folder', err);
+      }
+    });
   }
 }

@@ -29,4 +29,12 @@ export class FolderService {
   removeFolder(folder: Folder): Observable<void> {
     return this.folderGateway.removeFolder(folder);
   }
+
+  mapToFolder(folderName: string): Folder {
+    return {
+      id: Date.now(),
+      name: folderName,
+      lessonList: []
+    }
+  }
 }
