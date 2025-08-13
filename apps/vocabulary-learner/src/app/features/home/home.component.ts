@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { Flashcard } from '../core/models/flashcard';
-import { Folder } from '../core/models/folder/folder';
-import { FolderService } from '../core/models/folder/folder.service';
-import { DateUtilsService } from '../core/services/date-utils.service';
-import { FlashcardService } from '../core/services/flashcard.service';
-import { LessonService } from '../core/services/lesson.service';
+import { Flashcard } from '../../core/models/flashcard';
+import { Folder } from '../../core/models/folder/folder';
+import { FolderService } from '../../core/models/folder/folder.service';
+import { DateUtilsService } from '../../core/services/date-utils.service';
+import { FlashcardService } from '../../core/services/flashcard.service';
+import { LessonService } from '../../core/services/lesson.service';
 
 interface FolderWithFlashcards {
   folder: Folder,

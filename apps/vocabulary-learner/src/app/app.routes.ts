@@ -1,5 +1,5 @@
 import { Route } from '@angular/router';
-import { HomeComponent } from './components/home.component';
+import { HomeComponent } from './features/home/home.component';
 import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
@@ -11,7 +11,7 @@ import { LessonCreatorComponent } from './components/organize-material/creators/
 import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
 import { RegisterComponent } from './features/auth/register/RegisterComponent.component';
-import { LandingPageComponent } from './components/landing-page.component';
+import { LandingPageComponent } from './features/landing/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { StudyMaterialManagerComponent } from './components/learning-resources-manager/deprecated/study-material-manager/study-material-manager.component';
