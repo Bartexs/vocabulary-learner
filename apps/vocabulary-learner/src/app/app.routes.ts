@@ -14,7 +14,7 @@ import { RegisterComponent } from './features/auth/register/RegisterComponent.co
 import { LandingPageComponent } from './components/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
-import { StudyMaterialManagerComponent } from './components/study-material-manager/study-material-manager.component';
+import { StudyMaterialManagerComponent } from './components/learning-resources-manager/deprecated/study-material-manager/study-material-manager.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },

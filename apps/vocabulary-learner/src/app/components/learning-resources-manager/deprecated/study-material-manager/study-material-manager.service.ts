@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { Folder } from '@vocabulary-learner/core/models/folder/folder';
 import { environment } from 'apps/vocabulary-learner/src/environments/environment';
-import { Folder } from '../../core/models/folder/folder';
 import { Observable } from 'rxjs';
 
 @Injectable({

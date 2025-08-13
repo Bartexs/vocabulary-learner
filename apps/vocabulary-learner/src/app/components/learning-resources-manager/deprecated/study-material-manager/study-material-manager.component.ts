@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { StudyMaterialManagerService } from './study-material-manager.service';
-import { Folder } from '../../core/models/folder/folder';
 import { MatIcon } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
+import { StudyMaterialManagerService } from './study-material-manager.service';
+import { Folder } from '@vocabulary-learner/core/models/folder/folder';
 
 @Component({
   selector: 'app-study-material-manager',
