@@ -40,7 +40,6 @@ export class FlashcardCreatorComponent {
         };
       });
       flashcards.every(flashcard => this.lesson.flashcards.push(flashcard));
-      this.lessonService.updateLesson(this.lesson);
       this.userInput = '';
       this.emitFlashcards.emit(flashcards);
   }

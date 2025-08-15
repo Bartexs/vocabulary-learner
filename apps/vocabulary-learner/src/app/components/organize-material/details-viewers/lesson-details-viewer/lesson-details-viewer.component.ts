@@ -35,6 +35,7 @@ export class LessonDetailsViewerComponent implements OnInit {
       const id = Number(params.get('id'));
       this.getLesson(id);
     });
+
   }
   
   getLesson(id: number): void {
@@ -56,7 +57,6 @@ export class LessonDetailsViewerComponent implements OnInit {
               lessonId: 0,
               flashcardProficiency: flashcardProficiency
             }))
-
             this.isLoading = false;
           },
           error: err => {
@@ -74,7 +74,10 @@ export class LessonDetailsViewerComponent implements OnInit {
     flashcardList.map(flashcard => {
       this.lesson.flashcards.push(flashcard);
     });
-    // this.lessonService.updateLesson(this.lesson);
+    this.flashcardService.addFlashcards(this.lesson.id, flashcardList).subscribe({
+      next: (lesson) => console.log(lesson),
+      error: (err) => console.error(err),
+    });
   }
 } 
 
