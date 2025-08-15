@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { FolderService } from '../../../../shared/folder-service/folder.service';
+import { Router } from '@angular/router';
+import { SnackbarService } from '../../../../shared/snackbar-service/snackbar.service';
 
 @Component({
   selector: 'app-folder-creator',
@@ -14,6 +16,8 @@ export class FolderCreatorComponent {
 
   constructor(
     private folderService: FolderService,
+    private router: Router,
+    private snackbarService: SnackbarService
   ) {
     
   }
@@ -24,6 +28,8 @@ export class FolderCreatorComponent {
     this.folderService.addFolder(folder).subscribe({
       next: (folder) => {
         console.log("Folder " + folder.name + " created!")
+        this.router.navigate(['/lesson-creator', folder.id]); 
+        this.snackbarService.openSnackBar("Folder " + folder.name + " created. Add first lesson.", "Ok")
       },
       error: (err) => {
         console.log('Failed to create folder', err);
