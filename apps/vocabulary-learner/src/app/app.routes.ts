@@ -4,7 +4,6 @@ import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
 import { PracticeModeComponent } from './components/practice-mode/exercises-container/practice-mode.component';
-import { MaterialOrganizerComponent } from './components/organize-material/material-organizer.component';
 import { FolderCreatorComponent } from './components/organize-material/creators/folder-creator/folder-creator.component';
 import { FolderDetailsViewerComponent } from './components/organize-material/details-viewers/folder-details-viewer/folder-details-viewer.component';
 import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
@@ -21,7 +20,6 @@ export const appRoutes: Route[] = [
     { path: 'home', component: HomeComponent },
     { path: 'practice-selector', component: PracticeModeSelectorComponent },
     { path: 'exam', component: ExamModeComponent },
-    { path: 'browse-lessons', component: MaterialOrganizerComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
     { path: 'practice', component: PracticeModeComponent },
     { path: 'folder-creator', component: FolderCreatorComponent },
