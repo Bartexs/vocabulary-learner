@@ -7,7 +7,7 @@ import { Lesson } from '@vocabulary-learner/core/models/lessons';
 import { FolderService } from '@vocabulary-learner/shared/folder-service/folder.service';
 import { FlashcardService } from '@vocabulary-learner/shared/flashcard-service/flashcard.service';
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
-import { Folder } from '@vocabulary-learner/core/models/folder/folder';
+import { Folder } from '@vocabulary-learner/core/models/folder';
 
 @Component({
   selector: 'app-folder-details-viewer',

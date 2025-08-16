@@ -8,7 +8,7 @@ import { Lesson } from '../../../../../core/models/lessons';
 import { Flashcard } from '../../../../../core/models/flashcard';
 import { FlashcardCreatorComponent } from '../mini/flashcard-creator.component';
 import { FolderService } from '../../../../../shared/folder-service/folder.service';
-import { Folder } from '../../../../../core/models/folder/folder';
+import { Folder } from '../../../../../core/models/folder';
 import { LessonService } from '../../../../../shared/lesson-service/lesson.service';
 import { FlashcardService } from '../../../../../shared/flashcard-service/flashcard.service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";

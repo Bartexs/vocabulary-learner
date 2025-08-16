@@ -4,7 +4,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
 import { StudyMaterialManagerService } from './study-material-manager.service';
-import { Folder } from '@vocabulary-learner/core/models/folder/folder';
+import { Folder } from '@vocabulary-learner/core/models/folder';
 
 @Component({
   selector: 'app-study-material-manager',

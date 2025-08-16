@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { Folder } from '@vocabulary-learner/core/models/folder/folder';
+import { Folder } from '@vocabulary-learner/core/models/folder';
 import { environment } from 'apps/vocabulary-learner/src/environments/environment';
 import { Observable } from 'rxjs';
 
