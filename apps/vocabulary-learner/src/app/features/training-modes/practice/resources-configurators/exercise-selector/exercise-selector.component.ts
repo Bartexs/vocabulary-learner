@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ExerciseType, getExercises, getExercisesByNames } from '../../../../core/models/exercise';
+import { ExerciseType, getExercises, getExercisesByNames } from '../../../../../core/models/exercise';
 
 @Component({
   selector: 'app-exercise-selector',

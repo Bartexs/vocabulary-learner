@@ -2,14 +2,16 @@ import { Component, ViewChild, ViewContainerRef, OnInit, Type } from '@angular/c
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { ExerciseType } from '../../../core/models/exercise';
-import { ComponentRegistry } from '../../../core/models/exercise-registry';
-import { ExerciseSummary } from '../../../core/models/exercise-Summary';
-import { Flashcard } from '../../../core/models/flashcard';
-import { LessonService } from '../../../core/services/lesson.service';
-import { DynamicExerciseComponent } from '../../exercises/dynamic-exercise.component';
-import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { ExerciseType } from '../../../../core/models/exercise';
+import { ComponentRegistry } from '../../../../core/models/exercise-registry';
+import { ExerciseSummary } from '../../../../core/models/exercise-Summary';
+import { Flashcard } from '../../../../core/models/flashcard';
+import { DynamicExerciseComponent } from '../../../../components/exercises/dynamic-exercise.component';
+import { SessionSummaryService } from '../../../../components/session-summary/session-summary.service';
 import { PracticeModeService } from '../services/practice-mode.service';
+import { LessonService } from '../../../../shared/lesson-service/lesson.service';
+import { FlashcardService } from '@vocabulary-learner/shared/flashcard-service/flashcard.service';
+import { Lesson } from '@vocabulary-learner/core/models/lessons';
 
 @Component({
   selector: 'app-practice-mode',
@@ -31,6 +33,7 @@ export class PracticeModeComponent implements OnInit  {
     private router: Router,
     private sessionSummaryService: SessionSummaryService,
     private practiceModeService: PracticeModeService,
+    private flashcardService: FlashcardService
   ) {
 
   }
@@ -43,7 +46,19 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   private setFlashcardList() {
-    this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.practiceModeService.getPracticeModeConfig().lessonList);
+    // this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.practiceModeService.getPracticeModeConfig().lessonList);
+
+    const lessons: Lesson[] = this.practiceModeService.getPracticeModeConfig().lessonList;
+
+    console.log("hej");
+
+    this.flashcardService.getFlashcardsByLessonsIds(lessons).subscribe({
+      next: (flashcards) => {
+        console.log(flashcards);
+        this.flashcardList = flashcards
+      },
+      error: (err) => console.error(err),
+    })
   }
 
   private setExerciseList() {

@@ -2,8 +2,7 @@ import { Route } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
 import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
-import { PracticeModeSelectorComponent } from './components/practice-mode/selectors/practice-mode-selector.component';
-import { PracticeModeComponent } from './components/practice-mode/exercises-container/practice-mode.component';
+import { PracticeModeComponent } from './features/training-modes/practice/exercises-manager/practice-mode.component';
 import { FolderCreatorComponent } from './components/organize-material/creators/folder-creator/folder-creator.component';
 import { FolderDetailsViewerComponent } from './components/organize-material/details-viewers/folder-details-viewer/folder-details-viewer.component';
 import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
@@ -14,6 +13,7 @@ import { LandingPageComponent } from './features/landing/landing-page.component'
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { StudyMaterialManagerComponent } from './components/learning-resources-manager/deprecated/study-material-manager/study-material-manager.component';
+import { PracticeModeSelectorComponent } from './features/training-modes/practice/main-controller/practice-mode-selector.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },

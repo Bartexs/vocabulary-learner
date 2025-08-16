@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
-import { Flashcard } from '../../../core/models/flashcard';
-import { Lesson } from '../../../core/models/lessons';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ExerciseSelectorComponent } from "./exercise-selector/exercise-selector.component";
-import { ExerciseType } from '../../../core/models/exercise';
 import { PracticeModeConfig } from '../models/practice-mode-config';
 import { PracticeModeService } from '../services/practice-mode.service';
-import { LessonService } from '../../../core/services/lesson.service';
-import { MaterialSelectorComponent } from './material-selector/material-selector.component';
+import { ExerciseType } from '../../../../core/models/exercise';
+import { Flashcard } from '../../../../core/models/flashcard';
+import { Lesson } from '../../../../core/models/lessons';
+import { LessonService } from '../../../../core/services/lesson.service';
+import { ExerciseSelectorComponent } from '../resources-configurators/exercise-selector/exercise-selector.component';
+import { MaterialSelectorComponent } from '../resources-configurators/material-selector/material-selector.component';
 
 @Component({
   selector: 'app-practice-mode-selector',
