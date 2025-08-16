@@ -70,7 +70,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     if (event.key !== 'Enter' || this.showResult) return;
     
     this.isFinished = true;
-    this.isCorrect = this.currentFlashcard.frontSide === this.userInput;
+    this.isCorrect = this.currentFlashcard.front === this.userInput;
 
     this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     

@@ -1,12 +1,12 @@
 <div class="container">
     <div *ngIf="!isShowConcept" class="text-center">
-        <p class="front">{{ currentFlashcard.frontSide }}</p>
-        <p class="back">{{ currentFlashcard.backSide }}</p>
+        <p class="front">{{ currentFlashcard.front }}</p>
+        <p class="back">{{ currentFlashcard.back }}</p>
     </div>
     
     <div *ngIf="isShowConcept" class="content">
         <div class="text-center">
-            <p class="back">{{ currentFlashcard.backSide }}</p>
+            <p class="back">{{ currentFlashcard.back }}</p>
         </div>
         
         <div class="grid-container">
@@ -16,7 +16,7 @@
                 (keydown)="handleKeyPress(flashcard, i)" 
                 (click)="check(flashcard)" 
                 tabindex="0">
-                <p class="text">{{ flashcard.frontSide }}</p>
+                <p class="text">{{ flashcard.front }}</p>
             </div>
         </div>
         

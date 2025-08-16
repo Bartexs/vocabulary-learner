@@ -33,9 +33,10 @@ export class FlashcardCreatorComponent {
         const [front, back] = line.split('\t'); // Split by tab character
         return {
           id: Math.floor(Math.random() * 1000000),
+          description: '',
           lessonId: this.lesson.id,
-          frontSide: front?.trim() || '', // Trim and handle missing front
-          backSide: back?.trim() || '',    // Trim and handle missing back
+          front: front?.trim() || '', // Trim and handle missing front
+          back: back?.trim() || '',    // Trim and handle missing back
           flashcardProficiency: flashcardProficiency
         };
       });

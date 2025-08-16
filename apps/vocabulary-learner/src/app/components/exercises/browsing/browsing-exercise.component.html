@@ -1,7 +1,7 @@
 <div class="flex-col center">
     <div *ngIf="!showCorrectAnswer" class="flex-col">
         <div class="box text center">
-            <h1>{{this.currentFlashcard.backSide}}</h1>
+            <h1>{{this.currentFlashcard.back}}</h1>
         </div>
         <div class="button-container center">
             <button class="border button"(click)="toggleShowCorrectAnswer()">Check</button>
@@ -10,7 +10,7 @@
     <div *ngIf="showCorrectAnswer" class="flex-col">
         <div class="flex-col">
             <div class="box-answer text center"> 
-                <h1>{{this.currentFlashcard.frontSide}}</h1>
+                <h1>{{this.currentFlashcard.front}}</h1>
             </div>
             <div>
                 <span>Did you know the answer?</span>

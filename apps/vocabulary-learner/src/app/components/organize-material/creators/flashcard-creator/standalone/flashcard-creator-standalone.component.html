@@ -61,8 +61,8 @@
       <div *ngIf="flashcardList && !isFlashcardListLoading" class="flashcard-list">
         @for (flashcard of flashcardList; track flashcard.id) {
           <p class="flashcard-item">
-            <strong>Front:</strong> {{ flashcard.frontSide }}<br>
-            <strong>Back:</strong> {{ flashcard.backSide }}
+            <strong>Front:</strong> {{ flashcard.front }}<br>
+            <strong>Back:</strong> {{ flashcard.back }}
           </p>
         }
       </div>

@@ -36,8 +36,8 @@ export class FlashcardService {
     flashcards.forEach(flashcard => {
       const f: FlashcardDTO = {
         id: 0,
-        front: flashcard.frontSide,
-        back: flashcard.backSide
+        front: flashcard.front,
+        back: flashcard.back
       }
 
       flashcardsDTO.push(f);
@@ -59,9 +59,10 @@ export class FlashcardService {
   private mapFlashcardDtoToFlashcard(dto: FlashcardDTO, lessonId: number): Flashcard {
     return {
       id: dto.id,
+      description: '',
       lessonId: lessonId,
-      frontSide: dto.front,
-      backSide: dto.back,
+      front: dto.front,
+      back: dto.back,
       flashcardProficiency: {
         flashcardMastered: false,
         masteryLevel: 0

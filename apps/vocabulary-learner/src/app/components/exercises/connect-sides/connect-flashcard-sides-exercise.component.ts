@@ -39,12 +39,12 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
 
   setContainers() {
     this.frontSideContainer = this.flashcardList.map(flashcard => {
-      return flashcard.frontSide;
+      return flashcard.front;
     })
 
     this.backSideContainer = this.flashcardList.map(flashcard => {
       return {
-        word: flashcard.backSide,
+        word: flashcard.back,
         correctIndex: this.flashcardList.indexOf(flashcard),
       }
     });

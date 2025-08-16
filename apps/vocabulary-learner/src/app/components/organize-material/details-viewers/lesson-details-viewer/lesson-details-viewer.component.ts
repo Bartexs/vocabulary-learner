@@ -52,6 +52,7 @@ export class LessonDetailsViewerComponent implements OnInit {
           next: flashcardDTOs => {
             this.lesson.flashcards = flashcardDTOs.map(dto => ({
               ...dto,
+              description: '',
               frontSide: dto.front,
               backSide: dto.back,
               lessonId: 0,

@@ -1,6 +1,6 @@
 <div class="border container">
     <div class="row">
-        <p class="main-text">{{this.currentFlashcard.backSide}}</p>
+        <p class="main-text">{{this.currentFlashcard.back}}</p>
     </div>
     <div class="row">
         <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
@@ -11,7 +11,7 @@
             <p>Press any key to continue...</p>
         </div>
         <div *ngIf="!isCorrect" class="red-text">
-            <p>Correct answer is: {{this.currentFlashcard.frontSide}}</p>
+            <p>Correct answer is: {{this.currentFlashcard.front}}</p>
             <p>Press any key to continue...</p>
         </div>
     </div>
