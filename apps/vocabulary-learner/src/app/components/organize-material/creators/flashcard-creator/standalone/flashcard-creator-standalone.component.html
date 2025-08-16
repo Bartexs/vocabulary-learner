@@ -54,17 +54,20 @@
       
       <!-- Adding flashcards in bundle -->
       <div class="creator-section">
-        <app-flashcard-creator [lesson]="selectedLesson" (emitFlashcards)="flashcardsCreated()"></app-flashcard-creator>
+        <app-flashcard-creator [lesson]="selectedLesson" (emitFlashcards)="saveFlashcards($event)"></app-flashcard-creator>
       </div>
 
       <!-- Display the list of flashcards -->
-      <div *ngIf="flashcardList" class="flashcard-list">
-        @for(flashcard of flashcardList; track flashcard) {
+      <div *ngIf="flashcardList && !isFlashcardListLoading" class="flashcard-list">
+        @for (flashcard of flashcardList; track flashcard.id) {
           <p class="flashcard-item">
-            <strong>Front:</strong> {{flashcard.frontSide}}<br>
-            <strong>Back:</strong> {{flashcard.backSide}}
+            <strong>Front:</strong> {{ flashcard.frontSide }}<br>
+            <strong>Back:</strong> {{ flashcard.backSide }}
           </p>
         }
+      </div>
+      <div *ngIf="isFlashcardListLoading"> 
+        <mat-spinner></mat-spinner>
       </div>
     </div>
   </div>

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
+import { Flashcard } from '../../core/models/flashcard';
 import { Observable } from 'rxjs';
 import { FlashcardGatewayService } from './flashcard-gateway.service';
-import { Lesson } from '@vocabulary-learner/core/models/lessons';
-import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
+import { Lesson } from '../../core/models/lessons';
+import { FlashcardDTO } from '../../core/models/flashcardDTO';
 
 
 @Injectable({
@@ -20,11 +20,16 @@ export class FlashcardService {
     return this.flashcardGateway.getFlashcardsByLessonId(lessonId);
   }
 
+  // fix flashcard objects to more unified and remove it
+  getFlashcardsByLessonIdFlashcardDTO(lessonId: number): Observable<FlashcardDTO[]> {
+    return this.flashcardGateway.getFlashcardsByLessonIdDTO(lessonId);
+  }
+
   getFlashcardDTOsByLessonId(lessonId: number): Observable<FlashcardDTO[]> {
     return this.flashcardGateway.getFlashcardDTOsByLessonId(lessonId);
   }
   
-  addFlashcards(lessonId: number, flashcards: Flashcard[]): Observable<Lesson> {
+  private addFlashcards(lessonId: number, flashcards: Flashcard[]): Observable<Lesson> {
 
     const flashcardsDTO: FlashcardDTO[] = [];
 
@@ -39,5 +44,32 @@ export class FlashcardService {
     })
 
     return this.flashcardGateway.addFlashcards(lessonId, flashcardsDTO);
+  }
+
+  addFlashcardsToLesson(flashcardList: Flashcard[], lesson: Lesson) {
+    flashcardList.map(flashcard => {
+      lesson.flashcards.push(flashcard);
+    });
+    this.addFlashcards(lesson.id, flashcardList).subscribe({
+      next: (lesson) => console.log(lesson),
+      error: (err) => console.error(err),
+    });
+  }
+
+  private mapFlashcardDtoToFlashcard(dto: FlashcardDTO, lessonId: number): Flashcard {
+    return {
+      id: dto.id,
+      lessonId: lessonId,
+      frontSide: dto.front,
+      backSide: dto.back,
+      flashcardProficiency: {
+        flashcardMastered: false,
+        masteryLevel: 0
+      }
+    };
+  }
+
+  fromDTOs(dtos: FlashcardDTO[], lessonId: number): Flashcard[] {
+    return dtos.map(dto => this.mapFlashcardDtoToFlashcard(dto, lessonId));
   }
 }

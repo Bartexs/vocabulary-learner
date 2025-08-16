@@ -20,6 +20,11 @@ export class FlashcardGatewayService {
     return this.http.get<Flashcard[]>(`${this.baseUrl}/by-lesson/${lessonId}`);
   }
 
+  // fix flashcard objects to more unified and remove it
+  getFlashcardsByLessonIdDTO(lessonId: number): Observable<FlashcardDTO[]> {
+    return this.http.get<FlashcardDTO[]>(`${this.baseUrl}/by-lesson/${lessonId}`);
+  }
+
 
   getFlashcardDTOsByLessonId(lessonId: number): Observable<FlashcardDTO[]> {
     return this.http.get<FlashcardDTO[]>(`${this.baseUrl}/by-lesson/${lessonId}`);

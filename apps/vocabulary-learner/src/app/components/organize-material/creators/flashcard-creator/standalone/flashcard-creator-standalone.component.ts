@@ -5,17 +5,17 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Lesson } from '../../../../../core/models/lessons';
-import { Folder } from '../../../../../core/models/folder/folder';
-import { FolderService } from '../../../../../core/models/folder/folder.service';
 import { Flashcard } from '../../../../../core/models/flashcard';
-import { FlashcardService } from 'apps/vocabulary-learner/src/app/core/services/flashcard.service';
-import { LessonService } from 'apps/vocabulary-learner/src/app/core/services/lesson.service';
-import { FolderCreatorComponent } from '../../folder-creator/folder-creator.component';
 import { FlashcardCreatorComponent } from '../mini/flashcard-creator.component';
+import { FolderService } from '../../../../../shared/folder-service/folder.service';
+import { Folder } from '../../../../../core/models/folder/folder';
+import { LessonService } from '../../../../../shared/lesson-service/lesson.service';
+import { FlashcardService } from '../../../../../shared/flashcard-service/flashcard.service';
+import { MatProgressSpinner } from "@angular/material/progress-spinner";
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
-  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FlashcardCreatorComponent],
+  imports: [CommonModule, FormsModule, MatFormFieldModule, MatSelectModule, MatInputModule, FlashcardCreatorComponent, MatProgressSpinner],
   templateUrl: './flashcard-creator-standalone.component.html',
   styleUrl: './flashcard-creator-standalone.component.css',
 })
@@ -28,6 +28,8 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   flashcardList!: Flashcard[] | undefined;
   folderName = '';
   lessonName = '';
+  isLoading = true;
+  isFlashcardListLoading = true;
 
   constructor(
     private folderService: FolderService,
@@ -38,21 +40,47 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   }
   
   ngOnInit() {
-    this.folderList = this.folderService.loadAllFolders();
+    this.setFolders();
   }
 
-  flashcardsCreated() {
+  setFolders() {
+    this.folderService.getFolders().subscribe({
+      next: (f) => {
+        this.folderList = f;
+        this.isLoading = false;
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  saveFlashcards(flashcardList: Flashcard[]) {
+    this.flashcardService.addFlashcardsToLesson(flashcardList, this.selectedLesson);
     this.selectedLessonChange();
-    console.log(this.flashcardList);
   }
 
   createFolder() {
-    const folder = this.folderService.createFolder(this.folderName);
-    const lesson = this.lessonService.createLesson(folder.id, this.lessonName, []);
-    this.lessonService.saveLesson(lesson);
-    folder.lessonList.push(lesson);
-    this.folderService.saveFolder(folder);
-    this.folderList = this.folderService.loadAllFolders();
+    this.folderList = undefined;
+    this.isLoading = true;
+
+    const folderToSave: Folder = {
+      id: 0,
+      name: this.folderName,
+      lessonList: []
+    }
+
+    this.folderService.addFolder(folderToSave).subscribe({
+      next: (f) => {
+        this.lessonService.addLesson({id: 0, folderId: f.id, name: this.lessonName, flashcards: []}, f.id);
+        this.folderService.getFolders().subscribe({
+          next: (f) => {
+            this.folderList = f;
+            this.isLoading = false;
+          },
+          error: (err) => console.error(err),
+        })
+      },
+      error: (err) => console.error(err),
+    });
   }
 
   selectedFolderChange() {
@@ -61,7 +89,10 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
     const folderFound = this.folderList?.find((element) => element.name === this.selectedFolder);
  
     if(folderFound) {
-      this.lessonList = folderFound.lessonList;
+        this.lessonService.getLessonsByFolderId(folderFound.id).subscribe({
+        next: (l) => this.lessonList = l,
+        error: (err) => console.error(err),
+      });
     };
   }
 
@@ -75,7 +106,13 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
 
     if(lessonFound) {
       this.selectedLesson = lessonFound;
-      this.flashcardList = this.flashcardService.getFlashcards(lessonFound.id);   
+      this.flashcardService.getFlashcardsByLessonIdFlashcardDTO(lessonFound.id).subscribe({
+        next: (flashcardList) => {
+          this.flashcardList = this.flashcardService.fromDTOs(flashcardList, lessonFound.id);
+          this.isFlashcardListLoading = false;
+        },
+        error: (err) => console.error(err),
+      });   
     }
   }
 }

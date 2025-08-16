@@ -4,10 +4,10 @@ import { ActivatedRoute } from '@angular/router';
 import { Flashcard } from '../../../../core/models/flashcard';
 import { Lesson } from '../../../../core/models/lessons';
 import { FlashcardCreatorComponent } from '../../creators/flashcard-creator/mini/flashcard-creator.component';
-import { LessonService } from '@vocabulary-learner/shared/lesson-service/lesson.service';
-import { FlashcardService } from '@vocabulary-learner/shared/flashcard-service/flashcard.service';
+import { LessonService } from '../../../../shared/lesson-service/lesson.service';
+import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
-import { FlashcardProficiency } from '@vocabulary-learner/core/models/flashcard-proficiency';
+import { FlashcardProficiency } from '../../../../core/models/flashcard-proficiency';
 
 @Component({
   selector: 'app-lesson-details-viewer',
@@ -71,13 +71,7 @@ export class LessonDetailsViewerComponent implements OnInit {
   }
 
   addFlashcardsToLesson(flashcardList: Flashcard[]) {
-    flashcardList.map(flashcard => {
-      this.lesson.flashcards.push(flashcard);
-    });
-    this.flashcardService.addFlashcards(this.lesson.id, flashcardList).subscribe({
-      next: (lesson) => console.log(lesson),
-      error: (err) => console.error(err),
-    });
+    this.flashcardService.addFlashcardsToLesson(flashcardList, this.lesson);
   }
 } 
 

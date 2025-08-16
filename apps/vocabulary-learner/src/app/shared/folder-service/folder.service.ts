@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Folder } from '@vocabulary-learner/core/models/folder/folder';
+import { Folder } from '../../core/models/folder/folder';
 import { FolderGatewayService } from './folder-gateway.service';
 import { Observable } from 'rxjs';
 
