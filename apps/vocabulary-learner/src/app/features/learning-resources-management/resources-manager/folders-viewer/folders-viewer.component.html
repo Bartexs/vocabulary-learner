@@ -1,0 +1,41 @@
+<div class="folder-wrapper">
+    <div *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+        <div *ngIf="folders.length > 0">
+            <div class="title-row">
+                <div>
+                    <span class="heading">Folders</span>
+                </div>
+                <div>
+                    <a href="/folder-creator"> 
+                        <mat-icon class="folder-icon add-icon" aria-hidden="false" aria-label="Add new folder icon" fontIcon="add_box"></mat-icon>
+                    </a>
+                </div>
+            </div>
+            <div class="inner-list">
+                <div *ngFor="let folder of folders; index as i" class="folder-item" >
+                    <a [routerLink]="['/folder-details', folder.id]" class="folder-name-container">
+                        <span class="folder-name">{{ folder.name }}</span>
+                    </a>
+                    <mat-icon class="folder-icon edit-icon" aria-hidden="false" aria-label="Edit folder icon" fontIcon="edit_document"></mat-icon>
+                    <mat-icon class="folder-icon delete-icon" aria-hidden="false" aria-label="Delete folder icon" fontIcon="delete" (click)="removeFolder(i)"></mat-icon>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="folders.length === 0">
+            <div>
+                <h1>No folders yet.</h1>
+            </div>
+            <div>
+                <div class="add-folder">
+                <a href="/folder-creator"> 
+                    <mat-icon class="folder-icon add-icon" aria-hidden="false" aria-label="Add new folder icon" fontIcon="add_box"></mat-icon>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+  
