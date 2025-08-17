@@ -12,8 +12,8 @@ import { RegisterComponent } from './features/auth/register/RegisterComponent.co
 import { LandingPageComponent } from './features/landing/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
-import { StudyMaterialManagerComponent } from './components/learning-resources-manager/deprecated/study-material-manager/study-material-manager.component';
 import { PracticeModeSelectorComponent } from './features/training-modes/practice/main-controller/practice-mode-selector.component';
+import { FoldersViewerComponent } from './features/learning-resources-management/resources-manager/folders-viewer/folders-viewer';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -32,5 +32,5 @@ export const appRoutes: Route[] = [
     { path: 'login', component: LoginComponent },
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'demo-mode', component: DemoModeComponent },
-    { path: 'manage-study-material', component: StudyMaterialManagerComponent },
+    { path: 'manage-learning-resources', component: FoldersViewerComponent },
 ];

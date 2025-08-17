@@ -3,27 +3,27 @@ import { CommonModule } from '@angular/common';
 import { MatIcon } from "@angular/material/icon";
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { RouterLink } from '@angular/router';
-import { StudyMaterialManagerService } from './study-material-manager.service';
 import { Folder } from '@vocabulary-learner/core/models/folder';
+import { FolderService } from '@vocabulary-learner/shared/folder-service/folder.service';
 
 @Component({
-  selector: 'app-study-material-manager',
+  selector: 'app-folders-viewer',
   imports: [CommonModule, MatIcon, MatProgressSpinnerModule, RouterLink],
-  templateUrl: './study-material-manager.component.html',
-  styleUrl: './study-material-manager.component.css',
+  templateUrl: './folders-viewer.component.html',
+  styleUrl: './folders-viewer.component.css',
 })
-export class StudyMaterialManagerComponent {
+export class FoldersViewerComponent {
   folders: Folder[] = [];
   isLoading = true;
 
   constructor(
-    private studyMaterialManagerService: StudyMaterialManagerService,
+    private studyMaterialManagerService: FolderService,
   ) {
     this.getUserFolders();
   }
 
   getUserFolders() {
-    this.studyMaterialManagerService.getUserFolders().subscribe((folders) => {
+    this.studyMaterialManagerService.getFolders().subscribe((folders) => {
       this.folders = folders;
       this.isLoading = false;
     });

@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { StudyMaterialManagerComponent } from './study-material-manager.component';
+import { FoldersViewerComponent } from './folders-viewer';
 
 describe('StudyMaterialManagerComponent', () => {
-  let component: StudyMaterialManagerComponent;
-  let fixture: ComponentFixture<StudyMaterialManagerComponent>;
+  let component: FoldersViewerComponent;
+  let fixture: ComponentFixture<FoldersViewerComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [StudyMaterialManagerComponent],
+      imports: [FoldersViewerComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(StudyMaterialManagerComponent);
+    fixture = TestBed.createComponent(FoldersViewerComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
