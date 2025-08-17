@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DynamicExerciseComponent } from '../dynamic-exercise.component';
+import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { Exercise } from '../../../core/models/exercise';
-import { ExerciseService } from '../exercise.service';
+import { ExerciseService } from '../../../features/exercises/exercise.service';
 
 @Component({
   selector: 'app-browsing-exercise',

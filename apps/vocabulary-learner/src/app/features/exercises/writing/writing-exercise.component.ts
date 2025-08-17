@@ -1,8 +1,8 @@
 import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { DynamicExerciseComponent } from '../dynamic-exercise.component';
-import { ExerciseService } from '../exercise.service';
+import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
+import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise } from '../../../core/models/exercise';
 import { DateUtilsService } from '../../../core/services/date-utils.service';
 import { FlashcardService } from '../../../core/services/flashcard.service';

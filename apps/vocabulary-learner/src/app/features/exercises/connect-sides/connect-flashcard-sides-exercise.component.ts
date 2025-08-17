@@ -6,9 +6,9 @@ import {
   CdkDropList,
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
-import { DynamicExerciseComponent } from '../dynamic-exercise.component';
+import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { Exercise, ExerciseType } from '../../../core/models/exercise';
-import { ExerciseService } from '../exercise.service';
+import { ExerciseService } from '../../../features/exercises/exercise.service';
 
 export interface BackSideWithCorrectIndex {
   word: string,

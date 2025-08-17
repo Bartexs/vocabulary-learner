@@ -1,7 +1,7 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DynamicExerciseComponent } from '../dynamic-exercise.component';
-import { ExerciseService } from '../exercise.service';
+import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
+import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise, ExerciseType } from '../../../core/models/exercise';
 import { Flashcard } from '../../../core/models/flashcard';
 import { UtilsService } from '../../../core/services/utils.service';

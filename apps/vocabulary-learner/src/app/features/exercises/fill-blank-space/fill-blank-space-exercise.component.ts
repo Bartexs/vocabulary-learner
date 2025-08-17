@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { DynamicExerciseComponent } from '../dynamic-exercise.component';
+import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
