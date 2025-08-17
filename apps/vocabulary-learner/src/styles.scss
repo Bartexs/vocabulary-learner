@@ -8,10 +8,8 @@
   max-width: 650px;
   margin: 3rem auto;
   padding: 2rem;
-  background: #f7f7f7;
   border-radius: 16px;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
-  font-family: 'Segoe UI', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 // use it as default section title 
@@ -19,7 +17,9 @@
   font-size: 1.3rem;
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: #333;
+  color: rgba(215, 104, 84, 0.7);
+  font-weight: bolder;
+  letter-spacing: 0.07rem;
 }
 
 // use it as default container list in the inner window 

@@ -1,11 +1,6 @@
-.container {
-  max-width: 900px;
-  margin: 2rem auto;
-  padding: 2rem;
+.folder-wrapper { 
+  max-width: 700px;
   border-radius: 1rem;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: #4e3d42;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -21,7 +16,8 @@
   flex: 1 1 45%;
   padding: 1.5rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 10px rgba(197, 164, 147, 0.15);
+  box-shadow: 0 2px 10px rgba(197, 164, 147, 0.21);
+  background-color: white;
 }
 
 .advanced-settings-toggle {
@@ -45,10 +41,10 @@
 }
 
 .advanced-settings {
-  background: #fff7f3;
   padding: 1.5rem 2rem;
   border-radius: 1rem;
   box-shadow: 0 3px 10px rgba(197, 164, 147, 0.2);
+  background-color: white;
 }
 
 .advanced-settings h3 {
