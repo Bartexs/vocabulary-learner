@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseType, getExercises } from 'apps/vocabulary-learner/src/app/core/models/exercise';
 import { Lesson } from 'apps/vocabulary-learner/src/app/core/models/lessons';
-import { PracticeModeService } from '../../services/practice-mode.service';
-import { LessonService } from '@vocabulary-learner/core/services/lesson.service';
+import { PracticeService } from '../../services/practice.service';
+import { LessonService } from '@vocabulary-learner/shared/lesson-service/lesson.service';
 
 @Component({
   selector: 'app-material-selector',
@@ -19,14 +19,21 @@ export class MaterialSelectorComponent implements OnInit {
 
   constructor(
     private lessonService: LessonService,
-    private practiceModeService: PracticeModeService
+    private practiceService: PracticeService
   ) {
 
   }
 
   ngOnInit() {
-    this.lessonsAvailable = this.lessonService.loadAllLessons();
+    this.getLessonsAvailable();
     this.exerciseAvailable = getExercises();
+  }
+
+  getLessonsAvailable() {
+    this.lessonService.getAllLessons().subscribe({
+      next: (l) => this.lessonsAvailable = l,
+      error: (err) => console.error(err)
+    });
   }
 
   toggleSelection(lessonId: number, isChecked: boolean) {
@@ -39,8 +46,13 @@ export class MaterialSelectorComponent implements OnInit {
   }
 
   onSelectedLessonListUpdate() {
-    const config = this.practiceModeService.getPracticeModeConfig();
-    config.lessonList = this.lessonService.getLessonsByID(this.selectedLessonsId);
-    this.practiceModeService.setPracticeModeConfig(config);
+    const config = this.practiceService.getPracticeModeConfig();
+
+    this.lessonService.getLessonsByIds(this.selectedLessonsId).subscribe({
+      next: (lessons) => config.lessonList = lessons,
+      error: (err) => console.error(err),
+    });
+
+    this.practiceService.setPracticeModeConfig(config);
   };
 }

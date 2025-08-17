@@ -7,15 +7,6 @@ import { Lesson } from '../models/lessons';
 })
 export class LessonService {
   private lessonKeyBeginning = 'lesson_';
-  private materialToPractice: number[] = [];
-
-  setMaterialToPractice(lessonID: number[]) {
-    this.materialToPractice = lessonID;
-  }
-
-  getMaterialToPractice(): number[] {
-    return this.materialToPractice;
-  }
 
   generateLessonId(): number {
     return Date.now();

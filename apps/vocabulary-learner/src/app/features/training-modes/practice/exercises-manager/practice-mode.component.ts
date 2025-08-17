@@ -8,10 +8,10 @@ import { ExerciseSummary } from '../../../../core/models/exercise-Summary';
 import { Flashcard } from '../../../../core/models/flashcard';
 import { DynamicExerciseComponent } from '../../../../components/exercises/dynamic-exercise.component';
 import { SessionSummaryService } from '../../../../components/session-summary/session-summary.service';
-import { PracticeModeService } from '../services/practice-mode.service';
 import { LessonService } from '../../../../shared/lesson-service/lesson.service';
-import { FlashcardService } from '@vocabulary-learner/shared/flashcard-service/flashcard.service';
-import { Lesson } from '@vocabulary-learner/core/models/lessons';
+import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
+import { Lesson } from '../../../../core/models/lessons';
+import { PracticeService } from '../services/practice.service';
 
 @Component({
   selector: 'app-practice-mode',
@@ -32,8 +32,8 @@ export class PracticeModeComponent implements OnInit  {
     private lessonService: LessonService,
     private router: Router,
     private sessionSummaryService: SessionSummaryService,
-    private practiceModeService: PracticeModeService,
-    private flashcardService: FlashcardService
+    private flashcardService: FlashcardService,
+    private practiceService: PracticeService
   ) {
 
   }
@@ -42,27 +42,23 @@ export class PracticeModeComponent implements OnInit  {
     this.setExerciseList();
     this.setFlashcardList();
     this.setInitialExercise();
-    this.loadExerciseComponent(this.currentExercise);
   }
 
   private setFlashcardList() {
-    // this.flashcardList = this.lessonService.getFlashcardsFromLessons(this.practiceModeService.getPracticeModeConfig().lessonList);
-
-    const lessons: Lesson[] = this.practiceModeService.getPracticeModeConfig().lessonList;
-
-    console.log("hej");
+    const lessons: Lesson[] = this.practiceService.getPracticeModeConfig().lessonList;
 
     this.flashcardService.getFlashcardsByLessonsIds(lessons).subscribe({
       next: (flashcards) => {
         console.log(flashcards);
         this.flashcardList = flashcards
+        this.loadExerciseComponent(this.currentExercise);
       },
       error: (err) => console.error(err),
     })
   }
 
   private setExerciseList() {
-    this.exerciseList = this.practiceModeService.getPracticeModeConfig().exerciseList;
+    this.exerciseList = this.practiceService.getPracticeModeConfig().exerciseList;
   }
 
   private setInitialExercise(): void {

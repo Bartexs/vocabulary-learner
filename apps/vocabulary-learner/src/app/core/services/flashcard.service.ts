@@ -56,6 +56,7 @@ export class FlashcardService {
     return flashcardsWithEmptyHistory;
   }
 
+  // DEPRECATED - use while implementing spaced repetition
   getRepetitionMaterial(): Flashcard[] {
     const allLessons: Lesson[] = this.lessonService.loadAllLessons();
     const allFlashcards: Flashcard[] = this.lessonService.getFlashcardsFromLessons(allLessons);
