@@ -62,6 +62,10 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
 
   nextFlashcard() {
     this.currentFlashcardIndex += 1;
+
+    // Infoms practice mode flashcard counter
+    this.changeCurrentFlashcardIndex();
+    
     this.resetFlashCardTest();
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
   }

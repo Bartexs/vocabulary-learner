@@ -12,6 +12,7 @@ import { Flashcard } from '../../core/models/flashcard';
 export class DynamicExerciseComponent {
   @Input() flashcardList: Flashcard[] = [];
   @Output() dataEmitter = new EventEmitter<ExerciseSummary>();
+  @Output() currentFlashcardChanged = new EventEmitter<boolean>();
   exerciseSummary!: ExerciseSummary;
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
@@ -26,6 +27,11 @@ export class DynamicExerciseComponent {
 
     moveToNextFlashcard() {
     this.currentFlashcardIndex++; // Increment index
+    
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex]; // Update current flashcard
+  }
+
+  changeCurrentFlashcardIndex() {
+    this.currentFlashcardChanged.emit(true);
   }
 }

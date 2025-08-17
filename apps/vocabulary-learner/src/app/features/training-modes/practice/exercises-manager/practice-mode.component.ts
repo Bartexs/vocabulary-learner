@@ -27,6 +27,8 @@ export class PracticeModeComponent implements OnInit  {
   currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
   exerciseSummaryList: ExerciseSummary[] = [];
+  currentFlashcardIndex = 0;
+  flashcardListSize = 0;
 
   constructor(
     private lessonService: LessonService,
@@ -86,11 +88,24 @@ export class PracticeModeComponent implements OnInit  {
 
     const instance = componentRef.instance as DynamicExerciseComponent;
 
+    // Set flashcards list in instance of dynamic exercise parent component
     instance.flashcardList = data;
+
+    // Set flashcards list size to show amount of total flashcards in current exercise - practice mode component shows it
+    this.setFlashcardsListSize(data);
 
     instance.dataEmitter.subscribe((emittedData: ExerciseSummary) => {
       this.receiveSummary(emittedData);
     });
+
+    instance.currentFlashcardChanged.subscribe(() => {
+      console.log("Here");
+      this.currentFlashcardIndex += 1;
+    })
+  }
+
+  setFlashcardsListSize(flashcards: Flashcard[]) {
+    this.flashcardListSize = flashcards.length;
   }
 
   receiveSummary(data: ExerciseSummary) {
