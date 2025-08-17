@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
 import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
@@ -16,6 +16,14 @@ export class FlashcardGatewayService {
     private http: HttpClient,
   ) { }
 
+  getFlashcardsByLessonsIds(lessons: Lesson[]): Observable<Flashcard[]> {
+    const ids = lessons.map(l => l.id);
+    let params = new HttpParams();
+    ids.forEach(id => params = params.append('lessonId', id));
+
+    return this.http.get<Flashcard[]>(`${this.baseUrl}/flashcards`, { params });
+  }
+
   getFlashcardsByLessonId(lessonId: number): Observable<Flashcard[]> {
     return this.http.get<Flashcard[]>(`${this.baseUrl}/by-lesson/${lessonId}`);
   }
@@ -32,5 +40,9 @@ export class FlashcardGatewayService {
 
   addFlashcards(lessonId: number, flashcards: FlashcardDTO[]): Observable<Lesson> {
     return this.http.post<Lesson>(`${this.baseUrl}/${lessonId}/flashcards`, flashcards);
+  }
+
+  getAllFlashcards(): Observable<Flashcard[]> {
+    return this.http.get<Flashcard[]>(`${this.baseUrl}`);
   }
 }

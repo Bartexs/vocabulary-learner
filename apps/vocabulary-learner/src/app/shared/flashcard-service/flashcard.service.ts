@@ -16,6 +16,10 @@ export class FlashcardService {
     private flashcardGateway: FlashcardGatewayService,
   ) { }
 
+  getAllFlashcards(): Observable<Flashcard[]> {
+    return this.flashcardGateway.getAllFlashcards();
+  }
+
   getFlashcardsByLessonId(lessonId: number): Observable<Flashcard[]> {
     return this.flashcardGateway.getFlashcardsByLessonId(lessonId);
   }
@@ -23,6 +27,10 @@ export class FlashcardService {
   // fix flashcard objects to more unified and remove it
   getFlashcardsByLessonIdFlashcardDTO(lessonId: number): Observable<FlashcardDTO[]> {
     return this.flashcardGateway.getFlashcardsByLessonIdDTO(lessonId);
+  }
+
+  getFlashcardsByLessonsIds(lessons: Lesson[]): Observable<Flashcard[]> {
+    return this.flashcardGateway.getFlashcardsByLessonsIds(lessons);
   }
 
   getFlashcardDTOsByLessonId(lessonId: number): Observable<FlashcardDTO[]> {
