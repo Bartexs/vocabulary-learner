@@ -1,5 +1,5 @@
 <section class="lesson-selection">
-  <p>Available Lessons:</p>
+  <p>Select Lessons:</p>
   <div class="checkbox-group inner-list">
     <mat-checkbox *ngFor="let lesson of lessonsAvailable" (change)="toggleSelection(lesson.id, $event.checked)" class="folder-item">
       <span class="custom-label">{{lesson.name}}</span>

@@ -1,5 +1,5 @@
 <section class="exercise-selection">
-  <p>Available Exercises:</p>
+  <p>Select Exercises:</p>
   <div class="checkbox-group inner-list">
     <mat-checkbox *ngFor="let exercise of exerciseList" (change)="toggleSelection(exercise.name, $event.checked)" class="folder-item">
       <span class="custom-label">{{ exercise.name }}</span>
