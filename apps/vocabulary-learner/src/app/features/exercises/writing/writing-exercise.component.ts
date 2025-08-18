@@ -74,17 +74,54 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     if (event.key !== 'Enter' || this.showResult) return;
     
     this.isFinished = true;
-    this.isCorrect = this.currentFlashcard.front === this.userInput;
-
-    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
-    
-    if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
+  
+    this.checkResult();
+    this.setExerciseSummaryAndProficiency()
 
     if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
       this.finishExercise()
     } else {
       this.showResult = true;
       this.toggleListening();
+    } 
+  }
+
+  checkFlashcardMouseClick() {
+    this.isFinished = true;
+  
+    this.checkResult();
+    this.setExerciseSummaryAndProficiency()
+
+    if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
+      this.finishExercise()
+    } else {
+      this.showResult = true;
+      this.toggleListening();
+      this.skipNextKeyPress = true;
+    }
+  }
+
+  checkResult() {
+    this.isCorrect = this.currentFlashcard.front === this.userInput;
+  }
+  
+  setExerciseSummaryAndProficiency() {
+    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
+    
+    if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
+  }
+
+  skipFlashcard() {
+    this.isFinished = true;
+
+    // Sets flashcard in summary as wrong answer
+    this.checkResult();
+    this.setExerciseSummaryAndProficiency()
+
+    if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
+      this.finishExercise()
+    } else {
+      this.nextFlashcard();
     }
   }
 

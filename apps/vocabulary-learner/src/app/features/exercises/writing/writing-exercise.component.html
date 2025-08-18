@@ -5,6 +5,14 @@
     <div class="row">
         <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
     </div>
+        <div *ngIf="!showResult">
+        <div>
+            <button (click)="checkFlashcardMouseClick()">Check</button>
+        </div>
+        <div>
+            <button (click)="skipFlashcard()">Skip</button>
+        </div>
+    </div>
     <div class="row" *ngIf="showResult">
         <div *ngIf="isCorrect" class="green-text">
             <p>Correct! Great answer!</p>
