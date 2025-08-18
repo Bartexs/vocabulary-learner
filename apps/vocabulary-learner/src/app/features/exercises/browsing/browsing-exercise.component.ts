@@ -37,6 +37,7 @@ export class BrowsingExerciseComponent extends DynamicExerciseComponent implemen
 
   override moveToNextFlashcard(): void {
     this.currentFlashcardIndex++; // Increment index
+    this.changeCurrentFlashcardIndex();
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex]; // Update current flashcard
     this.toggleShowCorrectAnswer(); // Toggle display logic
   }
