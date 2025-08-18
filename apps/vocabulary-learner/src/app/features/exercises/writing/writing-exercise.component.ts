@@ -70,6 +70,11 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
   }
 
+  continueToNextFlashcard() {
+      this.nextFlashcard();
+      this.toggleListening();
+  }
+
   public checkFlashcard(event: KeyboardEvent) {
     if (event.key !== 'Enter' || this.showResult) return;
     
