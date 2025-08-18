@@ -3,9 +3,17 @@
         <p class="main-text">{{this.currentFlashcard.back}}</p>
     </div>
     <div class="row">
-        <input class="styled-input" #userInputRef [(ngModel)]="userInput" (keydown)="checkFlashcard($event)">
+        <input class="styled-input" 
+        #userInputRef
+        [(ngModel)]="userInput" 
+        (keydown)="checkFlashcard($event)">
     </div>
-        <div *ngIf="!showResult">
+    <div class="row invalid-input">
+        <div *ngIf="comment">
+        {{this.comment}}
+        </div>
+    </div>
+    <div *ngIf="!showResult">
         <div>
             <button (click)="checkFlashcardMouseClick()">Check</button>
         </div>

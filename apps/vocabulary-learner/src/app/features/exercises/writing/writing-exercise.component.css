@@ -85,3 +85,8 @@
   margin: 0.4rem 0;
   font-size: 1.1rem;
 }
+
+.invalid-input {
+  color: rgb(249, 94, 94);
+  font-weight: bolder;
+}

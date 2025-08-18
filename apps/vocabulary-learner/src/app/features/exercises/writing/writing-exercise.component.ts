@@ -24,6 +24,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   showResult = false;
   isListening = false;
   skipNextKeyPress = false;
+  comment = '';
 
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
@@ -60,6 +61,15 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     this.isListening = !this.isListening;
   }
 
+  checkIfInputValid(): boolean {
+    if (this.userInput.trim().length === 0) {
+      this.comment = "Input your answer or press skip button";
+      return false;
+    }
+    this.comment = "";
+    return true;
+  }
+
   nextFlashcard() {
     this.currentFlashcardIndex += 1;
 
@@ -77,9 +87,9 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
 
   public checkFlashcard(event: KeyboardEvent) {
     if (event.key !== 'Enter' || this.showResult) return;
-    
+    if (!this.checkIfInputValid()) return; 
+
     this.isFinished = true;
-  
     this.checkResult();
     this.setExerciseSummaryAndProficiency()
 
@@ -92,8 +102,9 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   }
 
   checkFlashcardMouseClick() {
+    if (!this.checkIfInputValid()) return; 
+
     this.isFinished = true;
-  
     this.checkResult();
     this.setExerciseSummaryAndProficiency()
 

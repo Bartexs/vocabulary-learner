@@ -99,7 +99,6 @@ export class PracticeModeComponent implements OnInit  {
     });
 
     instance.currentFlashcardChanged.subscribe(() => {
-      console.log("Here");
       this.currentFlashcardIndex += 1;
     })
   }
