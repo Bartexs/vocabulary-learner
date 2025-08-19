@@ -60,14 +60,35 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
     }
   }
 
-  checkAnswer() {
-    this.showAnswer =! this.showAnswer;
-  }
-
   shuffleArray<T>(array: T[]): T[] {
     return array
       .map(value => ({ value, sort: Math.random() })) // Assign a random sort key
       .sort((a, b) => a.sort - b.sort) // Sort based on the random key
       .map(({ value }) => value); // Extract values
+  }
+
+  // Methods handling check process and later 
+  checkAnswer() {
+    this.showAnswer =! this.showAnswer;
+  }
+
+  continueToSummary() {
+    this.setExerciseSummary();
+    this.finishExercise();
+  }
+
+  setExerciseSummary() {
+    let helper = this.exerciseSummary;
+
+    // Compare flashcard index in first array (array stays the same) with current index in second array (array changes)
+    this.backSideContainer.map((f) => {
+      const flashcard = this.flashcardList[f.correctIndex];
+
+      const isCorrect = f.correctIndex === this.backSideContainer.findIndex(x => x.word === f.word);
+
+      helper = this.exerciseService.modifyExerciseSummary(flashcard, isCorrect, helper);
+    }) 
+
+    this.exerciseSummary = helper;
   }
 }

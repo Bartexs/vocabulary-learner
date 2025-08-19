@@ -88,6 +88,12 @@ export class PracticeModeComponent implements OnInit  {
 
     const instance = componentRef.instance as DynamicExerciseComponent;
 
+    instance.exercisesData = {
+      exerciseIndex: this.currentExerciseIndex + 1,
+      exercisesTotal: this.exerciseList.length,
+      currentExercise: this.currentExercise
+    }
+
     // Set flashcards list in instance of dynamic exercise parent component
     instance.flashcardList = data;
 

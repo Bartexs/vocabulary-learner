@@ -1,5 +1,6 @@
 <div class="container">
-    <div class="row spaced-out" >
+    <!-- NgIf as temporary fix move this functionality to each exercise component -->
+    <div class="row spaced-out" *ngIf="currentExercise.name !== 'ConnectFlashcardSides'">
         <div>
              <span>Exercise {{currentExerciseIndex + 1}} - <strong>{{currentExercise.name}}</strong></span>
         </div>

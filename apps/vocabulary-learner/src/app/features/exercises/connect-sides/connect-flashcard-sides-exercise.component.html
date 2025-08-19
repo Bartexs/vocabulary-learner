@@ -1,7 +1,15 @@
-<div>
-  <div>
+<div style="align-items: center;">
+  <div class="spaced-out" >
+        <div>
+            <span style="color: rgb(103, 101, 101);">Exercise {{this.exercisesData.exerciseIndex}} - <strong>{{this.exercisesData.currentExercise.name}}</strong></span>
+        </div>
+        <div>
+            <span style="color: rgb(103, 101, 101);"><strong>{{flashcardList.length}}</strong> - Flashcards</span>
+        </div>  
+  </div>
+  <div class="row">
     <div class="example-container">
-        <h2>To do</h2>
+        <p class="heading main-title" >Question</p>
         <div class="example-list"> 
             @for (item of frontSideContainer; track item) {
                 <div class="example-box">{{item}}</div>
@@ -10,7 +18,7 @@
     </div>
   
     <div class="example-container" >
-      <h2>Done</h2>
+      <p class="heading main-title" style="text-align: end;">Answer</p>
       <div
         cdkDropList
         cdkDropListLockAxis="y"
@@ -26,12 +34,12 @@
       </div>
     </div>
   </div>
-  <div>
+  <div style="text-align: center">
     <div *ngIf="this.showAnswer">
-      <p>Press any key to continue...</p>
+      <button class="secondary-button" (click)="continueToSummary()">Continue</button>
     </div>
-    <div>
-      <button (click)="checkAnswer()">Check</button>
+    <div *ngIf="!this.showAnswer">
+      <button class="green-button" (click)="checkAnswer()">Check</button>
     </div>
   </div>
 </div>

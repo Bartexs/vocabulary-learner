@@ -40,3 +40,58 @@
   font-size: 0.95rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
 }
+
+.main-button {
+  text-align: center;
+}
+
+.main-button  {
+  background: linear-gradient(135deg, #e69981, #d17f74);
+  border: none;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(215, 104, 84, 0.7);
+  transition: background 0.3s ease;
+}
+
+.main-button:hover {
+  background: linear-gradient(135deg, #d67a6f, #c44b6f);
+}
+
+.secondary-button {
+  background: linear-gradient(135deg, #d5a6bd, #f3b9b9);
+  border: none;
+  padding: 0.8rem 2.5rem;
+  color: white;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  box-shadow: 0 4px 12px rgba(213, 166, 189, 0.8);
+}
+
+.secondary-button:hover {
+  background: linear-gradient(135deg, #c594ac, #e6a4a4);
+}
+
+.green-button {
+  background: linear-gradient(135deg, #53b568, #43b567);
+  border: none;
+  padding: 0.8rem 2.2rem;
+  border-radius: 1rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  color: white;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(76, 175, 107, 0.45);
+  transition: all 0.3s ease;
+}
+
+.green-button:hover {
+  background: linear-gradient(135deg, #6ccf82, #3e9e5d);
+  box-shadow: 0 7px 18px rgba(76, 175, 107, 0.55);
+}

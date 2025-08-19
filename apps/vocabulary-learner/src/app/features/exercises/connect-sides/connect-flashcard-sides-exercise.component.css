@@ -5,6 +5,11 @@
     display: inline-block;
     vertical-align: top;
 }
+
+.row {
+  display: flex;
+  flex-direction: row;
+}
   
   .example-list {
     border: solid 1px #ccc;
@@ -27,6 +32,7 @@
     cursor: move;
     background: white;
     font-size: 14px;
+    height: 60px;
 }
   
   .cdk-drag-preview {
@@ -47,6 +53,19 @@
   
   .example-box:last-child {
     border: none;
+}
+
+.spaced-out {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
+  font-size: 1.1rem;
+  padding: 0.3rem 0;
+}
+
+.main-title {
+  padding: 0.8rem;
 }
   
   /* .example-list.cdk-drop-list-dragging .example-box:not(.cdk-drag-placeholder) {
