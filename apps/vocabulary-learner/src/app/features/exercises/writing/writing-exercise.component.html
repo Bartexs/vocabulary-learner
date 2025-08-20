@@ -1,5 +1,5 @@
 <div class="border container">
-    <div class="spaced-out" >
+    <div class="spaced-out counters" >
         <div>
             <span style="color: rgb(103, 101, 101);">Exercise {{this.exercisesData.exerciseIndex}} - <strong>{{this.exercisesData.currentExercise.name}}</strong></span>
         </div>
@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <input class="styled-input" 
-        #userInputRef
+        #userInputRef   
         [(ngModel)]="userInput" 
         (keydown)="checkFlashcard($event)">
     </div>
@@ -21,25 +21,30 @@
         {{this.comment}}
         </div>
     </div>
-    <div *ngIf="!showResult">
-        <div>
-            <button (click)="checkFlashcardMouseClick()">Check</button>
+    <div *ngIf="!showResult" class="buttons-container">
+        <div class="button-item">
+            <button class="secondary-button button" (click)="skipFlashcard()">Skip Flashcard</button>
         </div>
-        <div>
-            <button (click)="skipFlashcard()">Skip</button>
+        <div class="button-item">
+            <button class="green-button button" (click)="checkFlashcardMouseClick()">Check</button>
         </div>
     </div>
-    <div class="row" *ngIf="showResult">
-        <div *ngIf="isCorrect" class="green-text">
-            <p>Correct! Great answer!</p>
-            <p>Press any key to continue...</p>
-        </div>
-        <div *ngIf="!isCorrect" class="red-text">
-            <p>Correct answer is: {{this.currentFlashcard.front}}</p>
-            <p>Press any key to continue...</p>
-        </div>
-        <div>
-            <button (click)="continueToNextFlashcard()">Continue</button>
-        </div>
+    <div class="row outcome-container" *ngIf="showResult">
+        <section
+            class="frost-card"
+            [ngClass]="{ 'frost-card--success': isCorrect, 'frost-card--error': !isCorrect }"
+            role="status" aria-live="polite"
+        >
+            <p *ngIf="isCorrect">✅ Correct! Great answer!<br>Press any key to continue...</p>
+
+            <p *ngIf="!isCorrect">
+            ❌ Incorrect.<br>
+            Correct answer is: <strong>{{ currentFlashcard.front }}</strong><br>
+            Press any key to continue...
+            </p>
+        </section>
+    </div>
+    <div class="row" *ngIf="showResult"> 
+        <button class="green-button" (click)="continueToNextFlashcard()">Continue</button>
     </div>
 </div>

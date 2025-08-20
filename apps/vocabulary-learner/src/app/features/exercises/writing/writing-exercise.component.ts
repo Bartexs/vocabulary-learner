@@ -138,6 +138,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
       this.finishExercise()
     } else {
       this.nextFlashcard();
+      this.comment = "";
     }
   }
 
