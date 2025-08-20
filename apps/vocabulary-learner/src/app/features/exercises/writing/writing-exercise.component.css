@@ -90,3 +90,9 @@
   color: rgb(249, 94, 94);
   font-weight: bolder;
 }
+
+.spaced-out {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
