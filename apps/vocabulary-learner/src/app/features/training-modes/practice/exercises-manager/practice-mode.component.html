@@ -1,13 +1,4 @@
 <div class="container">
-    <!-- NgIf as temporary fix move this functionality to each exercise component -->
-    <div class="row spaced-out" *ngIf="currentExercise.name !== 'ConnectFlashcardSides' && currentExercise.name !== 'Writing' ">
-        <div>
-             <span>Exercise {{currentExerciseIndex + 1}} - <strong>{{currentExercise.name}}</strong></span>
-        </div>
-        <div>
-            <span><strong>{{currentFlashcardIndex}}/{{flashcardListSize}}</strong> - Answers</span>
-        </div>  
-    </div>
     <div class="row">
         <ng-container #dynamicHost></ng-container>
     </div>

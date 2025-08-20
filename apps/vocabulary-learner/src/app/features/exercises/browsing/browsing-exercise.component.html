@@ -1,4 +1,12 @@
-<div class="flex-col center">
+<div class="container">
+    <div class="spaced-out counters">
+        <div>
+            <span style="color: rgb(103, 101, 101);">Exercise {{this.exercisesData.exerciseIndex}} - <strong>{{this.exercisesData.currentExercise.name}}</strong></span>
+        </div>
+        <div>
+            <span style="color: rgb(103, 101, 101);"><strong>{{currentFlashcardIndex}}/{{flashcardList.length}}</strong> - Answers</span>
+        </div>  
+    </div>
     <div *ngIf="!showCorrectAnswer" class="flex-col">
         <div class="box text center">
             <h1>{{this.currentFlashcard.back}}</h1>

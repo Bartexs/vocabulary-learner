@@ -39,12 +39,6 @@ button:hover {
   background: linear-gradient(135deg, #d67a6f, #c44b6f);
 }
 
-.spaced-out {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 .flex-row {
   display: flex;
   flex-direction: row;
