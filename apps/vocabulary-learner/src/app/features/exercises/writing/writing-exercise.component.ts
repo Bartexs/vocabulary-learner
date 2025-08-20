@@ -127,18 +127,17 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
   }
 
-  skipFlashcard() {
+  showCorrectAnswer() {
     this.isFinished = true;
-
-    // Sets flashcard in summary as wrong answer
     this.checkResult();
-    this.setExerciseSummaryAndProficiency()
+    this.setExerciseSummaryAndProficiency() 
 
     if(this.currentFlashcardIndex + 1 === this.flashcardList.length) {
       this.finishExercise()
     } else {
-      this.nextFlashcard();
-      this.comment = "";
+      this.showResult = true;
+      this.toggleListening();
+      this.skipNextKeyPress = true;
     }
   }
 
