@@ -138,6 +138,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
       this.showResult = true;
       this.toggleListening();
       this.skipNextKeyPress = true;
+      this.comment = '';
     }
   }
 

@@ -3,30 +3,33 @@
         <div>
             <span style="color: rgb(103, 101, 101);">Exercise {{this.exercisesData.exerciseIndex}} - <strong>{{this.exercisesData.currentExercise.name}}</strong></span>
         </div>
+        <div *ngIf="showCorrectAnswer">
+            <span class="sub-title-color">
+                Answer: <strong>{{currentFlashcard.back}}</strong>
+            </span>
+        </div>
         <div>
             <span style="color: rgb(103, 101, 101);"><strong>{{currentFlashcardIndex}}/{{flashcardList.length}}</strong> - Answers</span>
         </div>  
     </div>
     <div *ngIf="!showCorrectAnswer" class="flex-col">
-        <div class="box text center">
-            <h1>{{this.currentFlashcard.back}}</h1>
+        <div class="box-question">
+            <h1><strong>{{currentFlashcard.back}}</strong></h1>
         </div>
         <div class="button-container center">
-            <button class="border button"(click)="toggleShowCorrectAnswer()">Check</button>
+            <button class="main-button"(click)="toggleShowCorrectAnswer()">Check</button>
         </div>
     </div>
     <div *ngIf="showCorrectAnswer" class="flex-col">
-        <div class="flex-col">
-            <div class="box-answer text center"> 
-                <h1>{{this.currentFlashcard.front}}</h1>
-            </div>
-            <div>
-                <span>Did you know the answer?</span>
-            </div>
-            <div class="flex-row center">
-                <button (click)="saveAnswer(true)">Correct</button>
-                <button (click)="saveAnswer(false)">Wrong</button>
-            </div>
+        <div class="box-answer text center"> 
+            <h1>{{currentFlashcard.front}}</h1>
+        </div>
+        <div>
+            <span class="user-question">Did you know the answer?</span>
+        </div>
+        <div class="flex-row center continue-button">
+            <button class="secondary-button" (click)="saveAnswer(false)">Wrong</button>
+            <button class="green-button" (click)="saveAnswer(true)">Correct</button>
         </div>
     </div>
 </div>
