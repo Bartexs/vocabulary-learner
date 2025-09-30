@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Edit flashcard</h2>
+<mat-dialog-content>
+  <form [formGroup]="flashcardDataForm">
+    <p>Change flashcard's description:</p>
+    <mat-form-field>
+      <mat-label>Flashcard description</mat-label>
+      <input matInput formControlName = "description"/>
+    </mat-form-field>
+
+    <p>Change flashcard's definition:</p>
+    <mat-form-field>
+      <mat-label>Flashcard definition</mat-label>
+      <input matInput formControlName = "definition"/>
+    </mat-form-field>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="saveChanges()" [disabled]="!flashcardDataForm.valid">Save</button>
+</mat-dialog-actions>

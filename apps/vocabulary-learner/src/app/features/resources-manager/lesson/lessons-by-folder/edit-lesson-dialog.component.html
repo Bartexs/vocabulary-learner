@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Edit lesson <strong>{{data.lesson.name}}</strong> </h2>
+<mat-dialog-content>
+  <p>Change lesson's name:</p>
+  <mat-form-field>
+    <mat-label>Lesson name</mat-label>
+    <input matInput [(ngModel)]="lessonName"/>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button (click)="saveChanges(lessonName)" [disabled]="this.data.lesson.name === lessonName">Save</button>
+</mat-dialog-actions>

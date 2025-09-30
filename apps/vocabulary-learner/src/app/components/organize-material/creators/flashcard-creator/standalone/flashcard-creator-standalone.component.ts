@@ -12,6 +12,7 @@ import { Folder } from '../../../../../core/models/folder';
 import { LessonService } from '../../../../../shared/lesson-service/lesson.service';
 import { FlashcardService } from '../../../../../shared/flashcard-service/flashcard.service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
+import { SnackbarService } from '@vocabulary-learner/shared/snackbar-service/snackbar.service';
 
 @Component({
   selector: 'app-flashcard-creator-standalone',
@@ -34,7 +35,8 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
   constructor(
     private folderService: FolderService,
     private flashcardService: FlashcardService,
-    private lessonService: LessonService
+    private lessonService: LessonService,
+    private snackbarService: SnackbarService
   ) {
     
   }
@@ -69,8 +71,10 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
     }
 
     this.folderService.addFolder(folderToSave).subscribe({
-      next: (f) => {
-        this.lessonService.addLesson({id: 0, folderId: f.id, name: this.lessonName, flashcards: []}, f.id);
+      next: (response) => {
+        this.snackbarService.openSnackBar("Folder " + response.data.name + " created. Add first lesson.", "Ok")
+        this.lessonService.addLesson({id: 0, folderId: response.data.id, name: this.lessonName, flashcards: []}, response.data.id);
+
         this.folderService.getFolders().subscribe({
           next: (f) => {
             this.folderList = f;
@@ -79,7 +83,13 @@ export class FlashcardCreatorStandaloneComponent implements OnInit{
           error: (err) => console.error(err),
         })
       },
-      error: (err) => console.error(err),
+      error: (err) => {
+        if(err.status === 409) {
+          this.snackbarService.openSnackBar("Folder " + folderToSave.name + " already exist. Change name and try again.", "Ok")
+        } else {
+          console.error(err);
+        }
+      }
     });
   }
 

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Folder } from '../../core/models/folder';
 import { FolderGatewayService } from './folder-gateway.service';
 import { Observable } from 'rxjs';
+import { ApiResponse } from '../../core/models/apiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +23,7 @@ export class FolderService {
     return this.folderGateway.getFolderById(folderId);
   }
 
-  addFolder(folder: Folder): Observable<Folder> {
+  addFolder(folder: Folder): Observable<ApiResponse<Folder>> {
     return this.folderGateway.addFolder(folder);
   }
 
@@ -36,5 +37,9 @@ export class FolderService {
       name: folderName,
       lessonList: []
     }
+  }
+
+  patchFolderName(folder: Folder, newName: string): Observable<ApiResponse<Folder>> {
+    return this.folderGateway.patchFolderName(folder, newName);
   }
 }

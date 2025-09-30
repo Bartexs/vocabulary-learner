@@ -1,0 +1,35 @@
+<div class="flex-col">
+    <div class="main-window folder-wrapper window" *ngIf="!isLoading">
+        <div class="heading">
+            <span>Create Lesson in folder {{folder.name}}</span>
+        </div>
+        <div>
+            <div>
+                <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Lesson Name</mat-label>
+                    <input type="text" matInput [formControl]="lessonFormControl" placeholder="Ex. Animals">
+                    @if (lessonFormControl.hasError('required')) {
+                    <mat-error>Name is <strong>required</strong></mat-error>
+                    }
+                </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div>
+                <button class="secondary-button" (click)="onCancel()">Cancel</button>
+            </div>
+            <div>
+                <button class="main-button" (click)="handleAddLesson()">Submit</button>
+            </div>
+        </div>
+        <div *ngIf="lessons.length > 0">
+            <h2>Existing lessons</h2>
+            <div *ngFor="let lesson of lessons" class="flex-row lessons-list">
+                <span>{{lesson.name}}</span>
+                <span>{{lesson.flashcards.length}} flashcards</span>
+            </div>
+        </div>
+    </div>
+</div>

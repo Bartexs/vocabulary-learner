@@ -3,17 +3,17 @@ import { HomeComponent } from './features/home/home.component';
 import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeComponent } from './features/training-modes/practice/exercises-manager/practice-mode.component';
-import { FolderCreatorComponent } from './components/organize-material/creators/folder-creator/folder-creator.component';
-import { FolderDetailsViewerComponent } from './components/organize-material/details-viewers/folder-details-viewer/folder-details-viewer.component';
-import { LessonCreatorComponent } from './components/organize-material/creators/lesson-creator/lesson-creator.component';
-import { LessonDetailsViewerComponent } from './components/organize-material/details-viewers/lesson-details-viewer/lesson-details-viewer.component';
+import { LessonCreatorComponent } from './features/resources-manager/lesson/lesson-creator/lesson-creator.component';
+import { LessonDetailsViewerComponent } from './features/resources-manager/lesson/lesson-details/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
 import { RegisterComponent } from './features/auth/register/RegisterComponent.component';
 import { LandingPageComponent } from './features/landing/landing-page.component';
 import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { PracticeModeSelectorComponent } from './features/training-modes/practice/main-controller/practice-mode-selector.component';
-import { FoldersViewerComponent } from './features/learning-resources-management/resources-manager/folders-viewer/folders-viewer';
+import { FolderCreatorComponent } from './features/resources-manager/folder/folder-creator/folder-creator.component';
+import { FoldersViewerComponent } from './features/resources-manager/folder/folders-viewer/folders-viewer';
+import { LessonsByFolderComponent } from './features/resources-manager/lesson/lessons-by-folder/lessons-by-folder.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
@@ -23,7 +23,7 @@ export const appRoutes: Route[] = [
     { path: 'session-summary', component: SessionSummaryComponent },
     { path: 'practice', component: PracticeModeComponent },
     { path: 'folder-creator', component: FolderCreatorComponent },
-    { path: 'folder-details/:id', component: FolderDetailsViewerComponent },
+    { path: 'lessons-by-folder/:id', component: LessonsByFolderComponent },
     { path: 'lesson-creator/:id', component: LessonCreatorComponent },
     { path: 'lesson-creator', component: LessonCreatorComponent },
     { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },

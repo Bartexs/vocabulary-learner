@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Remove folder</h2>
+<mat-dialog-content>
+  <p>Do you really want to delete folder {{folder.name}} and all corresponding lessons?</p>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Back</button>
+  <button mat-button (click)="removeFolder()">Confirm</button>
+</mat-dialog-actions>

@@ -3,6 +3,7 @@ import { LessonGatewayService } from './lesson-gateway.service';
 import { Observable } from 'rxjs';
 import { Lesson } from '../../core/models/lessons';
 import { Flashcard } from '../../core/models/flashcard';
+import { ApiResponse } from '../../core/models/apiResponse';
 
 @Injectable({
   providedIn: 'root'
@@ -36,7 +37,7 @@ export class LessonService {
     return Date.now();
   }
 
-  addLesson(lesson: Lesson, folderId: number): Observable<Lesson> {
+  addLesson(lesson: Lesson, folderId: number): Observable<ApiResponse<Lesson>> {
     return this.lessonGateway.addLesson(lesson, folderId);
   }
 
@@ -47,5 +48,13 @@ export class LessonService {
   getAllLessons(): Observable<Lesson[]> {
     return this.lessonGateway.getAllLessons();
   }
-  
+
+  patchLessonName(lesson: Lesson, newName: string, folderId: number): Observable<ApiResponse<Lesson>> {
+    return this.lessonGateway.patchLessonName(lesson, newName, folderId);
+  }
+
+  removeLesson(lesson: Lesson): Observable<void> {
+    return this.lessonGateway.removeLesson(lesson);
+  }
+   
 }

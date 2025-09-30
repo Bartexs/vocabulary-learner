@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { FlashcardGatewayService } from './flashcard-gateway.service';
 import { Lesson } from '../../core/models/lessons';
 import { FlashcardDTO } from '../../core/models/flashcardDTO';
+import { ApiResponse } from '../../core/models/apiResponse';
 
 
 @Injectable({
@@ -11,10 +12,13 @@ import { FlashcardDTO } from '../../core/models/flashcardDTO';
 })
 
 export class FlashcardService {
-
-  constructor(
+    constructor(
     private flashcardGateway: FlashcardGatewayService,
   ) { }
+
+  patchFlashcard(flashcardId: number, newFlashcardValues: Partial<Flashcard>): Observable<ApiResponse<Flashcard>> {
+    return this.flashcardGateway.patchFlashcard(flashcardId, newFlashcardValues);
+  }
 
   getAllFlashcards(): Observable<Flashcard[]> {
     return this.flashcardGateway.getAllFlashcards();
@@ -80,5 +84,9 @@ export class FlashcardService {
 
   fromDTOs(dtos: FlashcardDTO[], lessonId: number): Flashcard[] {
     return dtos.map(dto => this.mapFlashcardDtoToFlashcard(dto, lessonId));
+  }
+
+  removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
+    return this.flashcardGateway.removeFlashcard(lesson, flashcard);
   }
 }

@@ -1,0 +1,85 @@
+<div *ngIf="isLoading">
+  <mat-progress-spinner></mat-progress-spinner>
+</div>
+<div class="folder-wrapper" *ngIf="!isLoading">
+    <div class="selectors">
+      <div class="card" *ngIf="lesson.flashcards?.length === 0">
+        <h1>Flashcard list empty!</h1>
+        <p>Press button to add</p>
+        <mat-icon 
+          (click)="openFlashcardsCreatorDialog()"
+          class="folder-icon add-icon" 
+          aria-hidden="false" 
+          aria-label="Add new folder icon" 
+          fontIcon="add_box"       
+          matTooltip="Add flashcards"
+          matTooltipPosition="right">
+        </mat-icon>
+      </div>
+      <div class="card" *ngIf="lesson.flashcards?.length !== 0">
+        <section class="lesson-selection">
+          <div class="flex-row headline">
+            <div>
+              <span class="second-title">Flashcards:</span>
+            </div>
+            <div>
+              <p>Lesson <strong>{{lesson.name}}</strong> ({{lesson.flashcards.length}} flashcards)</p>
+            </div>
+            <div>
+                <mat-icon 
+                    (click)="openFlashcardsCreatorDialog()"
+                    class="folder-icon add-icon" 
+                    aria-hidden="false" 
+                    aria-label="Add new folder icon" 
+                    fontIcon="add_box"       
+                    matTooltip="Add flashcards"
+                    matTooltipPosition="right">
+                </mat-icon>
+            </div>
+          </div>
+          <div *ngFor="let flashcard of lesson.flashcards">
+            <div class="inner-list flex-row">
+              <div class="checkbox-group flashcard-container">
+                <div class="flex-row">
+                  <div class="flashcard-size-description">
+                    <span>Description</span>
+                  </div>
+                  <div class="flashcard-content">
+                    <span>{{flashcard.front}}</span>
+                  </div>
+                </div>
+                <div class="flex-row">
+                  <div class="flashcard-size-description">
+                    <span>Definition</span>
+                  </div>
+                  <div class="flashcard-content">
+                    <span>{{flashcard.back}}</span>
+                  </div>
+                </div>
+              </div>
+              <div class="checkbox-group">
+                <mat-icon 
+                class="icon edit-icon" 
+                aria-hidden="false" 
+                aria-label="Edit flashcard icon" 
+                fontIcon="edit_document" 
+                matTooltip="Modify flashcard" 
+                matTooltipPosition="right"
+                (click)="modifyFlashcard(flashcard)"
+                >
+                </mat-icon>
+                <mat-icon 
+                class="icon delete-icon" 
+                aria-hidden="false" 
+                aria-label="Delete flashcard icon" 
+                fontIcon="delete" 
+                matTooltip="Delete flashcard" 
+                matTooltipPosition="right"
+                (click)="removeFlashcard(flashcard)">
+                </mat-icon>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+</div>

@@ -1,0 +1,28 @@
+<div class="flex-col">
+    <div class="main-window folder-wrapper window">
+        <div class="heading">
+            <span>Create Folder</span>
+        </div>
+        <div>
+            <div>
+                <form class="example-form">
+                <mat-form-field class="example-full-width">
+                    <mat-label>Folder Name</mat-label>
+                    <input type="text" matInput [formControl]="folderFormControl" placeholder="Ex. English">
+                    @if (folderFormControl.hasError('required')) {
+                    <mat-error>Name is <strong>required</strong></mat-error>
+                    }
+                </mat-form-field>
+                </form>
+            </div>
+        </div>
+        <div class="flex-row">
+            <div>
+                <button class="secondary-button" (click)="onCancel()">Cancel</button>
+            </div>
+            <div>
+                <button class="main-button" (click)="onSubmit()">Submit</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,57 @@
+<div class="folder-wrapper">
+    <div *ngIf="isLoading">
+        <mat-spinner></mat-spinner>
+    </div>
+    <div *ngIf="!isLoading">
+        <div *ngIf="folders.length > 0">
+            <div class="title-row">
+                <div>
+                    <span class="heading">Folders</span>
+                </div>
+                <div>
+                    <a href="/folder-creator"> 
+                        <mat-icon 
+                            class="folder-icon add-icon" 
+                            aria-hidden="false" 
+                            aria-label="Add new folder icon" 
+                            fontIcon="add_box"       
+                            matTooltip="Create new folder"
+                            matTooltipPosition="right">
+                        </mat-icon>
+                    </a>
+                </div>
+            </div>
+            <div class="inner-list">
+                <div *ngFor="let folder of folders; index as i" class="folder-item" >
+                    <a [routerLink]="['/lessons-by-folder', folder.id]" class="folder-name-container">
+                        <span class="folder-name">{{ folder.name }}</span>
+                    </a>
+                    <mat-icon 
+                    class="folder-icon edit-icon" 
+                    aria-hidden="false" 
+                    aria-label="Edit folder icon" 
+                    fontIcon="edit_document" 
+                    matTooltip="Modify folder" 
+                    matTooltipPosition="left"
+                    (click)="openEditDialog(folder.id)">
+                    </mat-icon>
+                    <mat-icon class="folder-icon delete-icon" aria-hidden="false" aria-label="Delete folder icon" fontIcon="delete" (click)="removeFolder(folder.id)" matTooltip="Delete folder" matTooltipPosition="right"></mat-icon>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="folders.length === 0" class="no-folders">
+            <div class="heading">
+                <span>Folders</span>
+            </div>
+            <div class="main-message">
+                <span>No folders yet — create your first one to get started. Folders allow you to structure and organize your learning resources.</span>
+            </div>
+            <div class="add-folder">
+                <button class="green-button" (click)="goToFolderCreator()">
+                Add Folder
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+  

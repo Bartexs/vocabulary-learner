@@ -1,0 +1,38 @@
+.window {
+    display: flex;
+    gap: 0.8rem;
+    flex-direction: column;
+}
+
+.flex-col {
+    align-items: center;
+}
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+button {
+    padding: 0.9rem 2.7rem;
+    font-weight: 700;
+    border-radius: 0.75rem;
+    font-size: 1.1rem;
+}
+
+.lessons-list {
+    justify-content:space-between;
+    padding: 0.7rem;
+}

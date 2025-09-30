@@ -1,0 +1,50 @@
+<div class="flex-row">
+    <div>
+        <h2 mat-dialog-title>Add flashcards to lesson <strong>{{data.lesson.name}}</strong> </h2>
+    </div> 
+    <div>
+        <mat-slide-toggle
+            class="example-margin"
+            [(ngModel)]="checked"
+            [disabled]="disabled">
+            Advanced Creating
+        </mat-slide-toggle>
+    </div> 
+</div>
+<mat-dialog-content>
+    <div class="input-wrapper" *ngIf="checked">
+        <textarea
+            matInput
+            [(ngModel)]="userInput"
+            placeholder="Type your flashcard content here"
+            class="custom-textarea"
+            rows="6">
+        </textarea>
+    </div>
+    <div class="input-wrapper" *ngIf="!checked">
+        <div *ngFor="let fc of flashcards; let i = index">
+            <p>
+            <span>{{ i + 1 }}</span>
+            <mat-form-field appearance="outline">
+                <mat-label>Definition</mat-label>
+                <input matInput [(ngModel)]="fc.definition" placeholder="Input flashcard definition">
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Description</mat-label>
+                <input matInput [(ngModel)]="fc.description" placeholder="Input flashcard description">
+            </mat-form-field>
+            <button mat-icon-button color="warn" (click)="removeFlashcard(i)" *ngIf="flashcards.length > 1">
+                <!-- <mat-icon>delete</mat-icon> -->
+                <span>delete</span>
+            </button>
+            </p>
+        </div>
+        <button mat-raised-button color="primary" (click)="addFlashcard()">
+            Add More
+        </button>
+    </div>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="saveFlashcards()">Save</button>
+</mat-dialog-actions>

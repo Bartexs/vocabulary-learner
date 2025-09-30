@@ -1,5 +1,6 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ApiResponse } from '@vocabulary-learner/core/models/apiResponse';
 import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
 import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
 import { Lesson } from '@vocabulary-learner/core/models/lessons';
@@ -15,6 +16,10 @@ export class FlashcardGatewayService {
   constructor(
     private http: HttpClient,
   ) { }
+
+  patchFlashcard(flashcardId: number, newFlashcardValues: Partial<Flashcard>): Observable<ApiResponse<Flashcard>> {
+    return this.http.patch<ApiResponse<Flashcard>>(`${environment.apiUrl}/api/flashcards/${flashcardId}`, newFlashcardValues);
+  }
 
   getFlashcardsByLessonsIds(lessons: Lesson[]): Observable<Flashcard[]> {
     const ids = lessons.map(l => l.id);
@@ -44,5 +49,9 @@ export class FlashcardGatewayService {
 
   getAllFlashcards(): Observable<Flashcard[]> {
     return this.http.get<Flashcard[]>(`${this.baseUrl}`);
+  }
+
+  removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
+    return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/${lesson.id}/flashcards/${flashcard.id}`);
   }
 }
