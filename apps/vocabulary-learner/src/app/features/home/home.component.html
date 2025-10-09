@@ -1,24 +1,33 @@
-<div class="menu">
-  <!-- <div class="tooltip">
-    <a href="/exam" class="btn-link disabled">📝 Exam</a>
-    <span class="disabled-icon">❗</span>
-    <span class="tooltip-text">Take a quick test</span>
-    <p class="disabled-note">Exam is unavailable until you've added flashcards.</p>
-  </div> -->
+<div class="container-wrapper">
+  <div class="flex-row">
+    <div class="headings">
+      <div>
+        <h1>
+          Master Languages <br> In The Most Effective Way
+        </h1>
+      </div>
+      <div>
+        <h2>
+          Vocabulary Learner lets you create flashcards and practice them with interactive exercises to boost your vocabulary. Track your progress and learn anytime, anywhere, at your own pace.
+        </h2>
+      </div>
+    </div>
 
-  <div class="tooltip">
-    <a href="/practice-selector" class="btn-link">🎯 Practice</a>
-    <!-- <span class="disabled-icon">❗</span> -->
-    <span class="tooltip-text">Practice your flashcards</span>
-    <!-- <p class="disabled-note">Practice is locked until you review your first flashcard.</p> -->
-  </div>
-
-  <div class="tooltip">
-    <a href="/flashcard-creator" class="btn-link">➕ Add Flashcards</a>
-    <span class="tooltip-text">Add new flashcards to your deck</span>
-  </div>
-
-  <div>
-    <button class="btn-clear" (click)="clearLocalStorage()">🗑️ Clear Data</button>
+    <div class="inner-list menu">
+      <a
+        routerLink="/practice-selector"
+        class="action-btn"
+        [class.disabled]="isPracticeDisabled"
+        [routerLink]="isPracticeDisabled ? null : '/practice-selector'"
+      >
+        <span class="action-icon">🔍</span>
+        <span class="action-label">Practice</span>
+      </a>
+      
+      <a routerLink="/flashcard-creator" class="action-btn">
+        <span class="action-icon">➕</span>
+        <span class="action-label">Add Flashcards</span>
+      </a>
+    </div>
   </div>
 </div>
