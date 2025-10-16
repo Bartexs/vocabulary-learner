@@ -32,6 +32,7 @@ export class HomeComponent implements OnInit {
     this.folderService.getFolders().subscribe({
       next: (f) => {
         this.folders = f;
+        this.noFoldersExist = f.length === 0; 
       },
       error: (err) => {
         console.error(err);
