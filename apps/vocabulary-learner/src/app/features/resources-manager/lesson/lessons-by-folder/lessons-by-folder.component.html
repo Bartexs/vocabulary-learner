@@ -45,6 +45,16 @@
             </div>
             <div class="main-message">
                 <span>No lessons yet — create your first one to get started. Folders allow you to structure and organize your learning resources.</span>
+                <a [routerLink]="['/lesson-creator', folder.id]"> 
+                    <mat-icon 
+                        class="folder-icon add-icon"    
+                        aria-hidden="false" 
+                        aria-label="Add new folder icon" 
+                        fontIcon="add_box"       
+                        matTooltip="Create new lesson"
+                        matTooltipPosition="right">
+                    </mat-icon>
+                </a>
             </div>
             <div class="add-folder">
                 <!-- <button class="green-button" (click)="goToLessonCreator()">

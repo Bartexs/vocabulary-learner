@@ -1,7 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseType, getExercises, getExercisesByNames } from '../../../../../core/models/exercise';
+import { PracticeService } from '../../services/practice.service';
 
 @Component({
   selector: 'app-exercise-selector',
@@ -10,12 +11,17 @@ import { ExerciseType, getExercises, getExercisesByNames } from '../../../../../
   styleUrl: './exercise-selector.component.css',
 })
 export class ExerciseSelectorComponent implements OnInit {
-  @Output() exerciseListEmmiter = new EventEmitter<ExerciseType[]>();
   exerciseList: ExerciseType[] = [];
   selectedExercises: string[] = [];
 
   ngOnInit() {
     this.exerciseList = getExercises();
+  }
+
+  constructor(
+    private practiceService: PracticeService,
+  ) {
+
   }
 
   toggleSelection(exercise: string, isChecked: boolean): void {
@@ -32,6 +38,14 @@ export class ExerciseSelectorComponent implements OnInit {
     const updatedExerciseList = getExercisesByNames(this.selectedExercises);
 
     // update practice-mode component on changes
-    this.exerciseListEmmiter.emit(updatedExerciseList);
+    this.updatePracticeModeConfig(updatedExerciseList);
+  }
+
+  updatePracticeModeConfig(data: ExerciseType[]) {
+    const config = this.practiceService.getPracticeModeConfig();
+
+    config.exerciseList = data;
+
+    this.practiceService.setPracticeModeConfig(config);
   }
 }

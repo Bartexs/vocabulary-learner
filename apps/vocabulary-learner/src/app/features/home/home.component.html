@@ -14,15 +14,20 @@
     </div>
 
     <div class="inner-list menu">
-      <a
+      <!-- <a
         routerLink="/practice-selector"
         class="action-btn"
-        [class.disabled]="isPracticeDisabled"
-        [routerLink]="isPracticeDisabled ? null : '/practice-selector'"
+        [class.disabled]="noFoldersExist"
+        [routerLink]="noFoldersExist ? null : '/practice-selector'"
+        (click)="openFoldersSelectorDialog()"
+      > -->
+      <button
+        class="action-btn"
+        (click)="openFoldersSelectorDialog()"
       >
         <span class="action-icon">🔍</span>
         <span class="action-label">Practice</span>
-      </a>
+      </button>
       
       <a routerLink="/flashcard-creator" class="action-btn">
         <span class="action-icon">➕</span>

@@ -1,18 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Flashcard } from '../../core/models/flashcard';
-import { Folder } from '../../core/models/folder';
-import { DateUtilsService } from '../../core/services/date-utils.service';
-import { FlashcardService } from '../../core/services/flashcard.service';
-import { LessonService } from '../../core/services/lesson.service';
-import { RouterLink } from "@angular/router";
-
-interface FolderWithFlashcards {
-  folder: Folder,
-  flashcardList: Flashcard[],
-  newMaterial: Flashcard[];
-  repetitionMaterial: Flashcard[],
-}
+import { Router, RouterLink } from "@angular/router";
+import { FolderService } from '@vocabulary-learner/shared/folder-service/folder.service';
+import { Folder } from '@vocabulary-learner/core/models/folder';
+import { MatDialog } from '@angular/material/dialog';
+import { FoldersDialogComponent } from './folders-dialog.component';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +13,45 @@ interface FolderWithFlashcards {
   styleUrl: './home.component.css',
 })
 
-export class HomeComponent {
-  isPracticeDisabled = false;
+export class HomeComponent implements OnInit {
+  folders: Folder[] = [];
+  noFoldersExist = true;
+  readonly dialog = inject(MatDialog);
+
+  constructor(
+    private folderService: FolderService,
+    private router: Router
+  ) {
+    
+  }
+
+  ngOnInit(): void {
+    this.getUserFolders();
+  }
+
+  getUserFolders() {
+    this.folderService.getFolders().subscribe({
+      next: (f) => {
+        this.folders = f;
+        
+        // if no folder exists -> show button to add first folder, lesson and flashcard
+        if(f.length === 0) {
+          this.noFoldersExist = true;
+        } else {
+          this.noFoldersExist = false;
+        }
+      },
+      error: (err) => {
+        console.error(err);
+        console.log('Failed to load folders', err);
+      }
+    });
+  }
+
+  openFoldersSelectorDialog() {
+    console.log(this.folders);
+    this.dialog.open(FoldersDialogComponent, {
+      data: {folders: this.folders},
+    });
+  }
 }
