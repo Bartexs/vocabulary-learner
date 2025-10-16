@@ -1,6 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router, RouterLink } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { FolderService } from '@vocabulary-learner/shared/folder-service/folder.service';
 import { Folder } from '@vocabulary-learner/core/models/folder';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,7 +20,6 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private folderService: FolderService,
-    private router: Router
   ) {
     
   }
@@ -33,13 +32,6 @@ export class HomeComponent implements OnInit {
     this.folderService.getFolders().subscribe({
       next: (f) => {
         this.folders = f;
-        
-        // if no folder exists -> show button to add first folder, lesson and flashcard
-        if(f.length === 0) {
-          this.noFoldersExist = true;
-        } else {
-          this.noFoldersExist = false;
-        }
       },
       error: (err) => {
         console.error(err);
