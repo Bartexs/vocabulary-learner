@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { PracticeModeConfig } from '../models/practice-mode-config';
-import { ExerciseType } from '../../../../core/models/exercise';
 import { ExerciseSelectorComponent } from '../resources-configurators/exercise-selector/exercise-selector.component';
 import { MaterialSelectorComponent } from '../resources-configurators/material-selector/material-selector.component';
 import { PracticeService } from '../services/practice.service';
@@ -23,22 +22,21 @@ export class PracticeModeSelectorComponent implements OnInit {
   constructor(
     private router: Router,
     private practiceService: PracticeService,
+    private route: ActivatedRoute,
   ) {
   }
 
   ngOnInit(): void {
-    this.practiceModeConfig = this.practiceService.initializePracticeModeConfig();
+    this.retrieveIdFromURL();
+  }
+
+  retrieveIdFromURL() {
+    this.route.paramMap.subscribe(params => {
+        this.practiceService.setFolderId(Number(params.get('folderId')));
+    });
   }
 
   startPractice() {
-    this.practiceService.setPracticeModeConfig(this.practiceModeConfig);
     this.router.navigate(['/practice']);
-  }
-
-  chosenExercisesChanged(data: ExerciseType[]) {
-    this.practiceModeConfig = {
-      ...this.practiceModeConfig,
-      exerciseList: data
-    };
   }
 }

@@ -67,8 +67,7 @@ export class LessonCreatorComponent implements OnInit {
     this.lessonService.addLesson(lesson, this.folder.id).subscribe({
       next: (lesson) => {
         this.snackbarService.openSnackBar("Lesson " + lesson.data.name + " created. Add flashcards.", "Ok");
-        // Implement navigate to flashcard creator in created lesson
-
+        this.router.navigate(['/lesson-details', lesson.data.id]);
       },
       error: (err) => {
         if(err.status === 409) {

@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>Select folder</h2>
+<mat-dialog-content>
+    <ul>
+      <li *ngFor="let folder of foldersWithCounter">
+          <button (click)="folderSelected(folder)">{{ folder.folder.name }}</button>
+          <span *ngIf="folder.lessonCounter > 0">{{folder.lessonCounter}} lessons</span>
+          <span *ngIf="folder.lessonCounter === 0">
+            {{folder.lessonCounter}} lessons ⚠️ <br> create lesson 
+            <button (click)="createLessonInFolder(folder.folder.id)"> 
+                <mat-icon class="folder-icon add-icon" aria-hidden="false" aria-label="Add new folder icon" fontIcon="add_circle"></mat-icon>
+            </button>
+          </span>
+      </li>
+    </ul>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onCancel()">Cancel</button>
+</mat-dialog-actions>

@@ -18,7 +18,7 @@ import { LessonsByFolderComponent } from './features/resources-manager/lesson/le
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
-    { path: 'practice-selector', component: PracticeModeSelectorComponent },
+    { path: 'practice-selector/:folderId', component: PracticeModeSelectorComponent },
     { path: 'exam', component: ExamModeComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
     { path: 'practice', component: PracticeModeComponent },

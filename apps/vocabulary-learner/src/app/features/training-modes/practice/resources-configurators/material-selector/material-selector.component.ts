@@ -30,10 +30,12 @@ export class MaterialSelectorComponent implements OnInit {
   }
 
   getLessonsAvailable() {
-    this.lessonService.getAllLessons().subscribe({
-      next: (l) => this.lessonsAvailable = l,
-      error: (err) => console.error(err)
-    });
+    this.practiceService.folderId$.subscribe((id) => {
+        this.lessonService.getLessonsByFolderId(id!).subscribe({
+        next: (l) => this.lessonsAvailable = l,
+        error: (err) => console.error(err)
+      });
+    })
   }
 
   toggleSelection(lessonId: number, isChecked: boolean) {

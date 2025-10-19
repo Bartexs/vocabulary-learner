@@ -1,8 +1,15 @@
 <section class="lesson-selection">
   <p>Select Lessons:</p>
   <div class="checkbox-group inner-list">
-    <mat-checkbox *ngFor="let lesson of lessonsAvailable" (change)="toggleSelection(lesson.id, $event.checked)" class="folder-item">
+    <mat-checkbox 
+    *ngFor="let lesson of lessonsAvailable" 
+    (change)="toggleSelection(lesson.id, $event.checked)" 
+    class="folder-item" 
+    [disabled]="lesson.flashcards.length === 0">
       <span class="custom-label">{{lesson.name}}</span>
+      <span *ngIf="lesson.flashcards.length === 0">
+        ⚠️ Lesson is empty
+      </span>
     </mat-checkbox>
   </div>
 </section>
