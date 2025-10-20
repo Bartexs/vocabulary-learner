@@ -49,4 +49,13 @@ export class AuthService {
   private getCurrentUser(): Observable<AppUser> {
     return this.http.get<AppUser>(`${environment.apiUrl}/users/me`);
   }
+
+  public generateRandomString(length: number): string {
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
+    for (let i = 0; i < length; i++) {
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return result;
+  }
 }
