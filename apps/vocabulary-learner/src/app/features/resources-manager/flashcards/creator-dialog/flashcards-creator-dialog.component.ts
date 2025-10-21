@@ -68,6 +68,7 @@ export class FlashcardsCreatorDialogComponent {
         lessonId: this.lesson.id,
         front: f.definition.trim(),
         back: f.description.trim(),
+        enabledSRS: false,
       }
     })
   }
@@ -85,6 +86,7 @@ export class FlashcardsCreatorDialogComponent {
           lessonId: this.lesson.id,
           front: front?.trim() || '', // Trim and handle missing front
           back: back?.trim() || '',    // Trim and handle missing back
+          enabledSRS: false,
         };
       });
       flashcards.every(flashcard => this.lesson.flashcards.push(flashcard));

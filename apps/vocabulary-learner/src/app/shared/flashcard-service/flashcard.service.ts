@@ -50,7 +50,7 @@ export class FlashcardService {
         id: 0,
         front: flashcard.front,
         back: flashcard.back,
-        flashcardProficiencyId: flashcard.flashcardProficiencyId,
+        enabledSRS: flashcard.enabledSRS,
       }
 
       flashcardsDTO.push(f);
@@ -73,10 +73,9 @@ export class FlashcardService {
     return {
       id: dto.id,
       description: '',
-      lessonId: lessonId,
       front: dto.front,
       back: dto.back,
-      flashcardProficiencyId: dto.flashcardProficiencyId,
+      enabledSRS: false,
     };
   }
 
@@ -86,5 +85,9 @@ export class FlashcardService {
 
   removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
     return this.flashcardGateway.removeFlashcard(lesson, flashcard);
+  }
+
+  getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
+    return this.flashcardGateway.getFlashcardsWithProficiencyByLessonId(lessonId);
   }
 }

@@ -54,4 +54,8 @@ export class FlashcardGatewayService {
   removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
     return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/${lesson.id}/flashcards/${flashcard.id}`);
   }
+
+  getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
+    return this.http.get<Flashcard[]>(`${this.baseUrl}/flashcards/proficiency/by-lesson${lessonId}`);
+  }
 }

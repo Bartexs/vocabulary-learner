@@ -6,7 +6,6 @@ import { Lesson } from '../../../../core/models/lessons';
 import { LessonService } from '../../../../shared/lesson-service/lesson.service';
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
-import { FlashcardProficiency } from '../../../../core/models/flashcard-proficiency';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
@@ -66,7 +65,7 @@ export class LessonDetailsViewerComponent implements OnInit {
               frontSide: dto.front,
               backSide: dto.back,
               lessonId: 0,
-              flashcardProficiencyId: dto.flashcardProficiencyId
+              enabledSRS: dto.enabledSRS,
             }))
             this.isLoading = false;
           },

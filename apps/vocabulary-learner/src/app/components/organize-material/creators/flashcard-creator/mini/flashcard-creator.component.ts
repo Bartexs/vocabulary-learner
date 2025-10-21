@@ -32,6 +32,7 @@ export class FlashcardCreatorComponent {
           lessonId: this.lesson.id,
           front: front?.trim() || '', // Trim and handle missing front
           back: back?.trim() || '',    // Trim and handle missing back
+          enabledSRS: false,
         };
       });
       flashcards.every(flashcard => this.lesson.flashcards.push(flashcard));

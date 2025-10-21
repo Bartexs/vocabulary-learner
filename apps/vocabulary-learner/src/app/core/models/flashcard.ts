@@ -3,6 +3,5 @@ export interface Flashcard {
     description: string,
     front: string,
     back: string,
-    lessonId: number,
-    flashcardProficiencyId?: number
+    enabledSRS: boolean,
 }

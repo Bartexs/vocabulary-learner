@@ -1,5 +1,5 @@
 export interface FlashcardProficiency {
-    enableSRS: boolean;
+    id: number,
     EF: number;                   // Easiness Factor
     interval: number;             // interwał w dniach
     repetitions: number;          // liczba kolejnych udanych powtórek
@@ -13,8 +13,6 @@ export function updateFSRS(
     quality: number,        // 0-5, jak dobrze użytkownik odpowiedział
     responseTime?: number    // opcjonalnie w sekundach
 ): FlashcardProficiency {
-    if (!card.enableSRS) return card;
-
     const today = new Date();
 
     // Jeśli odpowiedź słaba
