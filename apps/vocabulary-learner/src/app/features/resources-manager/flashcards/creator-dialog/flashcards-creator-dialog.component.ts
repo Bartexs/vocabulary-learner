@@ -60,10 +60,6 @@ export class FlashcardsCreatorDialogComponent {
   }
 
   mapToFlashcards(): Flashcard[] {
-    const flashcardProficiency: FlashcardProficiency = {
-      flashcardMastered: false,
-      masteryLevel: 0
-    }
 
     return this.flashcards.map(f => {
       return {
@@ -72,18 +68,12 @@ export class FlashcardsCreatorDialogComponent {
         lessonId: this.lesson.id,
         front: f.definition.trim(),
         back: f.description.trim(),
-        flashcardProficiency: flashcardProficiency
       }
     })
   }
 
   saveFlashcardsInBatch() {
     const lines = this.userInput.split('\n');
-
-    const flashcardProficiency: FlashcardProficiency = {
-      flashcardMastered: false,
-      masteryLevel: 0
-    }
   
     const flashcards = lines
       .filter(line => line.trim() !== '') // Skip empty lines
@@ -95,7 +85,6 @@ export class FlashcardsCreatorDialogComponent {
           lessonId: this.lesson.id,
           front: front?.trim() || '', // Trim and handle missing front
           back: back?.trim() || '',    // Trim and handle missing back
-          flashcardProficiency: flashcardProficiency
         };
       });
       flashcards.every(flashcard => this.lesson.flashcards.push(flashcard));

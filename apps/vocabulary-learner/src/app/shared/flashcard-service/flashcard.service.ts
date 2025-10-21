@@ -49,7 +49,8 @@ export class FlashcardService {
       const f: FlashcardDTO = {
         id: 0,
         front: flashcard.front,
-        back: flashcard.back
+        back: flashcard.back,
+        flashcardProficiencyId: flashcard.flashcardProficiencyId,
       }
 
       flashcardsDTO.push(f);
@@ -75,10 +76,7 @@ export class FlashcardService {
       lessonId: lessonId,
       front: dto.front,
       back: dto.back,
-      flashcardProficiency: {
-        flashcardMastered: false,
-        masteryLevel: 0
-      }
+      flashcardProficiencyId: dto.flashcardProficiencyId,
     };
   }
 

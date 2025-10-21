@@ -57,10 +57,6 @@ export class LessonDetailsViewerComponent implements OnInit {
       next: lesson => {
         this.lesson = lesson;
 
-        const flashcardProficiency: FlashcardProficiency = {
-          flashcardMastered: false,
-          masteryLevel: 0
-        }
 
         this.flashcardService.getFlashcardDTOsByLessonId(lesson.id).subscribe({
           next: flashcardDTOs => {
@@ -70,7 +66,7 @@ export class LessonDetailsViewerComponent implements OnInit {
               frontSide: dto.front,
               backSide: dto.back,
               lessonId: 0,
-              flashcardProficiency: flashcardProficiency
+              flashcardProficiencyId: dto.flashcardProficiencyId
             }))
             this.isLoading = false;
           },
