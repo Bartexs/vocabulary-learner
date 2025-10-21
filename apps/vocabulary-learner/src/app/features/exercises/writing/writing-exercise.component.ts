@@ -5,7 +5,6 @@ import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-ex
 import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise } from '../../../core/models/exercise';
 import { DateUtilsService } from '../../../core/services/date-utils.service';
-import { FlashcardService } from '../../../core/services/flashcard.service';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -32,7 +31,6 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   }
 
   constructor(
-    private flashcardService: FlashcardService,
     private dateUtilsService: DateUtilsService,
     private exerciseService: ExerciseService
   ) {
@@ -124,7 +122,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   setExerciseSummaryAndProficiency() {
     this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
-    if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
+    // if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
   }
 
   showCorrectAnswer() {
@@ -142,37 +140,37 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     }
   }
 
-  setProficiency(isCorrect: boolean) {
-    const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
-    const history = flashcardTested.flashcardProficiency;
+  // setProficiency(isCorrect: boolean) {
+  //   const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
+  //   const history = flashcardTested.flashcardProficiency;
 
-    if(isCorrect) {
-      if(history.nextExamDate === undefined) {
-        const date = this.dateUtilsService.getTodayDate();
-        history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
-        history.masteryLevel = 1;
-        flashcardTested.flashcardProficiency = history;
-      } else {
-        const date = history.nextExamDate;
+  //   if(isCorrect) {
+  //     if(history.nextExamDate === undefined) {
+  //       const date = this.dateUtilsService.getTodayDate();
+  //       history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
+  //       history.masteryLevel = 1;
+  //       flashcardTested.flashcardProficiency = history;
+  //     } else {
+  //       const date = history.nextExamDate;
 
-        switch (flashcardTested.flashcardProficiency.masteryLevel) {
-          case 1:
-            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 3, 'yyyy-MM-dd');
-            history.masteryLevel = 2;
-            break;
-          case 2:
-            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 5, 'yyyy-MM-dd');
-            history.masteryLevel = 3;
-            break;
-        }
+  //       switch (flashcardTested.flashcardProficiency.masteryLevel) {
+  //         case 1:
+  //           history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 3, 'yyyy-MM-dd');
+  //           history.masteryLevel = 2;
+  //           break;
+  //         case 2:
+  //           history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 5, 'yyyy-MM-dd');
+  //           history.masteryLevel = 3;
+  //           break;
+  //       }
 
-        flashcardTested.flashcardProficiency = history;
-      }
-    } else {
-      history.nextExamDate = undefined;
-    }
-    this.flashcardService.modifyFlashcard(flashcardTested);
-  }
+  //       flashcardTested.flashcardProficiency = history;
+  //     }
+  //   } else {
+  //     history.nextExamDate = undefined;
+  //   }
+  //   this.flashcardService.modifyFlashcard(flashcardTested);
+  // }
 
   resetFlashCardTest() {
     this.isFinished = false;
