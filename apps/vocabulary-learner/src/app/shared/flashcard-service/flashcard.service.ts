@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Flashcard } from '../../core/models/flashcard';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FlashcardGatewayService } from './flashcard-gateway.service';
 import { Lesson } from '../../core/models/lessons';
 import { FlashcardDTO } from '../../core/models/flashcardDTO';
@@ -89,5 +89,9 @@ export class FlashcardService {
 
   getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
     return this.flashcardGateway.getFlashcardsWithProficiencyByLessonId(lessonId);
+  }
+
+  getFlashcardsDueTodayByFolderId(folderId: number): Observable<Flashcard[]> {
+    return this.flashcardGateway.getFlashcardsDueTodayByFolderId(folderId).pipe(map(res => res.data ?? []));
   }
 }

@@ -56,6 +56,10 @@ export class FlashcardGatewayService {
   }
 
   getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
-    return this.http.get<Flashcard[]>(`${this.baseUrl}/flashcards/proficiency/by-lesson${lessonId}`);
+    return this.http.get<Flashcard[]>(`${this.baseUrl}/flashcards/proficiency/by-lesson/${lessonId}`);
+  }
+
+  getFlashcardsDueTodayByFolderId(folderId: number): Observable<ApiResponse<Flashcard[]>> {
+    return this.http.get<ApiResponse<Flashcard[]>>(`${this.baseUrl}/due-today/${folderId}`);
   }
 }

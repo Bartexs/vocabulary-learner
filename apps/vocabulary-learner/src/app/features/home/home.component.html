@@ -36,4 +36,12 @@
       </div>
     </div>
   </div>
+  <div>
+    <h2>Today’s revisions</h2>
+    <div class="inner-list menu" >
+      <div *ngFor="let folderWithFlashcards of flashcardsDueToday">
+        <span>Folder {{folderWithFlashcards.folder.name}} flashcards for review {{folderWithFlashcards.flashcards.length}} Press to start review</span>
+      </div>
+    </div>
+  </div>
 </div>
