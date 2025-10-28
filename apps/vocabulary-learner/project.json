@@ -34,6 +34,12 @@
       },
       "configurations": {
         "production": {
+          "fileReplacements": [
+            {
+              "replace": "apps/vocabulary-learner/src/environments/environment.ts",
+              "with": "apps/vocabulary-learner/src/environments/environment.prod.ts"
+            }
+          ],
           "budgets": [
             {
               "type": "initial",
