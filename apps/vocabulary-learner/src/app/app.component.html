@@ -11,16 +11,16 @@
                 <a href="#">Home</a>
             </div>
             <div *ngIf="isUser" class="nav-links">
-                <a href="/manage-learning-resources">Manage Material</a>
+                <a [routerLink]="['/manage-learning-resources']">Manage Material</a>
             </div>
             <div *ngIf="!isUser">
-                <a href="/login">Login</a>
+                <a [routerLink]="['/login']">Login</a>
             </div>
             <div *ngIf="!isUser">
-                <a href="/register">Register</a>
+                <a [routerLink]="['/register']">Register</a>
             </div>
             <div *ngIf="isUser" class="nav-links">
-                <a href="/user">Account</a>
+                <a [routerLink]="['/user']">Account</a>
             </div>
             <div *ngIf="isUser" class="nav-links">
                 <button (click)="logoutUser()">Logout</button>
