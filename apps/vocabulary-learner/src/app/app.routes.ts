@@ -1,6 +1,5 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { ExamModeComponent } from './components/exam-mode/exam-mode.component';
 import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
 import { PracticeModeComponent } from './features/training-modes/practice/exercises-manager/practice-mode.component';
 import { LessonCreatorComponent } from './features/resources-manager/lesson/lesson-creator/lesson-creator.component';
@@ -8,7 +7,6 @@ import { LessonDetailsViewerComponent } from './features/resources-manager/lesso
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
 import { RegisterComponent } from './features/auth/register/RegisterComponent.component';
 import { LandingPageComponent } from './features/landing/landing-page.component';
-import { DemoModeComponent } from './components/demo-mode/demo-mode.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { PracticeModeSelectorComponent } from './features/training-modes/practice/main-controller/practice-mode-selector.component';
 import { FolderCreatorComponent } from './features/resources-manager/folder/folder-creator/folder-creator.component';
@@ -19,7 +17,6 @@ export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'practice-selector/:folderId', component: PracticeModeSelectorComponent },
-    { path: 'exam', component: ExamModeComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
     { path: 'practice', component: PracticeModeComponent },
     { path: 'folder-creator', component: FolderCreatorComponent },
@@ -31,6 +28,5 @@ export const appRoutes: Route[] = [
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'landing-page', component: LandingPageComponent },
-    { path: 'demo-mode', component: DemoModeComponent },
     { path: 'manage-learning-resources', component: FoldersViewerComponent },
 ];
