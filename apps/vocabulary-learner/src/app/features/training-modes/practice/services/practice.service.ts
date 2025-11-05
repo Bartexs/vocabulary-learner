@@ -3,6 +3,7 @@ import { PracticeModeConfig } from '../models/practice-mode-config';
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { Flashcard } from '../../../../core/models/flashcard';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { ExerciseType } from '../../../../core/models/exercise';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,16 @@ export class PracticeService {
   constructor(
     private flashcardService: FlashcardService
   ) {
-    this.initializePracticeModeConfig();
+  }
+
+  createLearningSessionConfig(type: string, flashcards: Flashcard[], exercises: ExerciseType[]): PracticeModeConfig {
+    const config: PracticeModeConfig = {
+      learningSessionType: type,
+      flashcards: flashcards,
+      exerciseList: exercises,
+    }
+    
+    return config;
   }
 
   getMaterialToPractice(): Observable<Flashcard[]> {
@@ -28,13 +38,6 @@ export class PracticeService {
 
   getPracticeModeConfig(): PracticeModeConfig {
     return this.practiceModeConfig
-  }
-
-  initializePracticeModeConfig(): PracticeModeConfig {
-    return this.practiceModeConfig = {
-      lessonList: [],
-      exerciseList: [],
-    };
   }
 
   setFolderId(id: number) {

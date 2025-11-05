@@ -42,21 +42,14 @@ export class PracticeModeComponent implements OnInit  {
 
   ngOnInit() {
     this.setExerciseList();
-    this.setFlashcardList();
     this.setInitialExercise();
+    this.setFlashcardList();
+    
   }
 
   private setFlashcardList() {
-    const lessons: Lesson[] = this.practiceService.getPracticeModeConfig().lessonList;
-
-    this.flashcardService.getFlashcardsByLessonsIds(lessons).subscribe({
-      next: (flashcards) => {
-        console.log(flashcards);
-        this.flashcardList = flashcards
-        this.loadExerciseComponent(this.currentExercise);
-      },
-      error: (err) => console.error(err),
-    })
+    this.flashcardList = this.practiceService.getPracticeModeConfig().flashcards;
+    this.loadExerciseComponent(this.currentExercise);
   }
 
   private setExerciseList() {

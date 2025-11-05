@@ -1,6 +1,5 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from "@angular/router";
 import { MatDialog } from '@angular/material/dialog';
 import { FoldersDialogComponent } from './folders-dialog.component';
 import { forkJoin } from 'rxjs';
@@ -8,6 +7,9 @@ import { Flashcard } from '../../core/models/flashcard';
 import { Folder } from '../../core/models/folder';
 import { FlashcardService } from '../../shared/flashcard-service/flashcard.service';
 import { FolderService } from '../../shared/folder-service/folder.service';
+import { PracticeService } from '../training-modes/practice/services/practice.service';
+import { getExercisesByNames } from '../../core/models/exercise';
+import { Router } from '@angular/router';
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -16,7 +18,7 @@ export interface FolderWithFlashcards {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -31,6 +33,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private folderService: FolderService,
     private flashcardService: FlashcardService,
+    private practiceService: PracticeService,
+    private router: Router,
   ) {
     
   }
@@ -89,5 +93,19 @@ export class HomeComponent implements OnInit {
     this.dialog.open(FoldersDialogComponent, {
       data: {folders: this.folders},
     });
+  }
+
+  startExamLearningSession(folderId: number) {
+    const exercise = getExercisesByNames(["Writing"]);
+
+    this.flashcardService.getFlashcardsDueTodayByFolderId(folderId).subscribe({
+        next: (flashcards) => {
+          const config = this.practiceService.createLearningSessionConfig("Exam", flashcards, exercise);
+          this.practiceService.setPracticeModeConfig(config);
+          this.router.navigate(['/practice']);
+        },
+        error: (err) => console.error(err),
+      }
+    )
   }
 }
