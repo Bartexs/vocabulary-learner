@@ -29,6 +29,7 @@ export class PracticeModeComponent implements OnInit  {
   exerciseSummaryList: ExerciseSummary[] = [];
   currentFlashcardIndex = 0;
   flashcardListSize = 0;
+  sessionType = "";
 
   constructor(
     private lessonService: LessonService,
@@ -41,10 +42,15 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   ngOnInit() {
+    this.setSessionType();
     this.setExerciseList();
     this.setInitialExercise();
     this.setFlashcardList();
-    
+
+  }
+
+  private setSessionType() {
+    this.sessionType = this.practiceService.getPracticeModeConfig().learningSessionType;
   }
 
   private setFlashcardList() {

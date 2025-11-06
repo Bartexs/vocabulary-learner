@@ -15,6 +15,14 @@ export function updateFSRS(
 ): FlashcardProficiency {
     const today = new Date();
 
+        // Upewniamy się, że interval i EF są poprawne liczby
+    if (!card.interval || isNaN(card.interval) || card.interval < 1) {
+        card.interval = 1;
+    }
+    if (!card.EF || isNaN(card.EF)) {
+        card.EF = 2.5; // standardowa wartość startowa w algorytmie SM-2 / FSRS
+    }
+
     // Jeśli odpowiedź słaba
     if (quality < 3) {
         card.repetitions = 0;

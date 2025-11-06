@@ -5,6 +5,9 @@ import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-ex
 import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise } from '../../../core/models/exercise';
 import { DateUtilsService } from '../../../core/services/date-utils.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { FlashcardService } from '../../../shared/flashcard-service/flashcard.service';
+import { FlashcardProficiency, updateFSRS } from '../../../core/models/flashcard-proficiency';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -14,7 +17,7 @@ import { DateUtilsService } from '../../../core/services/date-utils.service';
 })
 export class WritingExerciseComponent extends DynamicExerciseComponent implements OnInit  {
   // @Input() flashcards: Flashcard[] = [];
-  @Input() modeType = '';
+  modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   exercise = Exercise.Writing;
   userInput = '';
@@ -28,11 +31,14 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
+    this.modeType = this.practiceService.getPracticeModeConfig().learningSessionType;
   }
 
   constructor(
     private dateUtilsService: DateUtilsService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private practiceService: PracticeService,
+    private flashcardService: FlashcardService,
   ) {
     super();
   }
@@ -122,7 +128,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   setExerciseSummaryAndProficiency() {
     this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
-    // if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
+    if(this.modeType === 'Exam') this.setProficiency(this.isCorrect);
   }
 
   showCorrectAnswer() {
@@ -140,37 +146,22 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     }
   }
 
-  // setProficiency(isCorrect: boolean) {
-  //   const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
-  //   const history = flashcardTested.flashcardProficiency;
+  setProficiency(isCorrect: boolean) {
+    const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
 
-  //   if(isCorrect) {
-  //     if(history.nextExamDate === undefined) {
-  //       const date = this.dateUtilsService.getTodayDate();
-  //       history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
-  //       history.masteryLevel = 1;
-  //       flashcardTested.flashcardProficiency = history;
-  //     } else {
-  //       const date = history.nextExamDate;
-
-  //       switch (flashcardTested.flashcardProficiency.masteryLevel) {
-  //         case 1:
-  //           history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 3, 'yyyy-MM-dd');
-  //           history.masteryLevel = 2;
-  //           break;
-  //         case 2:
-  //           history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 5, 'yyyy-MM-dd');
-  //           history.masteryLevel = 3;
-  //           break;
-  //       }
-
-  //       flashcardTested.flashcardProficiency = history;
-  //     }
-  //   } else {
-  //     history.nextExamDate = undefined;
-  //   }
-  //   this.flashcardService.modifyFlashcard(flashcardTested);
-  // }
+    const quality: number = isCorrect ? 5 : 0;
+    
+    this.flashcardService.getFlashcardProficiencyByFlashcardId(flashcardTested).subscribe({
+      next: (flashcardProf) => {
+        flashcardProf = updateFSRS(flashcardProf, quality)
+        this.flashcardService.patchFlashcardProficiency(flashcardProf).subscribe({
+          next: () => console.log("updated"),
+          error: (err) => console.error(err),
+        });
+      },
+      error: (err) => console.error(err),
+    });
+  }
 
   resetFlashCardTest() {
     this.isFinished = false;

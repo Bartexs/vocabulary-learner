@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '@vocabulary-learner/core/models/apiResponse';
 import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
+import { FlashcardProficiency } from '@vocabulary-learner/core/models/flashcard-proficiency';
 import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
 import { Lesson } from '@vocabulary-learner/core/models/lessons';
 import { environment } from 'apps/vocabulary-learner/src/environments/environment';
@@ -61,5 +62,13 @@ export class FlashcardGatewayService {
 
   getFlashcardsDueTodayByFolderId(folderId: number): Observable<ApiResponse<Flashcard[]>> {
     return this.http.get<ApiResponse<Flashcard[]>>(`${this.baseUrl}/due-today/${folderId}`);
+  }
+
+  getFlashcardProficiencyByFlashcardId(flashcard: Flashcard): Observable<ApiResponse<FlashcardProficiency>> {
+    return this.http.get<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/${flashcard.id}`);
+  }
+
+  patchFlashcardProficiency(flashcardProf: FlashcardProficiency): Observable<ApiResponse<FlashcardProficiency>> {
+    return this.http.patch<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/`, flashcardProf);
   }
 }

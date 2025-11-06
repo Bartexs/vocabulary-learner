@@ -41,6 +41,7 @@
     <div class="inner-list menu" >
       <div *ngFor="let folderWithFlashcards of flashcardsDueToday">
         <span>Folder {{folderWithFlashcards.folder.name}} flashcards for review {{folderWithFlashcards.flashcards.length}} Press to start review</span>
+        <span *ngFor="let flashcard of folderWithFlashcards.flashcards">{{flashcard.front}}</span>
 
       <!-- rename link to learning-session/exam -->
       <button
