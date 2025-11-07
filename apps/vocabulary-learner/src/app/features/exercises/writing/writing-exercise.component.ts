@@ -8,10 +8,12 @@ import { DateUtilsService } from '../../../core/services/date-utils.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
 import { FlashcardService } from '../../../shared/flashcard-service/flashcard.service';
 import { FlashcardProficiency, updateFSRS } from '../../../core/models/flashcard-proficiency';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-writing-exercise',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIcon, MatTooltip],
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
@@ -27,11 +29,13 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   isListening = false;
   skipNextKeyPress = false;
   comment = '';
+  isExamMode = false;
 
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
     this.modeType = this.practiceService.getPracticeModeConfig().learningSessionType;
+    this.isExamMode = this.modeType === "Exam";
   }
 
   constructor(

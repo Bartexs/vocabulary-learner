@@ -57,40 +57,91 @@
                   </div>
                 </div>
               </div>
+              <div *ngIf="flashcard.enabledSRS" class="checkbox-group flex-col align-center">
+                <div>
+                  <span>Mastery Score</span>
+                </div>
+                <div>
+                  <div>
+                    <mat-icon 
+                      class="" 
+                      aria-hidden="false" 
+                      aria-label="Edit flashcard icon" 
+                      fontIcon="star" 
+                      matTooltip="Modify flashcard" 
+                      matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                      class="" 
+                      aria-hidden="false" 
+                      aria-label="Edit flashcard icon" 
+                      fontIcon="star_half" 
+                      matTooltip="Modify flashcard" 
+                      matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                      class="" 
+                      aria-hidden="false" 
+                      aria-label="Edit flashcard icon" 
+                      fontIcon="star_border" 
+                      matTooltip="Modify flashcard" 
+                      matTooltipPosition="right">
+                    </mat-icon>
+                  </div>
+                  <div>
+                    <mat-icon 
+                      class="" 
+                      aria-hidden="false" 
+                      aria-label="Edit flashcard icon" 
+                      fontIcon="star_border" 
+                      matTooltip="Modify flashcard" 
+                      matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                      class="" 
+                      aria-hidden="false" 
+                      aria-label="Edit flashcard icon" 
+                      fontIcon="star_border" 
+                      matTooltip="Modify flashcard" 
+                      matTooltipPosition="right">
+                    </mat-icon>
+                  </div>
+                </div>
+              </div>
               <div class="checkbox-group align-center">
                 <mat-icon 
-                class="icon srs-icon"
-                [class.enabledSRS]="flashcard.enabledSRS" 
-                aria-hidden="false" 
-                aria-label="Toggle SRS icon" 
-                fontIcon="bookmark_document" 
-                matTooltip="Toggle Spaced Repetition System" 
-                matTooltipPosition="left"
-                (click)="toggleSRS(flashcard)"
+                  class="icon srs-icon"
+                  [class.enabledSRS]="flashcard.enabledSRS" 
+                  aria-hidden="false" 
+                  aria-label="Toggle SRS icon" 
+                  fontIcon="bookmark_document" 
+                  matTooltip="Toggle Spaced Repetition System" 
+                  matTooltipPosition="left"
+                  (click)="toggleSRS(flashcard)"
                 >
                 </mat-icon>
               </div>
               <div class="checkbox-group">
                 <mat-icon 
-                class="icon edit-icon" 
-                aria-hidden="false" 
-                aria-label="Edit flashcard icon" 
-                fontIcon="edit_document" 
-                matTooltip="Modify flashcard" 
-                matTooltipPosition="right"
-                (click)="modifyFlashcard(flashcard)"
+                  class="icon edit-icon" 
+                  aria-hidden="false" 
+                  aria-label="Edit flashcard icon" 
+                  fontIcon="edit_document" 
+                  matTooltip="Modify flashcard" 
+                  matTooltipPosition="right"
+                  (click)="modifyFlashcard(flashcard)"
                 >
                 </mat-icon>
                 <mat-icon 
-                class="icon delete-icon" 
-                aria-hidden="false" 
-                aria-label="Delete flashcard icon" 
-                fontIcon="delete" 
-                matTooltip="Delete flashcard" 
-                matTooltipPosition="right"
-                (click)="removeFlashcard(flashcard)">
+                  class="icon delete-icon" 
+                  aria-hidden="false" 
+                  aria-label="Delete flashcard icon" 
+                  fontIcon="delete" 
+                  matTooltip="Delete flashcard" 
+                  matTooltipPosition="right"
+                  (click)="removeFlashcard(flashcard)">
                 </mat-icon>
-              </div>
+                </div>
             </div>
           </div>
         </section>
