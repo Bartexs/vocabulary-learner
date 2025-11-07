@@ -31,6 +31,7 @@ export class LessonDetailsViewerComponent implements OnInit {
   lesson!: Lesson;
   flashcards: Flashcard[] = [];
   isLoading = true;
+  lessonId!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -45,8 +46,8 @@ export class LessonDetailsViewerComponent implements OnInit {
 
   retrieveIdFromURL() {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.getLesson(id);
+      this.lessonId = Number(params.get('id'));
+      this.getLesson(this.lessonId);
     });
 
   }
@@ -135,6 +136,23 @@ export class LessonDetailsViewerComponent implements OnInit {
         error: err => console.error('Failed to modify flashcard', err)
       })
     });
+  }
+
+  toggleSRS(flashcard: Flashcard) {
+    if(flashcard.enabledSRS) {
+      // open dialog to confirm removing from SRS
+    } else {
+      this.isLoading = true;
+
+      this.flashcardService.addFlashcardProficiencyToFlashcard(flashcard).subscribe({
+        next: () => {
+          this.getLesson(this.lessonId);
+          this.isLoading = false;
+          this.snackbarService.openSnackBar("Flashcard added to Spaced Repetition System!", "OK");
+        },
+        error: err => console.error('Failed add flashcard proficiency', err)
+      })
+    }
   }
 } 
 

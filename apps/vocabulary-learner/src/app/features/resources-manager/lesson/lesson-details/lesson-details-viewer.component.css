@@ -95,3 +95,11 @@
   color: #43a047;             
   transform: scale(1.05);      
 }
+
+.align-center {
+  justify-content: center;
+}
+
+.enabledSRS {
+  color: #c4a014;              
+}

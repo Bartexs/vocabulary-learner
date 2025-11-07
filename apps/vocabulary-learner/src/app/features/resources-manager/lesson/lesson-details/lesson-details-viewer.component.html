@@ -57,6 +57,19 @@
                   </div>
                 </div>
               </div>
+              <div class="checkbox-group align-center">
+                <mat-icon 
+                class="icon srs-icon"
+                [class.enabledSRS]="flashcard.enabledSRS" 
+                aria-hidden="false" 
+                aria-label="Toggle SRS icon" 
+                fontIcon="bookmark_document" 
+                matTooltip="Toggle Spaced Repetition System" 
+                matTooltipPosition="left"
+                (click)="toggleSRS(flashcard)"
+                >
+                </mat-icon>
+              </div>
               <div class="checkbox-group">
                 <mat-icon 
                 class="icon edit-icon" 

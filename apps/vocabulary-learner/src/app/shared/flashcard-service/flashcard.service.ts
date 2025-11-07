@@ -107,4 +107,10 @@ export class FlashcardService {
       map(res => res.data)
     );
   }
+
+  addFlashcardProficiencyToFlashcard(flashcard: Flashcard): Observable<FlashcardProficiency> {
+    return this.flashcardGateway.addFlashcardProficiencyToFlashcard(flashcard).pipe(
+      map(res => res.data)
+    );
+  }
 }
