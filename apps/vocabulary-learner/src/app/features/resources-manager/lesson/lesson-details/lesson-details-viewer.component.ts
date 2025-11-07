@@ -140,8 +140,13 @@ export class LessonDetailsViewerComponent implements OnInit {
 
   toggleSRS(flashcard: Flashcard) {
     if(flashcard.enabledSRS) {
-      // open dialog to confirm removing from SRS
+      this.removeFlashcardProficiency(flashcard);
     } else {
+      this.createFlashcardProficiency(flashcard);
+    }
+  }
+
+  createFlashcardProficiency(flashcard: Flashcard) {
       this.isLoading = true;
 
       this.flashcardService.addFlashcardProficiencyToFlashcard(flashcard).subscribe({
@@ -152,7 +157,30 @@ export class LessonDetailsViewerComponent implements OnInit {
         },
         error: err => console.error('Failed add flashcard proficiency', err)
       })
-    }
+  }
+
+  removeFlashcardProficiency(flashcard: Flashcard) {
+    const data = {
+      message: `Are you sure you want to disable SRS for flashcard "${flashcard.front}"? /n It will remove all history!`,
+      objectName: flashcard.front,
+      objectType: 'flashcard',
+    };
+  
+    const dialogRef = this.dialog.open(RemoveObjectDialogComponent, { data });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.isLoading = true;
+        this.flashcardService.removeFlashcardProficiency(flashcard).subscribe({
+          next: () => {
+            this.snackbarService.openSnackBar(`Removed SRS history`, 'Ok');
+            this.getLesson(this.lesson.id);
+            this.isLoading = false;
+          },
+          error: err => console.error('Failed to delete flashcard proficiency', err)
+        });
+      }
+    });
   }
 } 
 

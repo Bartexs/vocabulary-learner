@@ -113,4 +113,10 @@ export class FlashcardService {
       map(res => res.data)
     );
   }
+
+  removeFlashcardProficiency(flashcard: Flashcard): Observable<Flashcard> {
+    return this.flashcardGateway.removeFlashcardProficiency(flashcard).pipe(
+      map(res => res.data)
+    );
+  }
 }

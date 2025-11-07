@@ -75,4 +75,9 @@ export class FlashcardGatewayService {
   addFlashcardProficiencyToFlashcard(flashcard: Flashcard): Observable<ApiResponse<FlashcardProficiency>> {
     return this.http.post<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/create`, flashcard);
   }
+
+  removeFlashcardProficiency(flashcard: Flashcard) {
+    return this.http.delete<ApiResponse<Flashcard>>(`${this.baseUrl}/srs/${flashcard.id}`); {
+    }
+  }
 }
