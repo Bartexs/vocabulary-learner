@@ -12,6 +12,8 @@ import { LessonService } from '../../../../shared/lesson-service/lesson.service'
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { Lesson } from '../../../../core/models/lessons';
 import { PracticeService } from '../services/practice.service';
+import { SessionSummary } from '@vocabulary-learner/core/models/session-summary';
+import { SessionType } from '@vocabulary-learner/core/models/session-type';
 
 @Component({
   selector: 'app-practice-mode',
@@ -46,6 +48,7 @@ export class PracticeModeComponent implements OnInit  {
     this.setExerciseList();
     this.setInitialExercise();
     this.setFlashcardList();
+    this.initSessionSummary();
 
   }
 
@@ -68,6 +71,20 @@ export class PracticeModeComponent implements OnInit  {
     } else {
       console.warn('Exercise list is empty.');
     }
+  }
+
+  private initSessionSummary(): void {
+    const type = this.sessionType === "Exam" 
+      ? SessionType.EXAM
+      : SessionType.PRACTICE;
+
+    const summary: SessionSummary = {
+      id: 0,
+      type: type,
+      exercisesSummary: []
+    }
+
+    this.sessionSummaryService.setSessionSummary(summary);
   }
 
   loadExerciseComponent(exercise: ExerciseType) {
@@ -118,7 +135,9 @@ export class PracticeModeComponent implements OnInit  {
 
     // if there is no more exercises, pass all exercises summary to its service and reroute
     if(this.exerciseList.length === this.currentExerciseIndex + 1) {
-      this.sessionSummaryService.setExerciseSummaryList(this.exerciseSummaryList);
+      const sessionSummary: SessionSummary = this.sessionSummaryService.getSessionSummary();
+      sessionSummary.exercisesSummary = this.exerciseSummaryList;
+      this.sessionSummaryService.setSessionSummary(sessionSummary);
       this.router.navigate(['/session-summary']);
       return; 
     }

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ExerciseSummary } from '../../core/models/exercise-Summary';
+import { SessionSummary } from '@vocabulary-learner/core/models/session-summary';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionSummaryService {
-  private exerciseSummaryList: ExerciseSummary[] = [];
+  private sessionSummary!: SessionSummary;
 
-  setExerciseSummaryList(exerciseSummaryList: ExerciseSummary[]): void {
-    this.exerciseSummaryList = exerciseSummaryList;
+  setSessionSummary(sessionSummary: SessionSummary): void {
+    this.sessionSummary = sessionSummary;
   }
 
-  getSessionSummary(): ExerciseSummary[] {
-    return this.exerciseSummaryList;
+  getSessionSummary(): SessionSummary {
+    return this.sessionSummary;
   }
 }
