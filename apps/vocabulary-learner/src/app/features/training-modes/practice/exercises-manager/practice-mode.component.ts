@@ -7,7 +7,7 @@ import { ComponentRegistry } from '../../../../core/models/exercise-registry';
 import { ExerciseSummary } from '../../../../core/models/exercise-Summary';
 import { Flashcard } from '../../../../core/models/flashcard';
 import { DynamicExerciseComponent } from '../../../exercises/dynamic-exercise.component';
-import { SessionSummaryService } from '../../../../components/session-summary/session-summary.service';
+import { SessionSummaryService } from '../../../session-summary/session-summary.service';
 import { LessonService } from '../../../../shared/lesson-service/lesson.service';
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { Lesson } from '../../../../core/models/lessons';

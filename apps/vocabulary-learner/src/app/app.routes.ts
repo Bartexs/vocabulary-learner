@@ -1,6 +1,6 @@
 import { Route } from '@angular/router';
 import { HomeComponent } from './features/home/home.component';
-import { SessionSummaryComponent } from './components/session-summary/session-summary.component';
+import { SessionSummaryComponent } from './features/session-summary/session-summary.component';
 import { PracticeModeComponent } from './features/training-modes/practice/exercises-manager/practice-mode.component';
 import { LessonCreatorComponent } from './features/resources-manager/lesson/lesson-creator/lesson-creator.component';
 import { LessonDetailsViewerComponent } from './features/resources-manager/lesson/lesson-details/lesson-details-viewer.component';
