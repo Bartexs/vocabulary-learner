@@ -13,6 +13,7 @@ import { FlashcardsCreatorDialogComponent } from '../../flashcards/creator-dialo
 import { RemoveObjectDialogComponent } from '../../../../shared/dialog/remove-object/remove-object-dialog.component';
 import { SnackbarService } from '../../../../shared/snackbar-service/snackbar.service';
 import { FlashcardsEditDialogComponent } from '../../flashcards/editor-dialog/flashcards-edit-dialog.component';
+import { FlashcardProgress } from '../../../../shared/models/flashcard-progress';
 
 export interface EditFlashcardDialogData {
   lesson: Lesson,
@@ -30,6 +31,7 @@ export class LessonDetailsViewerComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   lesson!: Lesson;
   flashcards: Flashcard[] = [];
+  flashcardsProgress!: FlashcardProgress[];
   isLoading = true;
   lessonId!: number;
 
@@ -57,6 +59,14 @@ export class LessonDetailsViewerComponent implements OnInit {
       next: lesson => {
         this.lesson = lesson;
 
+        this.flashcardService.getFlashcardProgressForLesson(lesson.id).subscribe({
+          next: (flashcardProgress) => {
+            console.log(flashcardProgress);
+          },
+          error: err => {
+            console.error(err);
+          }
+      })
 
         this.flashcardService.getFlashcardDTOsByLessonId(lesson.id).subscribe({
           next: flashcardDTOs => {

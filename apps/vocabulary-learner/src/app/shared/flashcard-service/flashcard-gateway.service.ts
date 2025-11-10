@@ -7,6 +7,7 @@ import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
 import { Lesson } from '@vocabulary-learner/core/models/lessons';
 import { environment } from 'apps/vocabulary-learner/src/environments/environment';
 import { Observable } from 'rxjs';
+import { FlashcardProgress } from '../models/flashcard-progress';
 
 @Injectable({
   providedIn: 'root'
@@ -56,8 +57,8 @@ export class FlashcardGatewayService {
     return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/${lesson.id}/flashcards/${flashcard.id}`);
   }
 
-  getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
-    return this.http.get<Flashcard[]>(`${this.baseUrl}/flashcards/proficiency/by-lesson/${lessonId}`);
+  getFlashcardProgressForLesson(lessonId: number): Observable<ApiResponse<FlashcardProgress[]>> {
+    return this.http.get<ApiResponse<FlashcardProgress[]>>(`${this.baseUrl}/srs/progress/lesson/${lessonId}`);
   }
 
   getFlashcardsDueTodayByFolderId(folderId: number): Observable<ApiResponse<Flashcard[]>> {
@@ -77,7 +78,6 @@ export class FlashcardGatewayService {
   }
 
   removeFlashcardProficiency(flashcard: Flashcard) {
-    return this.http.delete<ApiResponse<Flashcard>>(`${this.baseUrl}/srs/${flashcard.id}`); {
-    }
+    return this.http.delete<ApiResponse<Flashcard>>(`${this.baseUrl}/srs/${flashcard.id}`); 
   }
 }

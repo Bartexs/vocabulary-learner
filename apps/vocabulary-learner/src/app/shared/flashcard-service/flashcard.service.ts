@@ -6,6 +6,7 @@ import { Lesson } from '../../core/models/lessons';
 import { FlashcardDTO } from '../../core/models/flashcardDTO';
 import { ApiResponse } from '../../core/models/apiResponse';
 import { FlashcardProficiency } from '../../core/models/flashcard-proficiency';
+import { FlashcardProgress } from '../models/flashcard-progress';
 
 
 @Injectable({
@@ -88,8 +89,10 @@ export class FlashcardService {
     return this.flashcardGateway.removeFlashcard(lesson, flashcard);
   }
 
-  getFlashcardsWithProficiencyByLessonId(lessonId: number): Observable<Flashcard[]> {
-    return this.flashcardGateway.getFlashcardsWithProficiencyByLessonId(lessonId);
+  getFlashcardProgressForLesson(lessonId: number): Observable<FlashcardProgress[]> {
+    return this.flashcardGateway.getFlashcardProgressForLesson(lessonId).pipe(
+      map(res => res.data)
+    );
   }
 
   getFlashcardsDueTodayByFolderId(folderId: number): Observable<Flashcard[]> {

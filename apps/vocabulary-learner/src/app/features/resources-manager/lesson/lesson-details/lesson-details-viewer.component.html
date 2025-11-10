@@ -63,6 +63,16 @@
                 </div>
                 <div>
                   <div>
+
+                    <div class="stars">
+                      <ng-container *ngFor="let star of [1,2,3,4,5]">
+                        <!-- <i 
+                          class="fa" 
+                          [class.fa-star]="star <= flashcard.knowledgeStars" 
+                          [class.fa-star-o]="star > flashcardProficiency.knowledgeStars">
+                        </i> -->
+                      </ng-container>
+                    </div>
                     <mat-icon 
                       class="" 
                       aria-hidden="false" 

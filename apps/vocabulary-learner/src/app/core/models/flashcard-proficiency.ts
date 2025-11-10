@@ -6,6 +6,7 @@ export interface FlashcardProficiency {
     lastReview?: string;          // data ostatniej powtórki
     nextReview?: string;          // następna data powtórki
     responseTime?: number;        // czas odpowiedzi użytkownika w sekundach
+    knowledgeStars?: number;      // 1–5 gwiazdek, całkowita znajomość słówka
 }
 
 export function updateFSRS(
@@ -49,7 +50,18 @@ export function updateFSRS(
     nextReviewDate.setDate(today.getDate() + card.interval);
     card.nextReview = nextReviewDate.toISOString().split('T')[0];
 
+    // Akualizacja knowledge stars
+    card.knowledgeStars = calculateKnowledgeStars(card.interval);
+
     return card;
+}
+
+function calculateKnowledgeStars(intervalDays: number): number {
+    if (intervalDays >= 365) return 5;
+    if (intervalDays >= 180) return 4;
+    if (intervalDays >= 30) return 3;
+    if (intervalDays >= 7) return 2;
+    return 1;
 }
 
 // quality 0–5 ocenia poprawność odpowiedzi.
