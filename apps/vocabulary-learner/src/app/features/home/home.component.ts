@@ -9,8 +9,9 @@ import { FlashcardService } from '../../shared/flashcard-service/flashcard.servi
 import { FolderService } from '../../shared/folder-service/folder.service';
 import { PracticeService } from '../training-modes/practice/services/practice.service';
 import { getExercisesByNames } from '../../core/models/exercise';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { SessionType } from '../../core/models/session-type';
+import { MatIcon } from "@angular/material/icon";
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -19,7 +20,7 @@ export interface FolderWithFlashcards {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIcon, RouterLink],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })

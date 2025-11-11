@@ -2,7 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2.5rem;
+  gap: 1rem;
   padding: 1vw;
 }
 
@@ -146,25 +146,33 @@ h2 {
 }
 
 .action-btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
   background-color: #e47b3c;
   color: white;
   text-decoration: none;
   border: none;
   border-radius: 40px;
-  padding: 13px 24px;
   font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 16px;
+  letter-spacing: 1px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  text-align: center;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-align: center;
-  width: 190px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
   position: relative;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  letter-spacing: 1px;
+}
+
+.action-btn-big {
+  gap: 12px;
+  padding: 13px 24px;
+}
+
+.action-btn-small {
+    padding: 8px 80px;
+    width: 130px;
+    gap: 8px;
 }
 
 .action-btn:hover {
@@ -216,4 +224,22 @@ h2 {
 
 .action-btn.disabled .action-label {
   opacity: 0.7;
+}
+
+.review-folders {
+  gap: 15px;
+}
+
+.bubble {
+  background-color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 40px;
+  letter-spacing: 1px;
+  padding: 6px 11px;
+  width: 160px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+  text-align: center;
 }

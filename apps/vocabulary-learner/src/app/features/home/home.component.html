@@ -15,7 +15,7 @@
 
     <div class="inner-list menu">
       <div *ngIf="noFoldersExist">
-        <a routerLink="/folder-creator" class="action-btn">
+        <a routerLink="/folder-creator" class="action-btn action-btn-big">
           <span class="action-icon">➕</span>
           <span class="action-label">Add Folder</span>
         </a>
@@ -23,13 +23,13 @@
       </div>
       <div *ngIf="!noFoldersExist" class="menu">
         <button
-          class="action-btn"
+          class="action-btn action-btn-big"
           (click)="openFoldersSelectorDialog()">
           <span class="action-icon">🔍</span>
           <span class="action-label">Practice</span>
         </button>
         
-        <a routerLink="/flashcard-creator" class="action-btn">
+        <a [routerLink]="['/flashcard-creator']" class="action-btn action-btn-big">
           <span class="action-icon">➕</span>
           <span class="action-label">Add Flashcards</span>
         </a>
@@ -37,19 +37,33 @@
     </div>
   </div>
   <div>
-    <h2>Today’s revisions</h2>
-    <div class="inner-list menu" >
-      <div *ngFor="let folderWithFlashcards of flashcardsDueToday">
-        <span>Folder {{folderWithFlashcards.folder.name}} flashcards for review {{folderWithFlashcards.flashcards.length}} Press to start review</span>
-        <span *ngFor="let flashcard of folderWithFlashcards.flashcards">{{flashcard.front}}</span>
-
-      <!-- rename link to learning-session/exam -->
-      <button
-        class="action-btn"
-        (click)="startExamLearningSession(folderWithFlashcards.folder.id)">
-        <span class="action-label">Exam</span>
-      </button>
-
+    <h2><strong>Today’s revisions:</strong></h2>
+    <div class="inner-list review-folders flex-col">
+      <div *ngFor="let folderWithFlashcards of flashcardsDueToday" class="flex-row">
+        <div class="flex-row">
+          <div class="bubble">
+            <span>
+              {{folderWithFlashcards.folder.name}} 
+            </span>
+          </div>
+          <div class="flex-col bubble">
+              <span *ngIf="folderWithFlashcards.flashcards.length === 1">
+                {{folderWithFlashcards.flashcards.length}} revision
+              </span>
+              <span *ngIf="folderWithFlashcards.flashcards.length > 1">
+                {{folderWithFlashcards.flashcards.length}} revisions
+              </span>
+              <!-- <span>
+                {{folderWithFlashcards.flashcards.length}} new flashcards
+              </span> -->
+          </div>
+        </div>
+        <button
+          class="action-btn action-btn-small"
+          (click)="startExamLearningSession(folderWithFlashcards.folder.id)">
+          <span class="action-label"><mat-icon>school</mat-icon></span>
+          <span>Begin</span>
+        </button>
       </div>
     </div>
   </div>
