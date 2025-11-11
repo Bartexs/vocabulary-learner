@@ -91,7 +91,15 @@ export class FlashcardService {
 
   getFlashcardProgressForLesson(lessonId: number): Observable<FlashcardProgress[]> {
     return this.flashcardGateway.getFlashcardProgressForLesson(lessonId).pipe(
-      map(res => res.data)
+      map((res) =>
+        res.data.map((item: any) => ({
+          flashcard: {
+            ...item.flashcardDTO,
+            description: '',
+          },
+          proficiency: item.flashcardProficiency,
+        }))
+      )
     );
   }
 

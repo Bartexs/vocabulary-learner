@@ -3,7 +3,7 @@
 </div>
 <div class="folder-wrapper" *ngIf="!isLoading">
     <div class="selectors">
-      <div class="card" *ngIf="lesson.flashcards?.length === 0">
+      <div class="card" *ngIf="flashcardsProgress.length === 0">
         <h1>Flashcard list empty!</h1>
         <p>Press button to add</p>
         <mat-icon 
@@ -16,14 +16,14 @@
           matTooltipPosition="right">
         </mat-icon>
       </div>
-      <div class="card" *ngIf="lesson.flashcards?.length !== 0">
+      <div class="card" *ngIf="flashcardsProgress.length !== 0">
         <section class="lesson-selection">
           <div class="flex-row headline">
             <div>
               <span class="second-title">Flashcards:</span>
             </div>
             <div>
-              <p>Lesson <strong>{{lesson.name}}</strong> ({{lesson.flashcards.length}} flashcards)</p>
+              <p>Lesson <strong>{{lesson.name}}</strong> ({{flashcardsProgress.length}} flashcards)</p>
             </div>
             <div>
                 <mat-icon 
@@ -37,7 +37,7 @@
                 </mat-icon>
             </div>
           </div>
-          <div *ngFor="let flashcard of lesson.flashcards">
+          <div *ngFor="let flashcardProgress of flashcardsProgress">
             <div class="inner-list flex-row">
               <div class="checkbox-group flashcard-container">
                 <div class="flex-row">
@@ -45,7 +45,7 @@
                     <span>Description</span>
                   </div>
                   <div class="flashcard-content">
-                    <span>{{flashcard.front}}</span>
+                    <span>{{flashcardProgress.flashcard.front}}</span>
                   </div>
                 </div>
                 <div class="flex-row">
@@ -53,81 +53,32 @@
                     <span>Definition</span>
                   </div>
                   <div class="flashcard-content">
-                    <span>{{flashcard.back}}</span>
+                    <span>{{flashcardProgress.flashcard.back}}</span>
                   </div>
                 </div>
               </div>
-              <div *ngIf="flashcard.enabledSRS" class="checkbox-group flex-col align-center">
+              <div *ngIf="flashcardProgress.flashcard.enabledSRS" class="checkbox-group flex-col align-center">
                 <div>
                   <span>Mastery Score</span>
                 </div>
-                <div>
-                  <div>
-
-                    <div class="stars">
-                      <ng-container *ngFor="let star of [1,2,3,4,5]">
-                        <!-- <i 
-                          class="fa" 
-                          [class.fa-star]="star <= flashcard.knowledgeStars" 
-                          [class.fa-star-o]="star > flashcardProficiency.knowledgeStars">
-                        </i> -->
-                      </ng-container>
-                    </div>
-                    <mat-icon 
-                      class="" 
-                      aria-hidden="false" 
-                      aria-label="Edit flashcard icon" 
-                      fontIcon="star" 
-                      matTooltip="Modify flashcard" 
-                      matTooltipPosition="right">
+                <div class="stars">
+                  <span *ngFor="let star of [1,2,3,4,5]">
+                    <mat-icon>
+                      {{ star <= flashcardProgress.proficiency.knowledgeStars ? 'star' : 'star_border' }}
                     </mat-icon>
-                    <mat-icon 
-                      class="" 
-                      aria-hidden="false" 
-                      aria-label="Edit flashcard icon" 
-                      fontIcon="star_half" 
-                      matTooltip="Modify flashcard" 
-                      matTooltipPosition="right">
-                    </mat-icon>
-                    <mat-icon 
-                      class="" 
-                      aria-hidden="false" 
-                      aria-label="Edit flashcard icon" 
-                      fontIcon="star_border" 
-                      matTooltip="Modify flashcard" 
-                      matTooltipPosition="right">
-                    </mat-icon>
-                  </div>
-                  <div>
-                    <mat-icon 
-                      class="" 
-                      aria-hidden="false" 
-                      aria-label="Edit flashcard icon" 
-                      fontIcon="star_border" 
-                      matTooltip="Modify flashcard" 
-                      matTooltipPosition="right">
-                    </mat-icon>
-                    <mat-icon 
-                      class="" 
-                      aria-hidden="false" 
-                      aria-label="Edit flashcard icon" 
-                      fontIcon="star_border" 
-                      matTooltip="Modify flashcard" 
-                      matTooltipPosition="right">
-                    </mat-icon>
-                  </div>
+                  </span>
                 </div>
               </div>
               <div class="checkbox-group align-center">
                 <mat-icon 
                   class="icon srs-icon"
-                  [class.enabledSRS]="flashcard.enabledSRS" 
+                  [class.enabledSRS]="flashcardProgress.flashcard.enabledSRS" 
                   aria-hidden="false" 
                   aria-label="Toggle SRS icon" 
                   fontIcon="bookmark_document" 
                   matTooltip="Toggle Spaced Repetition System" 
                   matTooltipPosition="left"
-                  (click)="toggleSRS(flashcard)"
+                  (click)="toggleSRS(flashcardProgress.flashcard)"
                 >
                 </mat-icon>
               </div>
@@ -139,7 +90,7 @@
                   fontIcon="edit_document" 
                   matTooltip="Modify flashcard" 
                   matTooltipPosition="right"
-                  (click)="modifyFlashcard(flashcard)"
+                  (click)="modifyFlashcard(flashcardProgress.flashcard)"
                 >
                 </mat-icon>
                 <mat-icon 
@@ -149,7 +100,7 @@
                   fontIcon="delete" 
                   matTooltip="Delete flashcard" 
                   matTooltipPosition="right"
-                  (click)="removeFlashcard(flashcard)">
+                  (click)="removeFlashcard(flashcardProgress.flashcard)">
                 </mat-icon>
                 </div>
             </div>

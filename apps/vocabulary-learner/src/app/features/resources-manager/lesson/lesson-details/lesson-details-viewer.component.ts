@@ -14,6 +14,7 @@ import { RemoveObjectDialogComponent } from '../../../../shared/dialog/remove-ob
 import { SnackbarService } from '../../../../shared/snackbar-service/snackbar.service';
 import { FlashcardsEditDialogComponent } from '../../flashcards/editor-dialog/flashcards-edit-dialog.component';
 import { FlashcardProgress } from '../../../../shared/models/flashcard-progress';
+import { switchMap } from 'rxjs';
 
 export interface EditFlashcardDialogData {
   lesson: Lesson,
@@ -30,8 +31,7 @@ export interface EditFlashcardDialogData {
 export class LessonDetailsViewerComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   lesson!: Lesson;
-  flashcards: Flashcard[] = [];
-  flashcardsProgress!: FlashcardProgress[];
+  flashcardsProgress: FlashcardProgress[] = [];
   isLoading = true;
   lessonId!: number;
 
@@ -53,40 +53,23 @@ export class LessonDetailsViewerComponent implements OnInit {
     });
 
   }
-  
+
   getLesson(id: number): void {
-    this.lessonService.getLessonById(id).subscribe({
-      next: lesson => {
+    this.isLoading = true;
+
+    this.lessonService.getLessonById(id).pipe(
+      switchMap(lesson => {
         this.lesson = lesson;
-
-        this.flashcardService.getFlashcardProgressForLesson(lesson.id).subscribe({
-          next: (flashcardProgress) => {
-            console.log(flashcardProgress);
-          },
-          error: err => {
-            console.error(err);
-          }
+        return this.flashcardService.getFlashcardProgressForLesson(lesson.id);
       })
-
-        this.flashcardService.getFlashcardDTOsByLessonId(lesson.id).subscribe({
-          next: flashcardDTOs => {
-            this.lesson.flashcards = flashcardDTOs.map(dto => ({
-              ...dto,
-              description: '',
-              frontSide: dto.front,
-              backSide: dto.back,
-              lessonId: 0,
-              enabledSRS: dto.enabledSRS,
-            }))
-            this.isLoading = false;
-          },
-          error: err => {
-            console.error('Failed to load flashcards', err);
-          }
-        });
+    ).subscribe({
+      next: (flashcardProgress) => {
+        this.flashcardsProgress = flashcardProgress;
+        this.isLoading = false;
       },
-      error: err => {
-        console.error('Failed to load lesson', err);
+      error: (err) => {
+        console.error('Failed to load lesson or progress', err);
+        this.isLoading = false;
       }
     });
   }

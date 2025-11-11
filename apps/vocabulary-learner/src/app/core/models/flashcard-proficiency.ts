@@ -6,7 +6,7 @@ export interface FlashcardProficiency {
     lastReview?: string;          // data ostatniej powtórki
     nextReview?: string;          // następna data powtórki
     responseTime?: number;        // czas odpowiedzi użytkownika w sekundach
-    knowledgeStars?: number;      // 1–5 gwiazdek, całkowita znajomość słówka
+    knowledgeStars: number;      // 1–5 gwiazdek, całkowita znajomość słówka
 }
 
 export function updateFSRS(
