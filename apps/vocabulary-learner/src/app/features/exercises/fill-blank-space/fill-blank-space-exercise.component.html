@@ -1,14 +1,28 @@
-<input type="text" [(ngModel)]="word" placeholder="Enter a phrase">
-<button (click)="maskLetters()">Mask Letters</button>
+<div>
+  <input type="text" [(ngModel)]="word" placeholder="Enter a phrase">
+  <button (click)="maskLetters()">Mask Letters</button>
+</div>
 
 <p>Original: {{ word }}</p>
-<p>Masked: <span *ngFor="let letter of maskedWord.split(''); let i = index">
-  <span *ngIf="letter === '_'">
-    <input type="text" [(ngModel)]="userInput[i]" maxlength="1" size="1" />
+
+<p>Masked: 
+  <span *ngFor="let letter of maskedWord.split(''); let idx = index">
+    <ng-container *ngIf="letter === '_'">
+      <input
+        #blankInput
+        type="text"
+        [(ngModel)]="userInput[missingIndices.indexOf(idx)]"
+        maxlength="1"
+        size="1"
+        (input)="onInput($any($event), idx)"
+        (keydown)="onKeyDown($any($event), idx)"
+        [class.glow]="currentGlowIndex === missingIndices.indexOf(idx)"
+      />
+    </ng-container>
+    <ng-container *ngIf="letter === ' '">&nbsp;</ng-container>
+    <ng-container *ngIf="letter !== '_' && letter !== ' '">{{ letter }}</ng-container>
   </span>
-  <span *ngIf="letter === ' '">&nbsp;</span>
-  <span *ngIf="letter !== '_' && letter !== ' '">{{ letter }}</span>
-</span></p>
+</p>
 
 <button (click)="checkAnswer()">Check Answer</button>
 <p>{{ feedbackMessage }}</p>
