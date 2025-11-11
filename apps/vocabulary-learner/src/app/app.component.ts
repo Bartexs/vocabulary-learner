@@ -15,7 +15,7 @@ export class AppComponent implements OnInit {
   isUser = false;
 
   constructor (
-    private authService: AuthService,
+    public authService: AuthService,
     private router: Router,
   ) {
 

@@ -28,6 +28,7 @@ export class LoginComponent {
 
     this.authService.login(this.form.value).subscribe({
       next: (res) => {
+        localStorage.setItem('token', res.token);
         this.message = 'Login successful! Token: ' + res.token;
         this.refreshUser();
       },

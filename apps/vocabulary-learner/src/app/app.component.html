@@ -25,6 +25,9 @@
             <div *ngIf="isUser" class="nav-links">
                 <button (click)="logoutUser()">Logout</button>
             </div>
+            <ng-container *ngIf="authService.appUser$ | async as user">
+                <p>Welcome, {{ user.email }}!</p>
+            </ng-container>
         </div>
     </nav>
     <router-outlet></router-outlet>
