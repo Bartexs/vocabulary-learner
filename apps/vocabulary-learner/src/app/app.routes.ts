@@ -12,12 +12,14 @@ import { PracticeModeSelectorComponent } from './features/training-modes/practic
 import { FolderCreatorComponent } from './features/resources-manager/folder/folder-creator/folder-creator.component';
 import { FoldersViewerComponent } from './features/resources-manager/folder/folders-viewer/folders-viewer';
 import { LessonsByFolderComponent } from './features/resources-manager/lesson/lessons-by-folder/lessons-by-folder.component';
+import { SessionSummaryExamComponent } from './features/session-summary/session-summary-exam.component';
 
 export const appRoutes: Route[] = [
     { path: '', component: HomeComponent },
     { path: 'home', component: HomeComponent },
     { path: 'practice-selector/:folderId', component: PracticeModeSelectorComponent },
     { path: 'session-summary', component: SessionSummaryComponent },
+    { path: 'session-summary/exam', component: SessionSummaryExamComponent },
     { path: 'practice', component: PracticeModeComponent },
     { path: 'folder-creator', component: FolderCreatorComponent },
     { path: 'lessons-by-folder/:id', component: LessonsByFolderComponent },

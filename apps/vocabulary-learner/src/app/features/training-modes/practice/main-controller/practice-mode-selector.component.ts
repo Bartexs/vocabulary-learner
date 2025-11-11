@@ -5,6 +5,7 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseSelectorComponent } from '../resources-configurators/exercise-selector/exercise-selector.component';
 import { MaterialSelectorComponent } from '../resources-configurators/material-selector/material-selector.component';
 import { PracticeService } from '../services/practice.service';
+import { SessionType } from '../../../../core/models/session-type';
 
 @Component({
   selector: 'app-practice-mode-selector',
@@ -24,7 +25,7 @@ export class PracticeModeSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const config = this.practiceService.createLearningSessionConfig("Practice", [], []);
+    const config = this.practiceService.createLearningSessionConfig(SessionType.PRACTICE, [], []);
     this.practiceService.setPracticeModeConfig(config);
     this.retrieveIdFromURL();
   }

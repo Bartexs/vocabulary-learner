@@ -12,8 +12,8 @@ import { LessonService } from '../../../../shared/lesson-service/lesson.service'
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { Lesson } from '../../../../core/models/lessons';
 import { PracticeService } from '../services/practice.service';
-import { SessionSummary } from '@vocabulary-learner/core/models/session-summary';
-import { SessionType } from '@vocabulary-learner/core/models/session-type';
+import { SessionSummary } from '../../../../core/models/session-summary';
+import { SessionType } from '../../../../core/models/session-type';
 
 @Component({
   selector: 'app-practice-mode',
@@ -31,7 +31,7 @@ export class PracticeModeComponent implements OnInit  {
   exerciseSummaryList: ExerciseSummary[] = [];
   currentFlashcardIndex = 0;
   flashcardListSize = 0;
-  sessionType = "";
+  sessionType: SessionType;
 
   constructor(
     private lessonService: LessonService,
@@ -40,20 +40,15 @@ export class PracticeModeComponent implements OnInit  {
     private flashcardService: FlashcardService,
     private practiceService: PracticeService
   ) {
-
+    this.sessionType = this.practiceService.getPracticeModeConfig().learningSessionType;
   }
 
   ngOnInit() {
-    this.setSessionType();
     this.setExerciseList();
     this.setInitialExercise();
     this.setFlashcardList();
     this.initSessionSummary();
 
-  }
-
-  private setSessionType() {
-    this.sessionType = this.practiceService.getPracticeModeConfig().learningSessionType;
   }
 
   private setFlashcardList() {
@@ -74,13 +69,9 @@ export class PracticeModeComponent implements OnInit  {
   }
 
   private initSessionSummary(): void {
-    const type = this.sessionType === "Exam" 
-      ? SessionType.EXAM
-      : SessionType.PRACTICE;
-
     const summary: SessionSummary = {
       id: 0,
-      type: type,
+      type: this.sessionType,
       exercisesSummary: []
     }
 
@@ -138,7 +129,13 @@ export class PracticeModeComponent implements OnInit  {
       const sessionSummary: SessionSummary = this.sessionSummaryService.getSessionSummary();
       sessionSummary.exercisesSummary = this.exerciseSummaryList;
       this.sessionSummaryService.setSessionSummary(sessionSummary);
-      this.router.navigate(['/session-summary']);
+
+      if(this.sessionType === SessionType.EXAM) {
+        this.router.navigate(['/session-summary/exam']);
+      } else {
+        this.router.navigate(['/session-summary']);
+      }
+
       return; 
     }
 

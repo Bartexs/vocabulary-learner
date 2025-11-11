@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ExerciseSummary } from '../../core/models/exercise-Summary';
 import { SessionSummaryService } from './session-summary.service';
+import { SessionSummary } from '../../core/models/session-summary';
 
 @Component({
   selector: 'app-session-summary-exam',
@@ -10,7 +10,7 @@ import { SessionSummaryService } from './session-summary.service';
   styleUrl: './session-summary-exam.component.css',
 })
 export class SessionSummaryExamComponent {
-    sessionSummary: ExerciseSummary[];
+    sessionSummary: SessionSummary;
   
     constructor(
       private sessionSummaryService: SessionSummaryService

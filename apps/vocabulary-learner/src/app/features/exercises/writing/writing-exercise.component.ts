@@ -7,9 +7,15 @@ import { Exercise } from '../../../core/models/exercise';
 import { DateUtilsService } from '../../../core/services/date-utils.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
 import { FlashcardService } from '../../../shared/flashcard-service/flashcard.service';
-import { FlashcardProficiency, updateFSRS } from '../../../core/models/flashcard-proficiency';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltip } from '@angular/material/tooltip';
+import { switchMap } from 'rxjs';
+import { SRSService } from '../../../shared/services/srs.service';
+import { FlashcardProficiency } from '../../../core/models/flashcard-proficiency';
+import { FlashcardProgressHistoryComparison } from '../../../shared/models/flashcard-progress-history-comparison';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { Flashcard } from '../../../core/models/flashcard';
+import { SessionType } from '../../../core/models/session-type';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -30,6 +36,8 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   skipNextKeyPress = false;
   comment = '';
   isExamMode = false;
+  originalProficiency?: FlashcardProficiency;
+  updatedProficiency?: FlashcardProficiency;
 
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
@@ -43,6 +51,8 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     private exerciseService: ExerciseService,
     private practiceService: PracticeService,
     private flashcardService: FlashcardService,
+    private srsService: SRSService,
+    private sessionSummaryService: SessionSummaryService
   ) {
     super();
   }
@@ -132,7 +142,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   setExerciseSummaryAndProficiency() {
     this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
-    if(this.modeType === 'Exam') this.setProficiency(this.isCorrect);
+    if(this.modeType === SessionType.EXAM) this.setProficiency(this.isCorrect);
   }
 
   showCorrectAnswer() {
@@ -154,17 +164,33 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
     const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
 
     const quality: number = isCorrect ? 5 : 0;
-    
-    this.flashcardService.getFlashcardProficiencyByFlashcardId(flashcardTested).subscribe({
-      next: (flashcardProf) => {
-        flashcardProf = updateFSRS(flashcardProf, quality)
-        this.flashcardService.patchFlashcardProficiency(flashcardProf).subscribe({
-          next: () => console.log("updated"),
-          error: (err) => console.error(err),
-        });
+
+    this.flashcardService.getFlashcardProficiencyByFlashcardId(flashcardTested).pipe((
+      switchMap(flashcardProf => {
+        this.originalProficiency = flashcardProf;
+
+        const updatedProficiency = this.srsService.updateFlashcardProficiency(flashcardProf, quality);
+
+        return this.flashcardService.patchFlashcardProficiency(updatedProficiency);
+      })
+    )).subscribe({
+      next: (updatedFlashcardProf) => {
+        this.updatedProficiency = updatedFlashcardProf;    
+        this.updateSessionSummaryComparison(flashcardTested);
       },
       error: (err) => console.error(err),
     });
+  }
+
+  private updateSessionSummaryComparison(flashcard: Flashcard) {
+    if(this.originalProficiency && this.updatedProficiency) {
+      const flashcardComparison: FlashcardProgressHistoryComparison = {
+        flashcard: flashcard,
+        originalFlashcardProficiency: this.originalProficiency,
+        updatedFlashcardProficiency: this.updatedProficiency,
+      }
+      this.exerciseSummary = this.sessionSummaryService.addProficiencyComparison(this.exerciseSummary, flashcardComparison);
+    }
   }
 
   resetFlashCardTest() {

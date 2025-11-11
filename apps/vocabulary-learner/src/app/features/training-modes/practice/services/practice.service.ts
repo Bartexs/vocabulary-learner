@@ -4,6 +4,7 @@ import { FlashcardService } from '../../../../shared/flashcard-service/flashcard
 import { Flashcard } from '../../../../core/models/flashcard';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { ExerciseType } from '../../../../core/models/exercise';
+import { SessionType } from '../../../../core/models/session-type';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class PracticeService {
   ) {
   }
 
-  createLearningSessionConfig(type: string, flashcards: Flashcard[], exercises: ExerciseType[]): PracticeModeConfig {
+  createLearningSessionConfig(type: SessionType, flashcards: Flashcard[], exercises: ExerciseType[]): PracticeModeConfig {
     const config: PracticeModeConfig = {
       learningSessionType: type,
       flashcards: flashcards,

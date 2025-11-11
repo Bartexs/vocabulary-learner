@@ -10,6 +10,7 @@ import { FolderService } from '../../shared/folder-service/folder.service';
 import { PracticeService } from '../training-modes/practice/services/practice.service';
 import { getExercisesByNames } from '../../core/models/exercise';
 import { Router } from '@angular/router';
+import { SessionType } from '../../core/models/session-type';
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -100,7 +101,7 @@ export class HomeComponent implements OnInit {
 
     this.flashcardService.getFlashcardsDueTodayByFolderId(folderId).subscribe({
         next: (flashcards) => {
-          const config = this.practiceService.createLearningSessionConfig("Exam", flashcards, exercise);
+          const config = this.practiceService.createLearningSessionConfig(SessionType.EXAM, flashcards, exercise);
           this.practiceService.setPracticeModeConfig(config);
           this.router.navigate(['/practice']);
         },
