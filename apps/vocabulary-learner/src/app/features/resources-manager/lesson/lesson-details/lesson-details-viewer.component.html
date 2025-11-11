@@ -57,16 +57,18 @@
                   </div>
                 </div>
               </div>
-              <div *ngIf="flashcardProgress.flashcard.enabledSRS" class="checkbox-group flex-col align-center">
-                <div>
-                  <span>Mastery Score</span>
-                </div>
-                <div class="stars">
-                  <span *ngFor="let star of [1,2,3,4,5]">
-                    <mat-icon>
-                      {{ star <= flashcardProgress.proficiency.knowledgeStars ? 'star' : 'star_border' }}
-                    </mat-icon>
-                  </span>
+              <div class="gap-container flex-col align-center">
+                <div *ngIf="flashcardProgress.flashcard.enabledSRS" class="checkbox-group flex-col">
+                  <div>
+                    <span>Mastery Score</span>
+                  </div>
+                  <div class="stars ">
+                    <span *ngFor="let star of [1,2,3,4,5]">
+                      <mat-icon>
+                        {{ star <= flashcardProgress.proficiency.knowledgeStars ? 'star' : 'star_border' }}
+                      </mat-icon>
+                    </span>
+                  </div>
                 </div>
               </div>
               <div class="checkbox-group align-center">
