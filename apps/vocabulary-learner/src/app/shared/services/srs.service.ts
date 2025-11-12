@@ -43,7 +43,11 @@ export class SRSService {
     const nextReviewDate = new Date(today);
     nextReviewDate.setDate(today.getDate() + updatedCard.interval);
 
-    const newKnowledgeStars = this.calculateKnowledgeStars(updatedCard.interval);
+    let newKnowledgeStars = this.calculateKnowledgeStars(updatedCard.interval);
+
+    if(updatedCard.interval === 1 && quality < 5) {
+      newKnowledgeStars = 0;
+    } 
 
     return {
       ...updatedCard,
@@ -59,6 +63,7 @@ export class SRSService {
       if (intervalDays >= 180) return 4;
       if (intervalDays >= 30) return 3;
       if (intervalDays >= 7) return 2;
-      return 1;
+      if (intervalDays >= 1) return 1
+      return 0;
   }
 }
