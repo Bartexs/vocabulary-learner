@@ -71,3 +71,7 @@
 .total-count {
   color: #555;
 }
+
+.results {
+  justify-content: space-between;
+}

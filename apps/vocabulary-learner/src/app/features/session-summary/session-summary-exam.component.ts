@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SessionSummaryService } from './session-summary.service';
 import { SessionSummary } from '../../core/models/session-summary';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-session-summary-exam',
-  imports: [CommonModule],
+  imports: [CommonModule, MatIcon],
   templateUrl: './session-summary-exam.component.html',
   styleUrl: './session-summary-exam.component.css',
 })

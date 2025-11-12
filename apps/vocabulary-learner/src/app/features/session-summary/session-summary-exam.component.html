@@ -3,28 +3,40 @@
     <h1>You did great!</h1>
     <h3>Check your results summary:</h3>
   </div>
-
   <div class="results-summary">
       <p *ngFor="let summary of sessionSummary.exercisesSummary" class="summary-item">
-        <strong class="exercise-name">{{ summary.exercise.name }}</strong> exercise:
-        <span class="correct-count">{{ summary.correctAnswers }}</span> correct out of
-        <span class="total-count">{{ summary.totalFlashcards }}</span>
+        <span>You answered </span>
+        <span class="correct-count">{{ summary.correctAnswers }}</span> questions out of
+        <span class="total-count">{{ summary.totalFlashcards }} correct</span>
       </p>
   </div>
-
-  <span>Heeeere</span>
-
-  <div>
-    <p *ngFor="let comparison of sessionSummary.exercisesSummary[0].proficiencyComparison">
-      {{comparison.flashcard.front}}
-      {{comparison.originalFlashcardProficiency.knowledgeStars}}
-      {{comparison.updatedFlashcardProficiency.knowledgeStars}}
-    </p>
-  </div>
-
-  <div class="results-actions">
-    <a href="/practice-selector" class="btn-link">Select different material to practice</a>
-    <p class="or-separator">or</p>
-    <a href="/flashcard-creator" class="btn-link">Create new flashcards</a>
+  <div *ngFor="let comparison of sessionSummary.exercisesSummary[0].proficiencyComparison">
+    <div class="flex-row results">
+      <div class="flex-col">
+        <div>
+          <span>Definition</span>
+          <span>{{comparison.flashcard.front}}</span>
+        </div>
+        <div>
+          <span>Description</span>
+          <span>{{comparison.flashcard.back}}</span>
+        </div>
+      </div>
+      <div *ngIf="comparison.originalFlashcardProficiency.knowledgeStars !== comparison.updatedFlashcardProficiency.knowledgeStars">
+        <span>You achieved new level!</span>
+      </div>
+      <div>
+        <div>
+          <span>Mastery Score</span>
+        </div>
+        <div class="stars ">
+          <span *ngFor="let star of [1,2,3,4,5]">
+            <mat-icon>
+              {{ star <= comparison.updatedFlashcardProficiency.knowledgeStars ? 'star' : 'star_border' }}
+            </mat-icon>
+          </span>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
