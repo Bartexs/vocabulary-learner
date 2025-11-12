@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Flashcard } from '../../core/models/flashcard';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { FlashcardGatewayService } from './flashcard-gateway.service';
 import { Lesson } from '../../core/models/lessons';
 import { FlashcardDTO } from '../../core/models/flashcardDTO';
 import { ApiResponse } from '../../core/models/apiResponse';
+import { FlashcardProficiency } from '../../core/models/flashcard-proficiency';
+import { FlashcardProgress } from '../models/flashcard-progress';
 
 
 @Injectable({
@@ -49,7 +51,8 @@ export class FlashcardService {
       const f: FlashcardDTO = {
         id: 0,
         front: flashcard.front,
-        back: flashcard.back
+        back: flashcard.back,
+        enabledSRS: flashcard.enabledSRS,
       }
 
       flashcardsDTO.push(f);
@@ -72,13 +75,9 @@ export class FlashcardService {
     return {
       id: dto.id,
       description: '',
-      lessonId: lessonId,
       front: dto.front,
       back: dto.back,
-      flashcardProficiency: {
-        flashcardMastered: false,
-        masteryLevel: 0
-      }
+      enabledSRS: false,
     };
   }
 
@@ -88,5 +87,47 @@ export class FlashcardService {
 
   removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
     return this.flashcardGateway.removeFlashcard(lesson, flashcard);
+  }
+
+  getFlashcardProgressForLesson(lessonId: number): Observable<FlashcardProgress[]> {
+    return this.flashcardGateway.getFlashcardProgressForLesson(lessonId).pipe(
+      map((res) =>
+        res.data.map((item: any) => ({
+          flashcard: {
+            ...item.flashcardDTO,
+            description: '',
+          },
+          proficiency: item.flashcardProficiency,
+        }))
+      )
+    );
+  }
+
+  getFlashcardsDueTodayByFolderId(folderId: number): Observable<Flashcard[]> {
+    return this.flashcardGateway.getFlashcardsDueTodayByFolderId(folderId).pipe(map(res => res.data ?? []));
+  }
+
+  getFlashcardProficiencyByFlashcardId(flashcard: Flashcard): Observable<FlashcardProficiency> {
+    return this.flashcardGateway.getFlashcardProficiencyByFlashcardId(flashcard).pipe(
+      map(res => res.data)
+    );
+  }
+
+  patchFlashcardProficiency(flashcardProf: FlashcardProficiency) {
+    return this.flashcardGateway.patchFlashcardProficiency(flashcardProf).pipe(
+      map(res => res.data)
+    );
+  }
+
+  addFlashcardProficiencyToFlashcard(flashcard: Flashcard): Observable<FlashcardProficiency> {
+    return this.flashcardGateway.addFlashcardProficiencyToFlashcard(flashcard).pipe(
+      map(res => res.data)
+    );
+  }
+
+  removeFlashcardProficiency(flashcard: Flashcard): Observable<Flashcard> {
+    return this.flashcardGateway.removeFlashcardProficiency(flashcard).pipe(
+      map(res => res.data)
+    );
   }
 }

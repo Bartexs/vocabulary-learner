@@ -1,0 +1,77 @@
+.results-wrapper {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fdfdfd;
+  color: #333;
+  border-radius: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  max-width: 700px;
+  margin: 2rem auto;
+}
+
+.results-header h1 {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  color: #222;
+}
+
+.results-header h3 {
+  font-size: 1.25rem;
+  color: #555;
+}
+
+.results-actions {
+  margin-top: 2rem;
+}
+
+.btn-link {
+  display: inline-block;
+  margin: 0.5rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff9900, #ff5e00);
+  color: white;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s ease;
+}
+
+.btn-link:hover {
+  background: linear-gradient(135deg, #ffb347, #ff7043);
+  cursor: pointer;
+}
+
+.or-separator {
+  margin: 1rem 0;
+  font-weight: bold;
+  color: #888;
+}
+
+.summary-item {
+  background: #f8f8f8;
+  border-left: 4px solid #ff8c00;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.exercise-name {
+  color: #ff6600;
+  font-weight: 600;
+  margin-right: 0.25rem;
+}
+
+.correct-count {
+  color: #2e7d32; /* green */
+  font-weight: bold;
+}
+
+.total-count {
+  color: #555;
+}
+
+.results {
+  justify-content: space-between;
+}
