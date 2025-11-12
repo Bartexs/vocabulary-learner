@@ -1,7 +1,10 @@
-import { Component, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { FormsModule } from '@angular/forms';
+import { Exercise } from '../../../core/models/exercise';
+import { ExerciseService } from '../exercise.service';
+import { FillBlankSpaceExerciseService } from './fill-blank-space-exercise.service';
 
 @Component({
   selector: 'app-fill-blank-space-exercise',
@@ -9,10 +12,11 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './fill-blank-space-exercise.component.html',
   styleUrl: './fill-blank-space-exercise.component.css',
 })
-export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent {
+export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent implements OnInit {
+  exercise = Exercise.FillBlankSpots;
   @ViewChildren('blankInput') blankInputs!: QueryList<ElementRef<HTMLInputElement>>;
+  isFinished = false;
 
-  word = 'Hello Angular World';
   maskedWord = '';
   userInput: string[] = [];
   originalLetters: string[] = [];
@@ -21,15 +25,32 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent {
   percentageOfMaskedLetter = 0.25; // 25% masking
   currentGlowIndex = -1;
 
+  constructor(
+    private exerciseService: ExerciseService,
+    private fillBlankSpaceExerciseService: FillBlankSpaceExerciseService,
+  ) {
+    super();
+  }
+
+  // component flow: init -> 
+
+  ngOnInit(  ) {
+    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
+    // this.word = this.currentFlashcard.front;
+    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
+    this.maskLetters();
+  }
+
   maskLetters() {
     this.feedbackMessage = '';
     this.userInput = [];
+    const word = this.currentFlashcard.front;
 
-    const maskedResult = this.replaceWithUnderscores(this.word, this.percentageOfMaskedLetter);
+    const maskedResult = this.replaceWithUnderscores(word, this.percentageOfMaskedLetter);
 
     this.maskedWord = maskedResult.maskedWord;
     this.missingIndices = maskedResult.missingIndices;
-    this.originalLetters = this.word.split('');
+    this.originalLetters = word.split('');
     this.userInput = Array(this.missingIndices.length).fill('');
 
     // Auto-focus the first blank input after view updates
@@ -63,14 +84,6 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent {
     return { maskedWord: letters.join(''), missingIndices };
   }
 
-  checkAnswer() {
-    const correct = this.missingIndices.every(
-      (idx, i) => this.userInput[i]?.toLowerCase() === this.originalLetters[idx].toLowerCase()
-    );
-
-    this.feedbackMessage = correct ? '✅ Correct! Well done!' : '❌ Incorrect. Try again!';
-  }
-
   onInput(event: InputEvent, idx: number) {
     const inputEl = event.target as HTMLInputElement;
     const currentPos = this.missingIndices.indexOf(idx);
@@ -98,5 +111,18 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent {
 
       prevInput.focus();
     }
+  }
+
+  checkAnswer() {
+    const correct = this.missingIndices.every(
+      (idx, i) => this.userInput[i]?.toLowerCase() === this.originalLetters[idx].toLowerCase()
+    );
+
+    this.feedbackMessage = correct ? '✅ Correct! Well done!' : '❌ Incorrect. Try again!';
+  }
+
+  nextFlashcard() {
+    this.moveToNextFlashcard();
+    this.maskLetters();
   }
 }

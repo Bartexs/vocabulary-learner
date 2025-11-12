@@ -1,28 +1,41 @@
-<div>
-  <input type="text" [(ngModel)]="word" placeholder="Enter a phrase">
-  <button (click)="maskLetters()">Mask Letters</button>
+<div class="folder-wrapper">
+  <div>
+    <span>
+      Fill blank spots
+    </span>
+  </div>
+  <div>
+    <span>Description</span>
+    <span>{{this.currentFlashcard.back}}</span>
+  </div>
+  <div>
+    <span>Input your answer</span>
+  </div>
+  <div>
+    <span *ngFor="let letter of maskedWord.split(''); let idx = index">
+      <ng-container *ngIf="letter === '_'">
+        <input
+          #blankInput
+          type="text"
+          [(ngModel)]="userInput[missingIndices.indexOf(idx)]"
+          maxlength="1"
+          size="1"
+          (input)="onInput($any($event), idx)"
+          (keydown)="onKeyDown($any($event), idx)"
+          [class.glow]="currentGlowIndex === missingIndices.indexOf(idx)"
+        />
+      </ng-container>
+      <ng-container *ngIf="letter === ' '">&nbsp;</ng-container>
+      <ng-container *ngIf="letter !== '_' && letter !== ' '">{{ letter }}</ng-container>
+    </span>
+  </div>
+  <div>
+    <button (click)="checkAnswer()">Check Answer</button>
+  </div>
+  <div>
+    <p>{{ feedbackMessage }}</p>
+  </div>
+  <div>
+    <button (click)="nextFlashcard()">Next Flashcard</button>
+  </div>
 </div>
-
-<p>Original: {{ word }}</p>
-
-<p>Masked: 
-  <span *ngFor="let letter of maskedWord.split(''); let idx = index">
-    <ng-container *ngIf="letter === '_'">
-      <input
-        #blankInput
-        type="text"
-        [(ngModel)]="userInput[missingIndices.indexOf(idx)]"
-        maxlength="1"
-        size="1"
-        (input)="onInput($any($event), idx)"
-        (keydown)="onKeyDown($any($event), idx)"
-        [class.glow]="currentGlowIndex === missingIndices.indexOf(idx)"
-      />
-    </ng-container>
-    <ng-container *ngIf="letter === ' '">&nbsp;</ng-container>
-    <ng-container *ngIf="letter !== '_' && letter !== ' '">{{ letter }}</ng-container>
-  </span>
-</p>
-
-<button (click)="checkAnswer()">Check Answer</button>
-<p>{{ feedbackMessage }}</p>
