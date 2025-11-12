@@ -1,3 +1,4 @@
+import { FlashcardProgressHistoryComparison } from '../../shared/models/flashcard-progress-history-comparison';
 import { ExerciseType } from "./exercise";
 import { Flashcard } from "./flashcard";
 
@@ -9,4 +10,5 @@ export interface ExerciseSummary {
     totalFlashcards: number,
     correctFlashcards: Flashcard[],
     wrongFlashcards: Flashcard[],
+    proficiencyComparison?: FlashcardProgressHistoryComparison[],
 }

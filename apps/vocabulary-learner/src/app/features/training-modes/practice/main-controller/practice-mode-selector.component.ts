@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { PracticeModeConfig } from '../models/practice-mode-config';
 import { ExerciseSelectorComponent } from '../resources-configurators/exercise-selector/exercise-selector.component';
 import { MaterialSelectorComponent } from '../resources-configurators/material-selector/material-selector.component';
 import { PracticeService } from '../services/practice.service';
+import { SessionType } from '../../../../core/models/session-type';
 
 @Component({
   selector: 'app-practice-mode-selector',
@@ -15,8 +15,6 @@ import { PracticeService } from '../services/practice.service';
 })
 export class PracticeModeSelectorComponent implements OnInit {
   lessonsAndExerciseChosen = false;
-  modeType = "PRACTICE";
-  practiceModeConfig!: PracticeModeConfig;
   isShowAdvancedSettings = false;
 
   constructor(
@@ -27,6 +25,8 @@ export class PracticeModeSelectorComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const config = this.practiceService.createLearningSessionConfig(SessionType.PRACTICE, [], []);
+    this.practiceService.setPracticeModeConfig(config);
     this.retrieveIdFromURL();
   }
 
@@ -36,7 +36,7 @@ export class PracticeModeSelectorComponent implements OnInit {
     });
   }
 
-  startPractice() {
+  startPractice() {    
     this.router.navigate(['/practice']);
   }
 }

@@ -4,7 +4,55 @@
             <span style="color: rgb(103, 101, 101);">Exercise {{this.exercisesData.exerciseIndex}} - <strong>{{this.exercisesData.currentExercise.name}}</strong></span>
         </div>
         <div>
-            <span style="color: rgb(103, 101, 101);"><strong>{{currentFlashcardIndex}}/{{flashcardList.length}}</strong> - Answers</span>
+            <div *ngIf="isExamMode">
+                <div>
+                    <mat-icon 
+                        class="" 
+                        aria-hidden="false" 
+                        aria-label="Edit flashcard icon" 
+                        fontIcon="star" 
+                        matTooltip="Modify flashcard" 
+                        matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                        class="" 
+                        aria-hidden="false" 
+                        aria-label="Edit flashcard icon" 
+                        fontIcon="star_half" 
+                        matTooltip="Modify flashcard" 
+                        matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                        class="" 
+                        aria-hidden="false" 
+                        aria-label="Edit flashcard icon" 
+                        fontIcon="star_border" 
+                        matTooltip="Modify flashcard" 
+                        matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                        class="" 
+                        aria-hidden="false" 
+                        aria-label="Edit flashcard icon" 
+                        fontIcon="star_border" 
+                        matTooltip="Modify flashcard" 
+                        matTooltipPosition="right">
+                    </mat-icon>
+                    <mat-icon 
+                        class="" 
+                        aria-hidden="false" 
+                        aria-label="Edit flashcard icon" 
+                        fontIcon="star_border" 
+                        matTooltip="Modify flashcard" 
+                        matTooltipPosition="right">
+                    </mat-icon>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div>
+                <span style="color: rgb(103, 101, 101);"><strong>{{currentFlashcardIndex}}/{{flashcardList.length}}</strong> - Answers</span>
+            </div>
         </div>  
     </div>
     <div class="row">

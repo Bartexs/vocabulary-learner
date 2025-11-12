@@ -6,7 +6,6 @@ import { Lesson } from '../../../../core/models/lessons';
 import { LessonService } from '../../../../shared/lesson-service/lesson.service';
 import { FlashcardService } from '../../../../shared/flashcard-service/flashcard.service';
 import { MatProgressSpinner } from "@angular/material/progress-spinner";
-import { FlashcardProficiency } from '../../../../core/models/flashcard-proficiency';
 import { MatIcon } from '@angular/material/icon';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatDialog } from '@angular/material/dialog';
@@ -14,6 +13,8 @@ import { FlashcardsCreatorDialogComponent } from '../../flashcards/creator-dialo
 import { RemoveObjectDialogComponent } from '../../../../shared/dialog/remove-object/remove-object-dialog.component';
 import { SnackbarService } from '../../../../shared/snackbar-service/snackbar.service';
 import { FlashcardsEditDialogComponent } from '../../flashcards/editor-dialog/flashcards-edit-dialog.component';
+import { FlashcardProgress } from '../../../../shared/models/flashcard-progress';
+import { switchMap } from 'rxjs';
 
 export interface EditFlashcardDialogData {
   lesson: Lesson,
@@ -30,8 +31,9 @@ export interface EditFlashcardDialogData {
 export class LessonDetailsViewerComponent implements OnInit {
   readonly dialog = inject(MatDialog);
   lesson!: Lesson;
-  flashcards: Flashcard[] = [];
+  flashcardsProgress: FlashcardProgress[] = [];
   isLoading = true;
+  lessonId!: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -46,41 +48,28 @@ export class LessonDetailsViewerComponent implements OnInit {
 
   retrieveIdFromURL() {
     this.route.paramMap.subscribe(params => {
-      const id = Number(params.get('id'));
-      this.getLesson(id);
+      this.lessonId = Number(params.get('id'));
+      this.getLesson(this.lessonId);
     });
 
   }
-  
+
   getLesson(id: number): void {
-    this.lessonService.getLessonById(id).subscribe({
-      next: lesson => {
+    this.isLoading = true;
+
+    this.lessonService.getLessonById(id).pipe(
+      switchMap(lesson => {
         this.lesson = lesson;
-
-        const flashcardProficiency: FlashcardProficiency = {
-          flashcardMastered: false,
-          masteryLevel: 0
-        }
-
-        this.flashcardService.getFlashcardDTOsByLessonId(lesson.id).subscribe({
-          next: flashcardDTOs => {
-            this.lesson.flashcards = flashcardDTOs.map(dto => ({
-              ...dto,
-              description: '',
-              frontSide: dto.front,
-              backSide: dto.back,
-              lessonId: 0,
-              flashcardProficiency: flashcardProficiency
-            }))
-            this.isLoading = false;
-          },
-          error: err => {
-            console.error('Failed to load flashcards', err);
-          }
-        });
+        return this.flashcardService.getFlashcardProgressForLesson(lesson.id);
+      })
+    ).subscribe({
+      next: (flashcardProgress) => {
+        this.flashcardsProgress = flashcardProgress;
+        this.isLoading = false;
       },
-      error: err => {
-        console.error('Failed to load lesson', err);
+      error: (err) => {
+        console.error('Failed to load lesson or progress', err);
+        this.isLoading = false;
       }
     });
   }
@@ -139,6 +128,51 @@ export class LessonDetailsViewerComponent implements OnInit {
         },
         error: err => console.error('Failed to modify flashcard', err)
       })
+    });
+  }
+
+  toggleSRS(flashcard: Flashcard) {
+    if(flashcard.enabledSRS) {
+      this.removeFlashcardProficiency(flashcard);
+    } else {
+      this.createFlashcardProficiency(flashcard);
+    }
+  }
+
+  createFlashcardProficiency(flashcard: Flashcard) {
+      this.isLoading = true;
+
+      this.flashcardService.addFlashcardProficiencyToFlashcard(flashcard).subscribe({
+        next: () => {
+          this.getLesson(this.lessonId);
+          this.isLoading = false;
+          this.snackbarService.openSnackBar("Flashcard added to Spaced Repetition System!", "OK");
+        },
+        error: err => console.error('Failed add flashcard proficiency', err)
+      })
+  }
+
+  removeFlashcardProficiency(flashcard: Flashcard) {
+    const data = {
+      message: `Are you sure you want to disable SRS for flashcard "${flashcard.front}"? /n It will remove all history!`,
+      objectName: flashcard.front,
+      objectType: 'flashcard',
+    };
+  
+    const dialogRef = this.dialog.open(RemoveObjectDialogComponent, { data });
+  
+    dialogRef.afterClosed().subscribe((result) => {
+      if(result) {
+        this.isLoading = true;
+        this.flashcardService.removeFlashcardProficiency(flashcard).subscribe({
+          next: () => {
+            this.snackbarService.openSnackBar(`Removed SRS history`, 'Ok');
+            this.getLesson(this.lesson.id);
+            this.isLoading = false;
+          },
+          error: err => console.error('Failed to delete flashcard proficiency', err)
+        });
+      }
     });
   }
 } 

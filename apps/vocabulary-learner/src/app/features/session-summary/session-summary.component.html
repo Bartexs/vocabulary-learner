@@ -5,7 +5,7 @@
   </div>
 
   <div class="results-summary">
-      <p *ngFor="let summary of sessionSummary" class="summary-item">
+      <p *ngFor="let summary of exercisesSummary" class="summary-item">
         <strong class="exercise-name">{{ summary.exercise.name }}</strong> exercise:
         <span class="correct-count">{{ summary.correctAnswers }}</span> correct out of
         <span class="total-count">{{ summary.totalFlashcards }}</span>

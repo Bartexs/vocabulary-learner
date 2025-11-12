@@ -1,4 +1,4 @@
-import { ExerciseType } from "@vocabulary-learner/core/models/exercise";
+import { ExerciseType } from '../../../../core/models/exercise';
 
 export interface ExercisesData {
     exerciseIndex: number;

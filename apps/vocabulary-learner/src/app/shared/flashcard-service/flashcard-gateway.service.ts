@@ -2,10 +2,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ApiResponse } from '@vocabulary-learner/core/models/apiResponse';
 import { Flashcard } from '@vocabulary-learner/core/models/flashcard';
+import { FlashcardProficiency } from '@vocabulary-learner/core/models/flashcard-proficiency';
 import { FlashcardDTO } from '@vocabulary-learner/core/models/flashcardDTO';
 import { Lesson } from '@vocabulary-learner/core/models/lessons';
 import { environment } from 'apps/vocabulary-learner/src/environments/environment';
 import { Observable } from 'rxjs';
+import { FlashcardProgress } from '../models/flashcard-progress';
 
 @Injectable({
   providedIn: 'root'
@@ -53,5 +55,29 @@ export class FlashcardGatewayService {
 
   removeFlashcard(lesson: Lesson, flashcard: Flashcard): Observable<ApiResponse<void>> {
     return this.http.delete<ApiResponse<void>>(`${this.baseUrl}/${lesson.id}/flashcards/${flashcard.id}`);
+  }
+
+  getFlashcardProgressForLesson(lessonId: number): Observable<ApiResponse<FlashcardProgress[]>> {
+    return this.http.get<ApiResponse<FlashcardProgress[]>>(`${this.baseUrl}/srs/progress/lesson/${lessonId}`);
+  }
+
+  getFlashcardsDueTodayByFolderId(folderId: number): Observable<ApiResponse<Flashcard[]>> {
+    return this.http.get<ApiResponse<Flashcard[]>>(`${this.baseUrl}/due-today/${folderId}`);
+  }
+
+  getFlashcardProficiencyByFlashcardId(flashcard: Flashcard): Observable<ApiResponse<FlashcardProficiency>> {
+    return this.http.get<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/${flashcard.id}`);
+  }
+
+  patchFlashcardProficiency(flashcardProf: FlashcardProficiency): Observable<ApiResponse<FlashcardProficiency>> {
+    return this.http.patch<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/`, flashcardProf);
+  }
+
+  addFlashcardProficiencyToFlashcard(flashcard: Flashcard): Observable<ApiResponse<FlashcardProficiency>> {
+    return this.http.post<ApiResponse<FlashcardProficiency>>(`${this.baseUrl}/srs/create`, flashcard);
+  }
+
+  removeFlashcardProficiency(flashcard: Flashcard) {
+    return this.http.delete<ApiResponse<Flashcard>>(`${this.baseUrl}/srs/${flashcard.id}`); 
   }
 }

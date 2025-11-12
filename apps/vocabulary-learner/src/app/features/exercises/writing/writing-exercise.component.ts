@@ -5,17 +5,27 @@ import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-ex
 import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise } from '../../../core/models/exercise';
 import { DateUtilsService } from '../../../core/services/date-utils.service';
-import { FlashcardService } from '../../../core/services/flashcard.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { FlashcardService } from '../../../shared/flashcard-service/flashcard.service';
+import { MatIcon } from '@angular/material/icon';
+import { MatTooltip } from '@angular/material/tooltip';
+import { switchMap } from 'rxjs';
+import { SRSService } from '../../../shared/services/srs.service';
+import { FlashcardProficiency } from '../../../core/models/flashcard-proficiency';
+import { FlashcardProgressHistoryComparison } from '../../../shared/models/flashcard-progress-history-comparison';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { Flashcard } from '../../../core/models/flashcard';
+import { SessionType } from '../../../core/models/session-type';
 
 @Component({
   selector: 'app-writing-exercise',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, MatIcon, MatTooltip],
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
 export class WritingExerciseComponent extends DynamicExerciseComponent implements OnInit  {
   // @Input() flashcards: Flashcard[] = [];
-  @Input() modeType = '';
+  modeType = '';
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
   exercise = Exercise.Writing;
   userInput = '';
@@ -25,16 +35,24 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   isListening = false;
   skipNextKeyPress = false;
   comment = '';
+  isExamMode = false;
+  originalProficiency?: FlashcardProficiency;
+  updatedProficiency?: FlashcardProficiency;
 
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
+    this.modeType = this.practiceService.getPracticeModeConfig().learningSessionType;
+    this.isExamMode = this.modeType === "Exam";
   }
 
   constructor(
-    private flashcardService: FlashcardService,
     private dateUtilsService: DateUtilsService,
-    private exerciseService: ExerciseService
+    private exerciseService: ExerciseService,
+    private practiceService: PracticeService,
+    private flashcardService: FlashcardService,
+    private srsService: SRSService,
+    private sessionSummaryService: SessionSummaryService
   ) {
     super();
   }
@@ -124,7 +142,7 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   setExerciseSummaryAndProficiency() {
     this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
     
-    if(this.modeType === 'EXAM') this.setProficiency(this.isCorrect);
+    if(this.modeType === SessionType.EXAM) this.setProficiency(this.isCorrect);
   }
 
   showCorrectAnswer() {
@@ -144,34 +162,35 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
 
   setProficiency(isCorrect: boolean) {
     const flashcardTested = this.flashcardList[this.currentFlashcardIndex];
-    const history = flashcardTested.flashcardProficiency;
 
-    if(isCorrect) {
-      if(history.nextExamDate === undefined) {
-        const date = this.dateUtilsService.getTodayDate();
-        history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 1, 'yyyy-MM-dd');
-        history.masteryLevel = 1;
-        flashcardTested.flashcardProficiency = history;
-      } else {
-        const date = history.nextExamDate;
+    const quality: number = isCorrect ? 5 : 0;
 
-        switch (flashcardTested.flashcardProficiency.masteryLevel) {
-          case 1:
-            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 3, 'yyyy-MM-dd');
-            history.masteryLevel = 2;
-            break;
-          case 2:
-            history.nextExamDate = this.dateUtilsService.getDateWithOffsetFromDate(date, 5, 'yyyy-MM-dd');
-            history.masteryLevel = 3;
-            break;
-        }
+    this.flashcardService.getFlashcardProficiencyByFlashcardId(flashcardTested).pipe((
+      switchMap(flashcardProf => {
+        this.originalProficiency = flashcardProf;
 
-        flashcardTested.flashcardProficiency = history;
+        const updatedProficiency = this.srsService.updateFlashcardProficiency(flashcardProf, quality);
+
+        return this.flashcardService.patchFlashcardProficiency(updatedProficiency);
+      })
+    )).subscribe({
+      next: (updatedFlashcardProf) => {
+        this.updatedProficiency = updatedFlashcardProf;    
+        this.updateSessionSummaryComparison(flashcardTested);
+      },
+      error: (err) => console.error(err),
+    });
+  }
+
+  private updateSessionSummaryComparison(flashcard: Flashcard) {
+    if(this.originalProficiency && this.updatedProficiency) {
+      const flashcardComparison: FlashcardProgressHistoryComparison = {
+        flashcard: flashcard,
+        originalFlashcardProficiency: this.originalProficiency,
+        updatedFlashcardProficiency: this.updatedProficiency,
       }
-    } else {
-      history.nextExamDate = undefined;
+      this.exerciseSummary = this.sessionSummaryService.addProficiencyComparison(this.exerciseSummary, flashcardComparison);
     }
-    this.flashcardService.modifyFlashcard(flashcardTested);
   }
 
   resetFlashCardTest() {
