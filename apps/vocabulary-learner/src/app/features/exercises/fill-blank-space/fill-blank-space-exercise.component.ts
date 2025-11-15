@@ -1,8 +1,7 @@
-import { Component, ViewChildren, QueryList, ElementRef, OnInit } from '@angular/core';
+import { Component, ViewChildren, QueryList, ElementRef, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { FormsModule } from '@angular/forms';
-import { FillBlankSpaceExerciseService } from './fill-blank-space-exercise.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { Exercise } from '../../../core/models/exercise';
@@ -15,7 +14,6 @@ import { Exercise } from '../../../core/models/exercise';
 })
 export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent implements OnInit {
   protected override exerciseType = Exercise.FillBlankSpots;
-  // exercise = Exercise.FillBlankSpots;
   @ViewChildren('blankInput') blankInputs!: QueryList<ElementRef<HTMLInputElement>>;
   isFinished = false;
 
@@ -26,22 +24,32 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent im
   feedbackMessage = '';
   percentageOfMaskedLetter = 0.25; // 25% masking
   currentGlowIndex = -1;
+  roundCounter = 1;
 
   constructor(
     protected override practiceService: PracticeService,
-    protected override sessionSummary: SessionSummaryService,
+    protected sessionSummaryService: SessionSummaryService,
   ) {
-    super(practiceService, sessionSummary);
-    this.summary = this.sessionSummary.initSummary(this.exerciseType);
+    super(practiceService, sessionSummaryService);
+    this.summary = this.sessionSummaryService.initSummary(this.exerciseType);
   }
-
-  // component flow: init -> 
 
   ngOnInit(  ) {
-    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    // this.word = this.currentFlashcard.front;
     this.maskLetters();
   }
+
+  @HostListener('document:keydown.enter', ['$event'])
+  handleEnter(event: Event): void {
+    const keyboardEvent = event as KeyboardEvent;
+    keyboardEvent.preventDefault();
+
+    if (this.feedbackMessage) {
+      this.nextFlashcard();
+    } else {
+      this.checkAnswer();
+    }
+  }
+
 
   maskLetters() {
     this.feedbackMessage = '';
@@ -119,12 +127,47 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent im
     const correct = this.missingIndices.every(
       (idx, i) => this.userInput[i]?.toLowerCase() === this.originalLetters[idx].toLowerCase()
     );
+    this.summary = this.sessionSummaryService.modifySummary(this.currentFlashcard, correct, this.summary);
 
     this.feedbackMessage = correct ? '✅ Correct! Well done!' : '❌ Incorrect. Try again!';
   }
 
   nextFlashcard() {
+    const maxRounds = 3;
+
+    if (this.isLastFlashcard()) {
+      if (this.roundCounter >= maxRounds) {
+        this.finishExercise();
+        return;
+      }
+
+      this.nextRound();
+    }
+
     this.moveToNextFlashcard();
     this.maskLetters();
+  }
+
+  nextRound() {
+    this.roundCounter++;
+    this.setMissingLettersPercentage(this.roundCounter);
+    this.currentFlashcardIndex = 0;
+    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
+  }
+
+  setMissingLettersPercentage(round: number) {
+    switch (round) {
+      case 1:
+        this.percentageOfMaskedLetter = 0.25;
+        break;
+      case 2:
+        this.percentageOfMaskedLetter = 0.50;
+        break;
+      case 3:
+        this.percentageOfMaskedLetter = 0.80;
+        break;
+      default:
+        this.percentageOfMaskedLetter = 0.25;
+    }
   }
 }

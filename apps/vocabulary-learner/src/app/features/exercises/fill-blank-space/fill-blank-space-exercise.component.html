@@ -11,7 +11,7 @@
   <div>
     <span>Input your answer</span>
   </div>
-  <div>
+  <div class="answer">
     <span *ngFor="let letter of maskedWord.split(''); let idx = index">
       <ng-container *ngIf="letter === '_'">
         <input
@@ -19,7 +19,7 @@
           type="text"
           [(ngModel)]="userInput[missingIndices.indexOf(idx)]"
           maxlength="1"
-          size="1"
+          size="99"
           (input)="onInput($any($event), idx)"
           (keydown)="onKeyDown($any($event), idx)"
           [class.glow]="currentGlowIndex === missingIndices.indexOf(idx)"
@@ -30,12 +30,15 @@
     </span>
   </div>
   <div>
-    <button (click)="checkAnswer()">Check Answer</button>
+    <button *ngIf="!feedbackMessage" (click)="checkAnswer()">Check Answer</button>
   </div>
   <div>
     <p>{{ feedbackMessage }}</p>
   </div>
   <div>
-    <button (click)="nextFlashcard()">Next Flashcard</button>
+    <button *ngIf="feedbackMessage" (click)="nextFlashcard()">Next Flashcard</button>
+  </div>
+  <div>
+    <span>Round counter:{{roundCounter}}</span>
   </div>
 </div>

@@ -11,6 +11,11 @@ input {
   transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.answer {
+  font-size: 1.65rem;
+  letter-spacing: 13px;
+}
+
 /* Highlight on focus or glow class */
 input:focus,
 input.glow {
