@@ -2,9 +2,10 @@ import { Component, ViewChildren, QueryList, ElementRef, OnInit } from '@angular
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { FormsModule } from '@angular/forms';
-import { Exercise } from '../../../core/models/exercise';
-import { ExerciseService } from '../exercise.service';
 import { FillBlankSpaceExerciseService } from './fill-blank-space-exercise.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { Exercise } from '../../../core/models/exercise';
 
 @Component({
   selector: 'app-fill-blank-space-exercise',
@@ -13,7 +14,8 @@ import { FillBlankSpaceExerciseService } from './fill-blank-space-exercise.servi
   styleUrl: './fill-blank-space-exercise.component.css',
 })
 export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent implements OnInit {
-  exercise = Exercise.FillBlankSpots;
+  protected override exerciseType = Exercise.FillBlankSpots;
+  // exercise = Exercise.FillBlankSpots;
   @ViewChildren('blankInput') blankInputs!: QueryList<ElementRef<HTMLInputElement>>;
   isFinished = false;
 
@@ -26,10 +28,11 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent im
   currentGlowIndex = -1;
 
   constructor(
-    private exerciseService: ExerciseService,
-    private fillBlankSpaceExerciseService: FillBlankSpaceExerciseService,
+    protected override practiceService: PracticeService,
+    protected override sessionSummary: SessionSummaryService,
   ) {
-    super();
+    super(practiceService, sessionSummary);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 
   // component flow: init -> 
@@ -37,7 +40,6 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent im
   ngOnInit(  ) {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     // this.word = this.currentFlashcard.front;
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
     this.maskLetters();
   }
 

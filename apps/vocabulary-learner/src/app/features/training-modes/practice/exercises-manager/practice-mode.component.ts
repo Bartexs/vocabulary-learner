@@ -25,13 +25,12 @@ import { SessionType } from '../../../../core/models/session-type';
 export class PracticeModeComponent implements OnInit  {
   exerciseList: ExerciseType[] = [];
   @ViewChild('dynamicHost', { read: ViewContainerRef, static: true }) container!: ViewContainerRef;
-  flashcardList: Flashcard[] = [];
   currentExercise!: ExerciseType;
   currentExerciseIndex = 0;
-  exerciseSummaryList: ExerciseSummary[] = [];
   currentFlashcardIndex = 0;
   flashcardListSize = 0;
   sessionType: SessionType;
+  sessionSummary: SessionSummary;
 
   constructor(
     private lessonService: LessonService,
@@ -41,18 +40,18 @@ export class PracticeModeComponent implements OnInit  {
     private practiceService: PracticeService
   ) {
     this.sessionType = this.practiceService.getPracticeModeConfig().learningSessionType;
+    this.sessionSummary = this.initSessionSummary();
   }
 
   ngOnInit() {
     this.setExerciseList();
     this.setInitialExercise();
-    this.setFlashcardList();
-    this.initSessionSummary();
-
+    // this.setFlashcardList();
+    this.loadExerciseComponent(this.currentExercise);
   }
 
   private setFlashcardList() {
-    this.flashcardList = this.practiceService.getPracticeModeConfig().flashcards;
+    // this.flashcardList = this.practiceService.getPracticeModeConfig().flashcards;
     this.loadExerciseComponent(this.currentExercise);
   }
 
@@ -68,25 +67,23 @@ export class PracticeModeComponent implements OnInit  {
     }
   }
 
-  private initSessionSummary(): void {
-    const summary: SessionSummary = {
-      id: 0,
+  private initSessionSummary(): SessionSummary {
+    return {
+      id: Date.now(),
       type: this.sessionType,
       exercisesSummary: []
     }
-
-    this.sessionSummaryService.setSessionSummary(summary);
   }
 
   loadExerciseComponent(exercise: ExerciseType) {
     const exerciseComponent = ComponentRegistry[exercise.componentName];
 
     if (exerciseComponent) {
-      this.loadComponent(exerciseComponent, this.flashcardList);
+      this.loadComponent(exerciseComponent);
     }
   }
 
-  loadComponent<T>(component: Type<T>, data: Flashcard[]) {
+  loadComponent<T>(component: Type<T>) {
     // Clear previous components
     this.container.clear();
 
@@ -102,10 +99,10 @@ export class PracticeModeComponent implements OnInit  {
     }
 
     // Set flashcards list in instance of dynamic exercise parent component
-    instance.flashcardList = data;
+    // instance.flashcardList = data;
 
     // Set flashcards list size to show amount of total flashcards in current exercise - practice mode component shows it
-    this.setFlashcardsListSize(data);
+    // this.setFlashcardsListSize(data);
 
     instance.dataEmitter.subscribe((emittedData: ExerciseSummary) => {
       this.receiveSummary(emittedData);
@@ -116,19 +113,17 @@ export class PracticeModeComponent implements OnInit  {
     })
   }
 
-  setFlashcardsListSize(flashcards: Flashcard[]) {
-    this.flashcardListSize = flashcards.length;
-  }
+  // setFlashcardsListSize(flashcards: Flashcard[]) {
+  //   this.flashcardListSize = flashcards.length;
+  // }
 
   receiveSummary(data: ExerciseSummary) {
-    // push indivdual exercise results to session summary
-    this.exerciseSummaryList.push(data);
+    this.sessionSummary.exercisesSummary.push(data);
+    this.sessionSummaryService.setSessionSummary(this.sessionSummary);
 
     // if there is no more exercises, pass all exercises summary to its service and reroute
     if(this.exerciseList.length === this.currentExerciseIndex + 1) {
-      const sessionSummary: SessionSummary = this.sessionSummaryService.getSessionSummary();
-      sessionSummary.exercisesSummary = this.exerciseSummaryList;
-      this.sessionSummaryService.setSessionSummary(sessionSummary);
+      
 
       if(this.sessionType === SessionType.EXAM) {
         this.router.navigate(['/session-summary/exam']);

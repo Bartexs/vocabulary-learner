@@ -1,10 +1,11 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
-import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise, ExerciseType } from '../../../core/models/exercise';
 import { Flashcard } from '../../../core/models/flashcard';
 import { UtilsService } from '../../../core/services/utils.service';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
 
 @Component({
   selector: 'app-answer-chosing-timed',
@@ -19,7 +20,7 @@ import { UtilsService } from '../../../core/services/utils.service';
 //  (III Runda) po 4 opcje każde słówko, potem kolejne 5 fiszek i na koniec cały batch po 4 opcje  -->
 
 export class AnswerChosingTimedComponent extends DynamicExerciseComponent implements OnInit, AfterViewInit {
-  private exercise: ExerciseType = Exercise.AnswerChosingTimed;
+  protected override exerciseType: ExerciseType = Exercise.AnswerChosingTimed;
   flashcardBatch: Flashcard[] = [];
   definitionList: Flashcard[] = [];
   isShowConcept = false;
@@ -30,15 +31,16 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   batchBeginningIndex = 0;
 
   constructor(
-    private exerciseService: ExerciseService,
+    protected override practiceService: PracticeService,
+    protected sessionSummaryService: SessionSummaryService,
     private utilsService: UtilsService,
   ) {
-    super();
+    super(practiceService, sessionSummaryService);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
   
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
   }
 
