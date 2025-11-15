@@ -6,12 +6,21 @@ import { Flashcard } from '../models/flashcard';
 })
 export class UtilsService {
 
-  getRandomFlashcards(arr: Flashcard[], count: number): Flashcard[] {
+  getRandomFlashcards(arr: Flashcard[], count: number, indices: Set<number>): Flashcard[] {
     const result: Flashcard[] = [];
-    const indices: Set<number> = new Set();
+    
+    // Correct answer is already added 
+    while (indices.size < count || indices.size === 1) {
+      let obj = Math.floor(Math.random() * arr.length);
 
-    while (indices.size < count) {
-        indices.add(Math.floor(Math.random() * arr.length));
+      // Make sure duplicates won't show up if arr greater than 5 flashcards
+      if(arr.length > 5) {
+          while(indices.has(obj)) {
+          obj = Math.floor(Math.random() * arr.length)
+        }
+      }
+
+      indices.add(obj);
     }
 
     for (const index of indices) {
