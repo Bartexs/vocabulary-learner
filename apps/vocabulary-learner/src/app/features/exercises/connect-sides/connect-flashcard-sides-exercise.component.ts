@@ -7,8 +7,10 @@ import {
   moveItemInArray,
 } from '@angular/cdk/drag-drop';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
-import { Exercise, ExerciseType } from '../../../core/models/exercise';
-import { ExerciseService } from '../../../features/exercises/exercise.service';
+import { Exercise } from '../../../core/models/exercise';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 export interface BackSideWithCorrectIndex {
   word: string,
@@ -23,18 +25,22 @@ export interface BackSideWithCorrectIndex {
 })
 
 export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseComponent implements OnInit {
-  exercise: ExerciseType = Exercise.ConnectFlashcardSides;
+  protected override exerciseType = Exercise.ConnectFlashcardSides;
   frontSideContainer: string[] = [];
   backSideContainer: BackSideWithCorrectIndex[] = [];
   showAnswer = false;
 
-  constructor(private exerciseService: ExerciseService) {
-    super();
+  constructor(
+    protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
+    protected sessionSummaryService: SessionSummaryService,
+  ) {
+    super(practiceService, sessionSummaryService, sessionConfigService);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 
   ngOnInit() {
     this.setContainers();
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
   }
 
   setContainers() {
@@ -78,7 +84,7 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
   }
 
   setExerciseSummary() {
-    let helper = this.exerciseSummary;
+    let helper = this.summary;
 
     // Compare flashcard index in first array (array stays the same) with current index in second array (array changes)
     this.backSideContainer.map((f) => {
@@ -86,9 +92,9 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
 
       const isCorrect = f.correctIndex === this.backSideContainer.findIndex(x => x.word === f.word);
 
-      helper = this.exerciseService.modifyExerciseSummary(flashcard, isCorrect, helper);
+      helper = this.sessionSummary.modifySummary(flashcard, isCorrect, helper);
     }) 
 
-    this.exerciseSummary = helper;
+    this.summary = helper;
   }
 }

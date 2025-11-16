@@ -6,6 +6,7 @@ import { Lesson } from 'apps/vocabulary-learner/src/app/core/models/lessons';
 import { PracticeService } from '../../services/practice.service';
 import { LessonService } from '@vocabulary-learner/shared/lesson-service/lesson.service';
 import { FlashcardService } from '@vocabulary-learner/shared/flashcard-service/flashcard.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-material-selector',
@@ -22,6 +23,7 @@ export class MaterialSelectorComponent implements OnInit {
     private lessonService: LessonService,
     private practiceService: PracticeService,
     private flashcardService: FlashcardService,
+    private learningSessionService: LearningSessionConfigService,
   ) {
 
   }
@@ -50,17 +52,9 @@ export class MaterialSelectorComponent implements OnInit {
   }
 
   onSelectedLessonListUpdate() {
-    const config = this.practiceService.getPracticeModeConfig();
-
     this.lessonService.getLessonsByIds(this.selectedLessonsId).subscribe({
       next: (lessons) => {
-        this.flashcardService.getFlashcardsByLessonsIds(lessons).subscribe({
-          next: (flashcards) => {
-            config.flashcards = flashcards;
-            this.practiceService.setPracticeModeConfig(config);
-          },
-          error: (err) => console.error(err),
-        });
+        this.learningSessionService.loadFlashcards(lessons);
       },
       error: (err) => console.error(err),
     });

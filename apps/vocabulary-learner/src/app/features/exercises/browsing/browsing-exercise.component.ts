@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
 import { Exercise } from '../../../core/models/exercise';
-import { ExerciseService } from '../../../features/exercises/exercise.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-browsing-exercise',
@@ -11,16 +13,20 @@ import { ExerciseService } from '../../../features/exercises/exercise.service';
   styleUrl: './browsing-exercise.component.css',
 })
 export class BrowsingExerciseComponent extends DynamicExerciseComponent implements OnInit {
-  private exercise = Exercise.Browse;
+  protected override exerciseType = Exercise.Browse;
   showCorrectAnswer = false;
 
-  constructor(private exerciseService: ExerciseService) {
-    super();
+  constructor(
+    protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
+    protected sessionSummaryService: SessionSummaryService,
+  ) {
+    super(practiceService, sessionSummaryService, sessionConfigService);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
   }
 
   toggleShowCorrectAnswer() {
@@ -43,7 +49,7 @@ export class BrowsingExerciseComponent extends DynamicExerciseComponent implemen
   }
 
   saveAnswer(isCorrect: boolean) {
-    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, isCorrect, this.exerciseSummary);
+    this.summary = this.sessionSummaryService.modifySummary(this.currentFlashcard, isCorrect, this.summary);
     this.nextFlashcard();
   }
 }

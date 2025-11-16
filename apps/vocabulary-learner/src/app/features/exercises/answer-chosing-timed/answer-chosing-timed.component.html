@@ -3,6 +3,10 @@
         <p class="front">{{ currentFlashcard.front }}</p>
         <p class="back">{{ currentFlashcard.back }}</p>
     </div>
+
+    <div *ngIf="!isShowConcept">
+        <span>{{timeCounter}}</span>
+    </div>
     
     <div *ngIf="isShowConcept" class="content">
         <div class="text-center">

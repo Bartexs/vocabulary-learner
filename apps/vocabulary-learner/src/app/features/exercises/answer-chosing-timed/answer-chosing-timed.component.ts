@@ -1,10 +1,12 @@
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
-import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise, ExerciseType } from '../../../core/models/exercise';
 import { Flashcard } from '../../../core/models/flashcard';
 import { UtilsService } from '../../../core/services/utils.service';
+import { SessionSummaryService } from '../../session-summary/session-summary.service';
+import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-answer-chosing-timed',
@@ -19,7 +21,7 @@ import { UtilsService } from '../../../core/services/utils.service';
 //  (III Runda) po 4 opcje każde słówko, potem kolejne 5 fiszek i na koniec cały batch po 4 opcje  -->
 
 export class AnswerChosingTimedComponent extends DynamicExerciseComponent implements OnInit, AfterViewInit {
-  private exercise: ExerciseType = Exercise.AnswerChosingTimed;
+  protected override exerciseType: ExerciseType = Exercise.AnswerChosingTimed;
   flashcardBatch: Flashcard[] = [];
   definitionList: Flashcard[] = [];
   isShowConcept = false;
@@ -28,17 +30,20 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   maxDifficultyLevel = 3;
   batchSize = 5;
   batchBeginningIndex = 0;
+  timeCounter = 5;
 
   constructor(
-    private exerciseService: ExerciseService,
+    protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
+    protected sessionSummaryService: SessionSummaryService,
     private utilsService: UtilsService,
   ) {
-    super();
+    super(practiceService, sessionSummaryService, sessionConfigService);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
   
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
   }
 
@@ -47,17 +52,22 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   }
 
   countdown() {
-    setTimeout(() => {
-      if (this.isLastFlashcardInBatch()) {
-        this.resetBatchIndex();
-        this.setShuffledDefinitionList();
-        this.isShowConcept = true;
-        return;
-      } else {
-        this.countdown(); // Recursively call countdown
-        this.moveToNextFlashcardInBatch();
+    this.timeCounter = 5; // reset for each flashcard
+    const intervalId = setInterval(() => {
+      this.timeCounter--;
+
+      if (this.timeCounter < 0) {
+        clearInterval(intervalId); // stop countdown
+        if (this.isLastFlashcardInBatch()) {
+          this.resetBatchIndex();
+          this.setShuffledDefinitionList();
+          this.isShowConcept = true;
+        } else {
+          this.moveToNextFlashcardInBatch();
+          this.countdown(); // start next flashcard countdown
+        }
       }
-    }, 5000); // 5 seconds
+    }, 1000); // every 1 second
   }
 
   isLastFlashcardInBatch() {
@@ -70,12 +80,19 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   }
 
   setShuffledDefinitionList() {
-    const definitionList = this.utilsService.getRandomFlashcards(this.flashcardList, this.difficultyLevel);
-    definitionList.push(this.currentFlashcard);
+    const indices: Set<number> = new Set();
+
+    // Add correct flashcard to skip duplicates in options
+    indices.add(this.flashcardList.indexOf(this.currentFlashcard));
+
+    // Get array filled with answer options
+    const definitionList = this.utilsService.getRandomFlashcards(this.flashcardList, this.difficultyLevel, indices);
     this.definitionList = this.utilsService.shuffleArray(definitionList);
   }
 
   check(flashcardClicked: Flashcard) {
+    this.checkAnswer(flashcardClicked);
+
     if(this.isLastFlashcardInBatch()) {
       if(this.difficultyLevel === this.maxDifficultyLevel) {
         this.moveToNextBatch(); 
@@ -87,6 +104,11 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
     };
     this.moveToNextFlashcardInBatch();
     this.setShuffledDefinitionList();
+  }
+
+  checkAnswer(flashcardClicked: Flashcard) {
+    const isCorrect = this.currentFlashcard === flashcardClicked;
+    this.summary = this.sessionSummaryService.modifySummary(flashcardClicked, isCorrect, this.summary);
   }
 
   resetBatchIndex() {

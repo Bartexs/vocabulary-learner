@@ -1,10 +1,8 @@
-import { Component, ElementRef, HostListener, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, HostListener, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-exercise.component';
-import { ExerciseService } from '../../../features/exercises/exercise.service';
 import { Exercise } from '../../../core/models/exercise';
-import { DateUtilsService } from '../../../core/services/date-utils.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
 import { FlashcardService } from '../../../shared/flashcard-service/flashcard.service';
 import { MatIcon } from '@angular/material/icon';
@@ -16,6 +14,7 @@ import { FlashcardProgressHistoryComparison } from '../../../shared/models/flash
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { Flashcard } from '../../../core/models/flashcard';
 import { SessionType } from '../../../core/models/session-type';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -23,11 +22,9 @@ import { SessionType } from '../../../core/models/session-type';
   templateUrl: './writing-exercise.component.html',
   styleUrl: './writing-exercise.component.css',
 })
-export class WritingExerciseComponent extends DynamicExerciseComponent implements OnInit  {
-  // @Input() flashcards: Flashcard[] = [];
-  modeType = '';
+export class WritingExerciseComponent extends DynamicExerciseComponent {
   @ViewChild('userInputRef') userInputRef!: ElementRef<HTMLInputElement>
-  exercise = Exercise.Writing;
+  protected override exerciseType = Exercise.Writing;
   userInput = '';
   isCorrect!: boolean;
   isFinished = false; 
@@ -39,22 +36,15 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   originalProficiency?: FlashcardProficiency;
   updatedProficiency?: FlashcardProficiency;
 
-  ngOnInit() {
-    this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-    this.exerciseSummary = this.exerciseService.initializeExerciseSummary(this.exercise);
-    this.modeType = this.practiceService.getPracticeModeConfig().learningSessionType;
-    this.isExamMode = this.modeType === "Exam";
-  }
-
   constructor(
-    private dateUtilsService: DateUtilsService,
-    private exerciseService: ExerciseService,
-    private practiceService: PracticeService,
+    protected override practiceService: PracticeService,
+    protected sessionSummaryService: SessionSummaryService,
+    protected override sessionConfigService: LearningSessionConfigService,
     private flashcardService: FlashcardService,
     private srsService: SRSService,
-    private sessionSummaryService: SessionSummaryService
   ) {
-    super();
+    super(practiceService, sessionSummaryService, sessionConfigService);
+    this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 
   // When answer is input, user should press enter to 
@@ -140,9 +130,9 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
   }
   
   setExerciseSummaryAndProficiency() {
-    this.exerciseSummary = this.exerciseService.modifyExerciseSummary(this.currentFlashcard, this.isCorrect, this.exerciseSummary);
-    
-    if(this.modeType === SessionType.EXAM) this.setProficiency(this.isCorrect);
+    this.summary = this.sessionSummaryService.modifySummary(this.currentFlashcard, this.isCorrect, this.summary);
+
+    if(this.sessionType === SessionType.EXAM) this.setProficiency(this.isCorrect);
   }
 
   showCorrectAnswer() {
@@ -189,7 +179,10 @@ export class WritingExerciseComponent extends DynamicExerciseComponent implement
         originalFlashcardProficiency: this.originalProficiency,
         updatedFlashcardProficiency: this.updatedProficiency,
       }
-      this.exerciseSummary = this.sessionSummaryService.addProficiencyComparison(this.exerciseSummary, flashcardComparison);
+      
+      if(!this.summary.proficiencyComparison) this.summary.proficiencyComparison = [];
+
+      this.summary = this.sessionSummaryService.addProficiencyComparison(this.summary, flashcardComparison);
     }
   }
 
