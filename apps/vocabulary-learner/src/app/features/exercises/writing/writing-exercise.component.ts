@@ -14,6 +14,7 @@ import { FlashcardProgressHistoryComparison } from '../../../shared/models/flash
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { Flashcard } from '../../../core/models/flashcard';
 import { SessionType } from '../../../core/models/session-type';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-writing-exercise',
@@ -38,10 +39,11 @@ export class WritingExerciseComponent extends DynamicExerciseComponent {
   constructor(
     protected override practiceService: PracticeService,
     protected sessionSummaryService: SessionSummaryService,
+    protected override sessionConfigService: LearningSessionConfigService,
     private flashcardService: FlashcardService,
     private srsService: SRSService,
   ) {
-    super(practiceService, sessionSummaryService);
+    super(practiceService, sessionSummaryService, sessionConfigService);
     this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 

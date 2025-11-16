@@ -6,6 +6,7 @@ import { ExerciseSelectorComponent } from '../resources-configurators/exercise-s
 import { MaterialSelectorComponent } from '../resources-configurators/material-selector/material-selector.component';
 import { PracticeService } from '../services/practice.service';
 import { SessionType } from '../../../../core/models/session-type';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-practice-mode-selector',
@@ -21,12 +22,13 @@ export class PracticeModeSelectorComponent implements OnInit {
     private router: Router,
     private practiceService: PracticeService,
     private route: ActivatedRoute,
+    private sessionConfigService: LearningSessionConfigService,
   ) {
   }
 
   ngOnInit(): void {
-    const config = this.practiceService.createLearningSessionConfig(SessionType.PRACTICE, [], []);
-    this.practiceService.setPracticeModeConfig(config);
+    const learningSessionType = SessionType.PRACTICE;
+    this.sessionConfigService.updateConfig({learningSessionType})
     this.retrieveIdFromURL();
   }
 

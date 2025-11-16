@@ -6,6 +6,7 @@ import { Flashcard } from '../../../core/models/flashcard';
 import { UtilsService } from '../../../core/services/utils.service';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-answer-chosing-timed',
@@ -33,10 +34,11 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
 
   constructor(
     protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
     protected sessionSummaryService: SessionSummaryService,
     private utilsService: UtilsService,
   ) {
-    super(practiceService, sessionSummaryService);
+    super(practiceService, sessionSummaryService, sessionConfigService);
     this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
   

@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { Exercise } from '../../../core/models/exercise';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-fill-blank-space-exercise',
@@ -28,9 +29,10 @@ export class FillBlankSpaceExerciseComponent extends DynamicExerciseComponent im
 
   constructor(
     protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
     protected sessionSummaryService: SessionSummaryService,
   ) {
-    super(practiceService, sessionSummaryService);
+    super(practiceService, sessionSummaryService, sessionConfigService);
     this.summary = this.sessionSummaryService.initSummary(this.exerciseType);
   }
 

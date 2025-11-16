@@ -10,6 +10,7 @@ import { DynamicExerciseComponent } from '../../../features/exercises/dynamic-ex
 import { Exercise } from '../../../core/models/exercise';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 export interface BackSideWithCorrectIndex {
   word: string,
@@ -31,9 +32,10 @@ export class ConnectFlashcardSidesExerciseComponent extends DynamicExerciseCompo
 
   constructor(
     protected override practiceService: PracticeService,
+    protected override sessionConfigService: LearningSessionConfigService,
     protected sessionSummaryService: SessionSummaryService,
   ) {
-    super(practiceService, sessionSummaryService);
+    super(practiceService, sessionSummaryService, sessionConfigService);
     this.summary = this.sessionSummary.initSummary(this.exerciseType);
   }
 

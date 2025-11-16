@@ -12,6 +12,7 @@ import { getExercisesByNames } from '../../core/models/exercise';
 import { Router, RouterLink } from '@angular/router';
 import { SessionType } from '../../core/models/session-type';
 import { MatIcon } from "@angular/material/icon";
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -37,6 +38,7 @@ export class HomeComponent implements OnInit {
     private flashcardService: FlashcardService,
     private practiceService: PracticeService,
     private router: Router,
+    private sessionConfigService: LearningSessionConfigService
   ) {
     
   }
@@ -102,8 +104,13 @@ export class HomeComponent implements OnInit {
 
     this.flashcardService.getFlashcardsDueTodayByFolderId(folderId).subscribe({
         next: (flashcards) => {
-          const config = this.practiceService.createLearningSessionConfig(SessionType.EXAM, flashcards, exercise);
-          this.practiceService.setPracticeModeConfig(config);
+          const exerciseList = exercise;
+          const learningSessionType = SessionType.EXAM
+
+          this.sessionConfigService.updateConfig({flashcards})
+          this.sessionConfigService.updateConfig({exerciseList})
+          this.sessionConfigService.updateConfig({learningSessionType})
+
           this.router.navigate(['/practice']);
         },
         error: (err) => console.error(err),

@@ -7,6 +7,8 @@ import { SessionType } from '../../core/models/session-type';
 import { PracticeService } from '../training-modes/practice/services/practice.service';
 import { SessionSummaryService } from '../session-summary/session-summary.service';
 import { ExerciseType } from '../../core/models/exercise';
+import { LearningSessionConfig } from '../training-modes/practice/models/learning-session-config';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-dynamic-exercise',
@@ -20,26 +22,35 @@ export abstract class DynamicExerciseComponent {
   @Output() dataEmitter = new EventEmitter<ExerciseSummary>();
   @Output() currentFlashcardChanged = new EventEmitter<boolean>();
 
-  flashcardList: Flashcard[];
+  flashcardList!: Flashcard[];
   exercisesData!: ExercisesData;
   currentFlashcard!: Flashcard;
   currentFlashcardIndex = 0;
   sessionType!: SessionType;
   summary!: ExerciseSummary;
+  sessionConfig!: LearningSessionConfig;
 
   constructor(
     protected practiceService: PracticeService,
     protected sessionSummary: SessionSummaryService,
+    protected sessionConfigService: LearningSessionConfigService,
   ) {
-    this.flashcardList = this.practiceService.getPracticeModeConfig().flashcards;
-    this.initalizeData();
+    this.getSessionConfig();
   }
 
   // Initialize data
   private initalizeData() {
-    this.sessionType = this.practiceService.getPracticeModeConfig().learningSessionType;
+    this.flashcardList = this.sessionConfig.flashcards;
+    this.sessionType = this.sessionConfig.learningSessionType;
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
-  }
+  } 
+
+  getSessionConfig() {
+      this.sessionConfigService.getCompleteConfig().subscribe((cfg: LearningSessionConfig) => {
+        this.sessionConfig = cfg;
+        this.initalizeData();
+      });
+    }
 
   // Move to next flashcard
   moveToNextFlashcard() {

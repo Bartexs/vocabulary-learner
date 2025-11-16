@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { ExerciseType, getExercises, getExercisesByNames } from '../../../../../core/models/exercise';
-import { PracticeService } from '../../services/practice.service';
+import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-exercise-selector',
@@ -19,7 +19,7 @@ export class ExerciseSelectorComponent implements OnInit {
   }
 
   constructor(
-    private practiceService: PracticeService,
+    private sessionConfigService: LearningSessionConfigService,
   ) {
 
   }
@@ -41,11 +41,7 @@ export class ExerciseSelectorComponent implements OnInit {
     this.updatePracticeModeConfig(updatedExerciseList);
   }
 
-  updatePracticeModeConfig(data: ExerciseType[]) {
-    const config = this.practiceService.getPracticeModeConfig();
-
-    config.exerciseList = data;
-
-    this.practiceService.setPracticeModeConfig(config);
+  updatePracticeModeConfig(exerciseList: ExerciseType[]) {
+    this.sessionConfigService.updateConfig({exerciseList});
   }
 }
