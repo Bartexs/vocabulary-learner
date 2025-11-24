@@ -1,8 +1,27 @@
 <section class="exercise-selection">
   <p>Select Exercises:</p>
-  <div class="checkbox-group inner-list">
-    <mat-checkbox *ngFor="let exercise of exerciseList" (change)="toggleSelection(exercise.name, $event.checked)" class="folder-item">
-      <span class="custom-label">{{ exercise.name }}</span>
-    </mat-checkbox>
+  <div>
+    <div
+      cdkDropList
+      cdkDropListLockAxis="y"
+      [cdkDropListData]="exerciseContainer"
+      class="checkbox-group inner-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      @for (item of exerciseContainer; track item; let i = $index) {
+        <div cdkDrag class="flex-row folder-item" >
+          <div>
+            <mat-checkbox 
+              [formControl]="item.control"
+              (click)="$event.stopPropagation()">
+              <span class="custom-label">{{ item.name }}</span>
+            </mat-checkbox>
+          </div>
+          <div>
+            <mat-icon>drag_indicator</mat-icon>
+          </div>
+        </div>
+      }
+    </div>
   </div>
 </section>
