@@ -13,6 +13,7 @@ import { Router, RouterLink } from '@angular/router';
 import { SessionType } from '../../core/models/session-type';
 import { MatIcon } from "@angular/material/icon";
 import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
+import { StatisticsService } from '@vocabulary-learner/shared/services/statistics/statistics.service';
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -36,7 +37,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private folderService: FolderService,
     private flashcardService: FlashcardService,
-    private practiceService: PracticeService,
+    private statisticsService: StatisticsService,
     private router: Router,
     private sessionConfigService: LearningSessionConfigService
   ) {
@@ -45,7 +46,16 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserFolders();
+    this.getStatistics();
   }
+
+
+  getStatistics() {
+    this.statisticsService.getTotalFlashcards().subscribe({
+      next: (data) => console.log(data)
+    })
+  }
+
 
   getUserFolders() {
     this.loading = true;
