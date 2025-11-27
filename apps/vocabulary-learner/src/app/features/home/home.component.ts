@@ -12,8 +12,8 @@ import { getExercisesByNames } from '../../core/models/exercise';
 import { Router, RouterLink } from '@angular/router';
 import { SessionType } from '../../core/models/session-type';
 import { MatIcon } from "@angular/material/icon";
-import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
-import { StatisticsService } from '@vocabulary-learner/shared/services/statistics/statistics.service';
+import { LearningSessionConfigService } from '../../shared/services/learning-session-config-service/learning-session-config.service';
+import { CurrentDayStatisticsComponent } from "./current-day-statistics.component";
 
 export interface FolderWithFlashcards {
   folder: Folder;
@@ -22,7 +22,7 @@ export interface FolderWithFlashcards {
 
 @Component({
   selector: 'app-home',
-  imports: [CommonModule, MatIcon, RouterLink],
+  imports: [CommonModule, MatIcon, RouterLink, CurrentDayStatisticsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css',
 })
@@ -37,7 +37,6 @@ export class HomeComponent implements OnInit {
   constructor(
     private folderService: FolderService,
     private flashcardService: FlashcardService,
-    private statisticsService: StatisticsService,
     private router: Router,
     private sessionConfigService: LearningSessionConfigService
   ) {
@@ -46,14 +45,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserFolders();
-    this.getStatistics();
-  }
-
-
-  getStatistics() {
-    this.statisticsService.getTotalFlashcards().subscribe({
-      next: (data) => console.log(data)
-    })
   }
 
 

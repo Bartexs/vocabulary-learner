@@ -4,12 +4,19 @@ import { ExerciseSummary } from '../../core/models/exercise-Summary';
 import { FlashcardProgressHistoryComparison } from '../../shared/models/flashcard-progress-history-comparison';
 import { ExerciseType } from '../../core/models/exercise';
 import { Flashcard } from '../../core/models/flashcard';
+import { StatisticsService } from '../../shared/services/statistics/statistics.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SessionSummaryService {
   private sessionSummary!: SessionSummary;
+
+  constructor(
+    private statisticsService: StatisticsService
+  ) {
+
+  }
 
   setSessionSummary(sessionSummary: SessionSummary): void {
     this.sessionSummary = sessionSummary;
@@ -40,6 +47,8 @@ export class SessionSummaryService {
   }
 
   modifySummary(flashcard: Flashcard, isCorrect: boolean, exerciseSummary: ExerciseSummary): ExerciseSummary {
+    this.statisticsService.patchFlashcardPracticedCount(flashcard);
+
     if(isCorrect) {
       return {
         ...exerciseSummary,
