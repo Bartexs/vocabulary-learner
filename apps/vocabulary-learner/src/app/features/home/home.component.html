@@ -37,7 +37,7 @@
     </div>
   </div>
   <div>
-    <h2><strong>Today’s revisions:</strong></h2>
+    <h2><strong>Today’s reviews:</strong></h2>
     <div class="inner-list review-folders flex-col">
       <div *ngFor="let folderWithFlashcards of flashcardsDueToday" class="flex-row">
         <div class="flex-row">
@@ -48,10 +48,10 @@
           </div>
           <div class="flex-col bubble">
               <span *ngIf="folderWithFlashcards.flashcards.length === 1">
-                {{folderWithFlashcards.flashcards.length}} revision
+                {{folderWithFlashcards.flashcards.length}} review
               </span>
               <span *ngIf="folderWithFlashcards.flashcards.length > 1">
-                {{folderWithFlashcards.flashcards.length}} revisions
+                {{folderWithFlashcards.flashcards.length}} reviews
               </span>
               <!-- <span>
                 {{folderWithFlashcards.flashcards.length}} new flashcards
@@ -65,6 +65,12 @@
           <span>Begin</span>
         </button>
       </div>
+    </div>
+  </div>
+  <div>
+    <h2><strong>Today Session Summary:</strong></h2>
+    <div class="inner-list review-folders flex-col">
+      <app-current-day-statistics></app-current-day-statistics>
     </div>
   </div>
 </div>

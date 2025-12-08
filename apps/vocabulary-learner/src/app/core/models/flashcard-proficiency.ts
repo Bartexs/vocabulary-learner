@@ -1,7 +1,7 @@
 export interface FlashcardProficiency {
     id: number,
     EF: number;                   // Easiness Factor
-    interval: number;             // interwał w dniach
+    reviewInterval: number;             // interwał w dniach
     repetitions: number;          // liczba kolejnych udanych powtórek
     lastReview?: string;          // data ostatniej powtórki
     nextReview?: string;          // następna data powtórki

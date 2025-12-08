@@ -1,0 +1,13 @@
+<div>
+    <div>
+        <mat-spinner *ngIf="isLoading"></mat-spinner>
+    </div>
+    <div class="flex-col" *ngIf="!isLoading">
+        <span>Correct answers in SRS: {{stats.correctCountSRS}}</span>
+        <span>Incorrect answers in SRS: {{stats.incorrectCountSRS}}</span>
+        <span>New examined in SRS: {{stats.newFlashcardsExaminedInSRS}}</span>
+        <span>Reviews made in SRS: {{stats.reviewedFlashcardsInSRS}}</span>
+        <span>Created new flashcards: {{stats.createdFlashcards}}</span>
+        <span>Practiced flashcards: {{stats.practicedFlashcards}}</span>
+    </div>
+</div>
