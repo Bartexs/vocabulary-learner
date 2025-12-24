@@ -30,7 +30,7 @@ export class AppComponent implements OnInit {
     if (token) {
       this.setUser();
     } else {
-      this.registerDemoAccount();
+      // this.registerDemoAccount();
     }
   }
 
@@ -44,28 +44,5 @@ export class AppComponent implements OnInit {
           if(user) this.isUser = true
         }
     )
-  }
-
-  registerDemoAccount() {
-    const authRequest: AuthRequest = {
-      email: 'demo_' + this.authService.generateRandomString(6),
-      password: this.authService.generateRandomString(12)
-    }
-
-    this.authService.register(authRequest).subscribe({
-      next: (res) => {
-        this.refreshUser();
-      },
-      error: (err) => {
-        console.error("Registration failed" + err);
-      }
-    });
-  }
-
-  refreshUser(): void {
-    this.authService.loadCurrentUser();
-        this.router.navigate(['/home']).then(() => {
-      window.location.reload();
-    });
   }
 }
