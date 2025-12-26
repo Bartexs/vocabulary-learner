@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../security/services/auth-service.service';
-import { AuthRequest } from '../security/models/AuthRequest';
 
 @Component({
   imports: [RouterModule, CommonModule],

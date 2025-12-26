@@ -5,7 +5,6 @@ import { PracticeModeComponent } from './features/training-modes/practice/exerci
 import { LessonCreatorComponent } from './features/resources-manager/lesson/lesson-creator/lesson-creator.component';
 import { LessonDetailsViewerComponent } from './features/resources-manager/lesson/lesson-details/lesson-details-viewer.component';
 import { FlashcardCreatorStandaloneComponent } from './components/organize-material/creators/flashcard-creator/standalone/flashcard-creator-standalone.component';
-import { RegisterComponent } from './features/auth/register/RegisterComponent.component';
 import { LandingPageComponent } from './features/landing/landing-page.component';
 import { LoginComponent } from './features/auth/login/login.component';
 import { PracticeModeSelectorComponent } from './features/training-modes/practice/main-controller/practice-mode-selector.component';
