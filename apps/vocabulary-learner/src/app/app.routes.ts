@@ -27,7 +27,6 @@ export const appRoutes: Route[] = [
     { path: 'lesson-creator', component: LessonCreatorComponent },
     { path: 'lesson-details/:id', component: LessonDetailsViewerComponent },
     { path: 'flashcard-creator', component: FlashcardCreatorStandaloneComponent },
-    { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'landing-page', component: LandingPageComponent },
     { path: 'manage-learning-resources', component: FoldersViewerComponent },
