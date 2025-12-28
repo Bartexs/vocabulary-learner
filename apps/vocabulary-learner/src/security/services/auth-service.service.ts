@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, tap } from 'rxjs';
+import { BehaviorSubject, map, Observable, tap } from 'rxjs';
 import { AuthResponse } from '../models/AuthResponse';
 import { AuthRequest } from '../models/AuthRequest';
 import { environment } from '../../environments/environment';
@@ -23,9 +23,11 @@ export class AuthService {
   }
 
   register(data: AuthRequest): Observable<AuthResponse> {
+    console.log(data);
     return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data).pipe(
       tap(res => { 
         localStorage.setItem('token', res.token);
+        localStorage.setItem('refreshToken', res.refreshToken);
       })
     );
   }
@@ -57,5 +59,42 @@ export class AuthService {
       result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return result;
+  }
+
+  registerDemoAccount() {
+    const authRequest: AuthRequest = {
+      email: 'demo_' + this.generateRandomString(6),
+      password: this.generateRandomString(12)
+    }
+
+    this.register(authRequest).subscribe({
+      next: (res) => {
+        this.refreshUser();
+      },
+      error: (err) => {
+        console.error("Registration failed" + err);
+      }
+    });
+  }
+
+  refreshUser(): void {
+    this.loadCurrentUser();
+        this.router.navigate(['/home']).then(() => {
+      window.location.reload();
+    });
+  }
+
+  refreshToken(): Observable<string> {
+    const refreshToken = localStorage.getItem('refreshToken');
+
+    return this.http
+      .post<{ token: string }>(
+        `${this.baseUrl}/refresh`,
+        { refreshToken } 
+      )
+      .pipe(
+        tap(res => localStorage.setItem('token', res.token)),
+        map(res => res.token)
+      );
   }
 }
