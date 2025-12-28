@@ -31,6 +31,8 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   batchSize = 5;
   batchBeginningIndex = 0;
   timeCounter = 5;
+  isShowResult = false;
+  isCorrect = false;
 
   constructor(
     protected override practiceService: PracticeService,
@@ -75,8 +77,21 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   }
 
   moveToNextFlashcardInBatch() {
+    this.isShowResult = false;
+    if(this.isLastFlashcardInBatch()) {
+      if(this.difficultyLevel === this.maxDifficultyLevel) {
+        this.moveToNextBatch(); 
+      } else {
+        this.difficultyLevel++;
+        this.resetBatchIndex();
+        return;
+      }
+    };
+
     this.batchIndex++; 
     this.currentFlashcard = this.flashcardBatch[this.batchIndex];
+    
+    this.setShuffledDefinitionList();
   }
 
   setShuffledDefinitionList() {
@@ -90,25 +105,12 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
     this.definitionList = this.utilsService.shuffleArray(definitionList);
   }
 
-  check(flashcardClicked: Flashcard) {
-    this.checkAnswer(flashcardClicked);
-
-    if(this.isLastFlashcardInBatch()) {
-      if(this.difficultyLevel === this.maxDifficultyLevel) {
-        this.moveToNextBatch(); 
-      } else {
-        this.difficultyLevel++;
-        this.resetBatchIndex();
-        return;
-      }
-    };
-    this.moveToNextFlashcardInBatch();
-    this.setShuffledDefinitionList();
-  }
-
   checkAnswer(flashcardClicked: Flashcard) {
-    const isCorrect = this.currentFlashcard === flashcardClicked;
-    this.summary = this.sessionSummaryService.modifySummary(flashcardClicked, isCorrect, this.summary);
+    if(!this.isShowResult) {  
+      this.isShowResult = true;
+      this.isCorrect = this.currentFlashcard === flashcardClicked;
+      this.summary = this.sessionSummaryService.modifySummary(flashcardClicked, this.isCorrect, this.summary);
+    }
   }
 
   resetBatchIndex() {
