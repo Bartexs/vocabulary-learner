@@ -1,15 +1,17 @@
 <div class="container">
-    <div *ngIf="!isShowConcept" class="text-center">
-        <p class="front">{{ currentFlashcard.front }}</p>
-        <p class="back">{{ currentFlashcard.back }}</p>
-    </div>
-    <div>
-        card 4 out of 10
-        <span>Batch {{currentBatchCounter}} out of {{totalBatchCounter}}</span>
-    </div>
-
     <div *ngIf="!isShowConcept">
-        <span>{{timeCounter}}</span>
+        <div  class="text-center">
+            <p class="front">{{ currentFlashcard.front }}</p>
+            <p class="back">{{ currentFlashcard.back }}</p>
+        </div>
+        <div>
+            <span>Card {{currentCardCounter}} out of {{totalCardCounter}}</span>
+            <span>Batch {{currentBatchCounter}} out of {{totalBatchCounter}}</span>
+        </div>
+
+        <div>
+            <span>{{timeCounter}}</span>
+        </div>
     </div>
     
     <div *ngIf="isShowConcept" class="content">
