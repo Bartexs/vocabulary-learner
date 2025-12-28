@@ -33,6 +33,8 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   timeCounter = 5;
   isShowResult = false;
   isCorrect = false;
+  currentBatchCounter = 1;
+  totalBatchCounter = 0;
 
   constructor(
     protected override practiceService: PracticeService,
@@ -47,6 +49,7 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
+    this.totalBatchCounter = Math.floor(this.flashcardList.length / this.batchSize);
   }
 
   ngAfterViewInit() {
@@ -121,6 +124,7 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
 
   moveToNextBatch() {
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
+    this.currentBatchCounter++;
     this.cleanForNewBatch();
     this.countdown();
   }
