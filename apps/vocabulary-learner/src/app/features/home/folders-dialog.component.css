@@ -1,0 +1,41 @@
+.heading {
+  font-size: 1.75rem;
+}
+
+.flex-row {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.list-item {
+  height: 40px;
+}
+
+.list-item:hover {
+    background: #e0e0e0;
+}
+
+.folder-wrapper {
+  width: 40vw;
+  max-width: 600px;
+  margin: 0;
+}
+
+button.card {
+  all: unset; /* remove default button styles */
+  display: block;
+  width: 100%;
+  cursor: pointer;
+  font-size: 1.1rem;
+  color: #3b3b3b;
+}
+
+.item-name-container {
+  width: 250px;
+}
+
+.lessons-container {
+  display: flex;
+  width: 100px;
+  justify-content: flex-end;
+}

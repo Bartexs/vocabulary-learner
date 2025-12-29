@@ -56,12 +56,28 @@
 
 // use it as default item in list
 .list-item {
-  background: #f3f3f3;
-  padding: 0.8rem 1rem;
-  margin-bottom: 1rem;
-  border-radius: 8px;
-  font-size: 0.95rem;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+    display: flex;
+    align-items: center;
+    background: #f9f9f9;
+    padding: 8px 12px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+    cursor: pointer;
+}
+
+.list-item:hover {
+    background: #e0e0e0;
+}
+
+.item-name-container {
+    flex-grow: 1.6;
+    text-align: center;
+    text-decoration: none;
+}
+
+.item-name {
+    font-size: 1.2rem;
+    color: #3b3b3b;
 }
 
 // use it as default section title 
@@ -136,5 +152,17 @@
 
 // Texts styling
 .sub-title-color {
+  color: rgba(215, 104, 84, 0.7);
+}
+
+// Icons 
+.cancel-icon {
+    cursor: pointer;
+    font-size: 22px;
+    transition: color 0.3s ease;
+    color: #535353;
+}
+
+.cancel-icon:hover {
   color: rgba(215, 104, 84, 0.7);
 }
