@@ -1,11 +1,17 @@
 <div class="container">
-    <div *ngIf="!isShowConcept" class="text-center">
-        <p class="front">{{ currentFlashcard.front }}</p>
-        <p class="back">{{ currentFlashcard.back }}</p>
-    </div>
-
     <div *ngIf="!isShowConcept">
-        <span>{{timeCounter}}</span>
+        <div  class="text-center">
+            <p class="front">{{ currentFlashcard.front }}</p>
+            <p class="back">{{ currentFlashcard.back }}</p>
+        </div>
+        <div>
+            <span>Card {{currentCardCounter}} out of {{totalCardCounter}}</span>
+            <span>Batch {{currentBatchCounter}} out of {{totalBatchCounter}}</span>
+        </div>
+
+        <div>
+            <span>{{timeCounter}}</span>
+        </div>
     </div>
     
     <div *ngIf="isShowConcept" class="content">
@@ -18,15 +24,20 @@
                 class="flashcard"
                 *ngFor="let flashcard of definitionList; index as i" 
                 (keydown)="handleKeyPress(flashcard, i)" 
-                (click)="check(flashcard)" 
+                (click)="checkAnswer(flashcard)" 
                 tabindex="0">
                 <p class="text">{{ flashcard.front }}</p>
             </div>
         </div>
-        
-        <div class="button-group">
-            <button class="repeat-btn">Repeat</button>
-            <button class="next-btn">Move to next batch</button>
+
+        <div *ngIf="isShowResult" class="flex-col">
+            <span [ngClass]="isCorrect ? 'correct' : 'wrong'">
+                {{isCorrect ? 'Correct' : "Wrong"}}
+            </span>
+            <span *ngIf="!isCorrect">
+                Correct: {{this.currentFlashcard.front}}
+            </span>
+            <button (click)="moveToNextFlashcardInBatch()">Next flashcard</button>
         </div>
     </div>
 </div>

@@ -6,7 +6,7 @@ import { Flashcard } from '../../../core/models/flashcard';
 import { UtilsService } from '../../../core/services/utils.service';
 import { SessionSummaryService } from '../../session-summary/session-summary.service';
 import { PracticeService } from '../../training-modes/practice/services/practice.service';
-import { LearningSessionConfigService } from '@vocabulary-learner/shared/services/learning-session-config-service/learning-session-config.service';
+import { LearningSessionConfigService } from '../../../shared/services/learning-session-config-service/learning-session-config.service';
 
 @Component({
   selector: 'app-answer-chosing-timed',
@@ -31,6 +31,12 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   batchSize = 5;
   batchBeginningIndex = 0;
   timeCounter = 5;
+  isShowResult = false;
+  isCorrect = false;
+  currentBatchCounter = 1;
+  totalBatchCounter = 0;
+  currentCardCounter = 1;
+  totalCardCounter = 0;
 
   constructor(
     protected override practiceService: PracticeService,
@@ -45,6 +51,8 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   ngOnInit() {
     this.currentFlashcard = this.flashcardList[this.currentFlashcardIndex];
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
+    this.totalCardCounter = this.flashcardBatch.length;
+    this.totalBatchCounter = Math.floor(this.flashcardList.length / this.batchSize);
   }
 
   ngAfterViewInit() {
@@ -59,10 +67,12 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
       if (this.timeCounter < 0) {
         clearInterval(intervalId); // stop countdown
         if (this.isLastFlashcardInBatch()) {
+          this.currentCardCounter = 1;
           this.resetBatchIndex();
           this.setShuffledDefinitionList();
           this.isShowConcept = true;
         } else {
+          this.currentCardCounter++;
           this.moveToNextFlashcardInBatch();
           this.countdown(); // start next flashcard countdown
         }
@@ -75,8 +85,21 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
   }
 
   moveToNextFlashcardInBatch() {
+    this.isShowResult = false;
+    if(this.isLastFlashcardInBatch()) {
+      if(this.difficultyLevel === this.maxDifficultyLevel) {
+        this.moveToNextBatch(); 
+      } else {
+        this.difficultyLevel++;
+        this.resetBatchIndex();
+        return;
+      }
+    };
+
     this.batchIndex++; 
     this.currentFlashcard = this.flashcardBatch[this.batchIndex];
+    
+    this.setShuffledDefinitionList();
   }
 
   setShuffledDefinitionList() {
@@ -90,25 +113,12 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
     this.definitionList = this.utilsService.shuffleArray(definitionList);
   }
 
-  check(flashcardClicked: Flashcard) {
-    this.checkAnswer(flashcardClicked);
-
-    if(this.isLastFlashcardInBatch()) {
-      if(this.difficultyLevel === this.maxDifficultyLevel) {
-        this.moveToNextBatch(); 
-      } else {
-        this.difficultyLevel++;
-        this.resetBatchIndex();
-        return;
-      }
-    };
-    this.moveToNextFlashcardInBatch();
-    this.setShuffledDefinitionList();
-  }
-
   checkAnswer(flashcardClicked: Flashcard) {
-    const isCorrect = this.currentFlashcard === flashcardClicked;
-    this.summary = this.sessionSummaryService.modifySummary(flashcardClicked, isCorrect, this.summary);
+    if(!this.isShowResult) {  
+      this.isShowResult = true;
+      this.isCorrect = this.currentFlashcard === flashcardClicked;
+      this.summary = this.sessionSummaryService.modifySummary(flashcardClicked, this.isCorrect, this.summary);
+    }
   }
 
   resetBatchIndex() {
@@ -119,6 +129,7 @@ export class AnswerChosingTimedComponent extends DynamicExerciseComponent implem
 
   moveToNextBatch() {
     this.flashcardBatch = this.getNextChunk(this.flashcardList, this.batchSize);
+    this.currentBatchCounter++;
     this.cleanForNewBatch();
     this.countdown();
   }
